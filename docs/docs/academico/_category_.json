@@ -1,0 +1,8 @@
+{
+    "label": "Acadêmico",
+    "position": 3,
+    "link": {
+      "type": "generated-index",
+      "description": "Documentação organizada por sprint's"
+    }
+  }
