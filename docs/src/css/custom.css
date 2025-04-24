@@ -31,8 +31,12 @@
   
   /* Ajustes adicionais */
   --ifm-navbar-background-color: #FFFFFF;
-  --ifm-footer-background-color: #2B1A00;
+  /* Footer com melhor contraste */
+  --ifm-footer-background-color: #2B2B2B;
   --ifm-footer-color: #FFFFFF;
+  --ifm-footer-link-color: #FF9C33;
+  --ifm-footer-link-hover-color: #FFAD59;
+  --ifm-footer-title-color: #FFFFFF;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -48,7 +52,26 @@
   /* Ajustes para o modo escuro */
   --ifm-background-color: #1E1E1E;
   --ifm-navbar-background-color: #2B1A00;
-  --ifm-footer-background-color: #000000;
+  /* Footer no modo escuro - melhorando contraste */
+  --ifm-footer-background-color: #1A1A1A;
+  --ifm-footer-color: #FFFFFF;
+  --ifm-footer-link-color: #FF911A;
+  --ifm-footer-link-hover-color: #FFAD59;
+  --ifm-footer-title-color: #FFFFFF;
   
   --docusaurus-highlighted-code-line-bg: rgba(255, 131, 0, 0.3);
+}
+
+.footer__link-item {
+  color: #FF9C33;
+  font-weight: 500;
+}
+
+.footer__copyright {
+  color: #DDDDDD;
+  font-size: 0.9rem;
+}
+
+.footer a {
+  color: #FF9C33;
 }
