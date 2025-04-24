@@ -12,7 +12,7 @@ import { themes as prismThemes } from "prism-react-renderer";
 const config = {
   title: "Rachadores",
   tagline: "Rachadores",
-  favicon: "img/logo_g5.png",
+  favicon: "img/logo_modo_claro.png",
 
   // Set the production url of your site here
   url: "https://2025-1B-T12-EC06-G05.github.io",
@@ -64,7 +64,7 @@ const config = {
         title: "Rachadores",
         logo: {
           alt: "Logo Rachadores",
-          src: "img/logo_g5.png",
+          src: "img/logo_modo_claro.png",
         },
         items: [
           {
