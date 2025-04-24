@@ -6,25 +6,49 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  /* Cores baseadas na paleta Fissura (#FF8300, #2B1A00, #5E4534, #ABABAB, #6C9EC9) */
+  --ifm-color-primary: #FF8300; /* Laranja */
+  --ifm-color-primary-dark: #E57600;
+  --ifm-color-primary-darker: #D36E00;
+  --ifm-color-primary-darkest: #B15C00;
+  --ifm-color-primary-light: #FF911A;
+  --ifm-color-primary-lighter: #FF9C33;
+  --ifm-color-primary-lightest: #FFAD59;
+  
+  /* Cores secundárias */
+  --ifm-color-secondary: #5E4534; /* Marrom */
+  --ifm-color-success: #6C9EC9; /* Azul */
+  --ifm-color-info: #ABABAB; /* Cinza */
+  --ifm-color-warning: #FF8300; /* Laranja */
+  --ifm-color-danger: #2B1A00; /* Marrom escuro */
+  
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --docusaurus-highlighted-code-line-bg: rgba(255, 131, 0, 0.1);
+  
+  /* Tipografia personalizada */
+  --ifm-font-family-base: Roboto, system-ui, -apple-system, sans-serif;
+  --ifm-heading-font-family: Exo2, system-ui, -apple-system, sans-serif;
+  
+  /* Ajustes adicionais */
+  --ifm-navbar-background-color: #FFFFFF;
+  --ifm-footer-background-color: #2B1A00;
+  --ifm-footer-color: #FFFFFF;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-color-primary: #FF8300; /* Mantendo o laranja como cor principal */
+  --ifm-color-primary-dark: #E57600;
+  --ifm-color-primary-darker: #D36E00;
+  --ifm-color-primary-darkest: #B15C00;
+  --ifm-color-primary-light: #FF911A;
+  --ifm-color-primary-lighter: #FF9C33;
+  --ifm-color-primary-lightest: #FFAD59;
+  
+  /* Ajustes para o modo escuro */
+  --ifm-background-color: #1E1E1E;
+  --ifm-navbar-background-color: #2B1A00;
+  --ifm-footer-background-color: #000000;
+  
+  --docusaurus-highlighted-code-line-bg: rgba(255, 131, 0, 0.3);
 }
