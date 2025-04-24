@@ -1,0 +1,49 @@
+# .github/workflows/github-trello-sync.yml
+name: GitHub Projects Classic para Trello Sync
+
+on:
+  workflow_dispatch:
+  issues:
+    types: [opened, edited, closed, reopened, labeled]
+  pull_request:
+    types: [opened, edited, closed, reopened, labeled]
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+      
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Instalar dependências
+        run: npm install node-fetch@2 dotenv
+      
+      - name: Criar arquivo de configuração
+        run: |
+          cat > .env << EOL
+          GITHUB_TOKEN=${{ secrets.GH_PAT }}
+          OWNER=${{ secrets.OWNER }}
+          REPO=${{ secrets.REPO }}
+          PROJECT_ID=${{ secrets.PROJECT_ID }}
+          PROJECT_SCOPE=${{ secrets.PROJECT_SCOPE }}
+
+          TRELLO_API_KEY=${{ secrets.TRELLO_API_KEY }}
+          TRELLO_TOKEN=${{ secrets.TRELLO_TOKEN }}
+          TRELLO_BOARD_ID=${{ secrets.TRELLO_BOARD_ID }}
+          TRELLO_MAP=${{secrets.TRELLO_MAP}}
+
+          backlogId=${{ secrets.backlogId }}
+          sprintBacklogId=${{ secrets.sprintBacklogId }}
+          emDesenvolvimentoId=${{ secrets.emDesenvolvimentoId }}
+          aguardandoReviewId=${{ secrets.aguardandoReviewId }}
+          emReviewId=${{ secrets.emReviewId }}
+          concluidoId=${{ secrets.concluidoId }}
+          EOL
+      
+      - name: Executar script de sincronização
+        run: node src/scripts/sync-github-trello.js
