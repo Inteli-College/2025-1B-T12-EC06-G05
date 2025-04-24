@@ -63,8 +63,9 @@ const config = {
       navbar: {
         title: "Rachadores",
         logo: {
-          alt: "Logo Rachadores",
-          src: "img/logo_modo_claro.png",
+          alt: 'Logo Rachadores',
+          src: 'img/logo_modo_claro.png',       // Logo para modo claro
+          srcDark: 'img/logo_modo_escuro.png',    // Logo para modo escuro
         },
         items: [
           {
