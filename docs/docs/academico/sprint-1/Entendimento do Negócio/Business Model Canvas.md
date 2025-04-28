@@ -24,15 +24,14 @@ IPT e Inteli
 
 - Gestão ágil do projeto: Utilização de sprints semanais para organizar tarefas, revisar entregas e garantir alinhamento entre as equipes.
 - Desenvolvimento do modelo de visão computacional: Criação e treinamento de modelo para classificar automaticamente rachaduras em estruturas, a partir de imagens captadas por drones.
-- Integração com o drone: Comunicação entre o microcomputador embarcado e o sistema de classificação para envio e análise automática das imagens.
+- Integração com o drone: Comunicação entre o drone e o sistema de classificação para envio e análise automática das imagens.
 - Desenvolvimento da plataforma: Construção do backend, frontend e banco de dados escalável para garantir usabilidade, desempenho e armazenamento seguro dos dados.
 
 ## 1.3 Recursos Principais
 
-- Equipe de desenvolvimento: Integrantes do grupo cursando Engenharia da Computação no Inteli
+- Equipe de desenvolvimento
 - Base de dados de imagens de rachaduras: Conjunto de imagens rotuladas que alimentam o treinamento e validação do modelo de classificação automática.
 - Drone com câmeras de alta definição: Responsável por capturar imagens detalhadas das estruturas de forma automatizada.
-- Infraestrutura em nuvem: Utilizada para armazenamento de dados, treinamento e execução do modelo de visão computacional, além de hospedagem segura da plataforma.
 - Interface de análise para o cliente: Painel interativo que apresenta os resultados das análises de forma clara.
 
 ## 1.4 Proposta de Valor
@@ -57,7 +56,7 @@ Interface, acessível em telas de notebook e tablets
 
 ## 1.8 Estrutura de Custo
 
-- Infraestrutura tecnológica: Hospedagem em nuvem (AWS, GCP, etc.), banco de dados, APIs e armazenamento de imagens.
+- Infraestrutura tecnológica: Banco de dados, APIs e armazenamento de imagens.
 - Modelagem de IA: Treinamento de modelos, uso de GPUs (locais ou em nuvem), aquisição de datasets ou rotulagem especializada.
 - Equipamento Físico: Drones com câmera
 
