@@ -77,12 +77,6 @@ custom_edit_url: null
 
 - **Probabilidade:** 50% 
 
-### **Falha ao calcular a espessura da fissuras:** 
-- **Descrição:** Caso o sistema não consiga calcular a espessura das fissuras corretamente, isso comprometerá a precisão do relatório.
-
-- **Impacto:** Baixo
-
-- **Probabilidade:** 50% 
  
 <br />
 
