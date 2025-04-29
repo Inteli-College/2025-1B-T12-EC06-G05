@@ -3,17 +3,19 @@ sidebar_position: 1
 custom_edit_url: null
 ---
 
-# Matriz de Risco
+# Matriz de Riscos
 
 ## Introdução
 
 &nbsp;&nbsp;&nbsp;&nbsp; A matriz de riscos e oportunidades é uma ferramenta que ajuda a identificar e organizar os possíveis problemas e as vantagens que podem aparecer em um projeto ou negócio. Ela permite visualizar, de forma clara, quais situações podem atrapalhar o andamento das atividades e quais podem trazer benefícios. Para isso, cada risco e oportunidade é avaliado considerando a chance de acontecer e o impacto que terá no resultado final. Assim, fica mais claro  onde devemos concentrar os esforços para evitar os  prejuízos e aproveitar as oportunidades que surgirem.
 <br />
 
+## Matriz de Riscos
+
 <p style={{textAlign: 'center'}}>Figura 1 - Matriz de Risco</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
-        <!-- <img src={require("../../../static/img/matriz-de-riscos.png").default} style={{width: 800}} alt="Matriz de Riscos" /> -->
+        <img src={require("../../../static/img/matriz_de_riscos.png").default} style={{width: 800}} alt="Matriz de Riscos" />
         <br />
     </div>
 </div>
@@ -83,6 +85,17 @@ custom_edit_url: null
 - **Probabilidade:** 50% 
  
 <br />
+
+## Matriz de Oportunidades
+
+<p style={{textAlign: 'center'}}>Figura 2 - Matriz de Oportunidades</p>
+<div style={{margin: 25}}>
+    <div style={{textAlign: 'center'}}>
+        <img src={require("../../../static/img/matriz_de_oportunidades.png").default} style={{width: 800}} alt="Matriz de Oportunidades" />
+        <br />
+    </div>
+</div>
+<p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
 
 ## **Oportunidades:**
 
