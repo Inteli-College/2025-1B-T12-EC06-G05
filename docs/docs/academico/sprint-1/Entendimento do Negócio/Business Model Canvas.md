@@ -47,7 +47,7 @@ custom_edit_url: null
 ## 1.5 Relacionamento com Cliente
 
 &nbsp;&nbsp;&nbsp;&nbsp;Nossa solução oferece uma experiência simples e acessível para o cliente, por meio de uma interface intuitiva que facilita o uso da plataforma. Assim que o drone captura as imagens das estruturas, o sistema identifica e classifica as rachaduras automaticamente, utilizando um modelo de visão computacional, sem a necessidade de processos manuais, que são demorados e sujeitos a erros.
-Nosso objetivo é oferecer agilidade, precisão nos resultados e incentivando o uso contínuo da solução.
+Nosso objetivo é oferecer agilidade e precisão nos resultados, dessa forma incentivando o uso contínuo da solução.
 
 ## 1.6 Canais
 
