@@ -64,6 +64,10 @@ Interface, acessível em telas de notebook e tablets
 
 - Não se aplica ao projeto
 
+## Conclusão
+
+A elaboração do Business Model Canvas permitiu estruturar de forma clara e estratégica o funcionamento da solução proposta, alinhando as necessidades do IPT com a inovação tecnológica desenvolvida. Com isso, foi possível visualizar os principais parceiros, recursos, atividades, canais e o valor agregado ao cliente, reforçando a eficiência e a aplicabilidade da ferramenta no contexto de inspeção de fissuras em edificações.
+
 ---
 
 #### Referências:
