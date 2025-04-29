@@ -5,20 +5,26 @@ custom_edit_url: null
 
 # Business Model Canvas
 
-O Business Model Canvas (BMC) é uma ferramenta de gestão estratégica e empreendedorismo. Ele permite que você descreva, projete, desafie, invente e dinamize seu modelo de negócios (STRATEGYZER, 2025).
+## Conceito
 
-Oferecendo uma visão clara, concisa e focada do modelo de negócio, facilitando ajustes rápidos e comunicação com stakeholders. O BMC ajuda a reduzir riscos ao conectar proposta de valor, clientes e receitas, promovendo inovação tanto em startups quanto em grandes empresas.
+&nbsp;&nbsp;&nbsp;&nbsp;O Business Model Canvas (BMC) é uma ferramenta de gestão estratégica e empreendedorismo. Ele permite que você descreva, projete, desafie, invente e dinamize seu modelo de negócios (STRATEGYZER, 2025).
 
-Para entender melhor se a solução idealizada pela nosso grupo está alinhada com as necessidades do cliente, foi elaborado um Business Model Canvas. A seguir, é possível visualiza-lo
+&nbsp;&nbsp;&nbsp;&nbsp;Oferecendo uma visão clara, concisa e focada do modelo de negócio, facilitando ajustes rápidos e comunicação com stakeholders. O BMC ajuda a reduzir riscos ao conectar proposta de valor, clientes e receitas, promovendo inovação tanto em startups quanto em grandes empresas.
 
-<div align="center">
-![Módulo físico de separação](../../../../static/img/bmc.png)
-<sub>Fonte: Material produzido pelos autores (2025).</sub>
+&nbsp;&nbsp;&nbsp;&nbsp;Para entender melhor se a solução idealizada pela nosso grupo está alinhada com as necessidades do cliente, foi elaborado um Business Model Canvas. A seguir, é possível visualiza-lo
+
+<p style={{textAlign: 'center'}}>Figura 1 - Business Model Canvas</p>
+<div style={{margin: 25}}>
+    <div style={{textAlign: 'center'}}>
+        <img src={require("../../../../static/img/bmc.png").default} style={{width: 800}} alt="Business Model Canvas" />
+        <br />
+    </div>
 </div>
+<p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
 
 ## 1.1 Parceitos Chave
 
-IPT e Inteli
+&nbsp;&nbsp;&nbsp;&nbsp;IPT e Inteli
 
 ## 1.2 Atividades-Chave
 
@@ -36,16 +42,16 @@ IPT e Inteli
 
 ## 1.4 Proposta de Valor
 
-Nossa solução automatiza a classificação de rachaduras em estruturas a partir de imagens capturadas por drones, utilizando técnicas de visão computacional. Além disso, todas as expedições ficarão registradas em um histórico acessível para consulta e acompanhamento. Atualmente, esse processo é feito manualmente por pesquisadores do IPT, que utilizam seu conhecimento técnico para identificar e classificar os tipos de rachaduras. No entanto, trata-se de uma tarefa repetitiva, demorada e suscetível a erros. Com nossa solução, é possível acelerar significativamente a análise, reduzir falhas e permitir que os especialistas concentrem seus esforços em decisões mais estratégicas.
+&nbsp;&nbsp;&nbsp;&nbsp;Nossa solução automatiza a classificação de rachaduras em estruturas a partir de imagens capturadas por drones, utilizando técnicas de visão computacional. Além disso, todas as expedições ficarão registradas em um histórico acessível para consulta e acompanhamento. Atualmente, esse processo é feito manualmente por pesquisadores do IPT, que utilizam seu conhecimento técnico para identificar e classificar os tipos de rachaduras. No entanto, trata-se de uma tarefa repetitiva, demorada e suscetível a erros. Com nossa solução, é possível acelerar significativamente a análise, reduzir falhas e permitir que os especialistas concentrem seus esforços em decisões mais estratégicas.
 
 ## 1.5 Relacionamento com Cliente
 
-Nossa solução oferece uma experiência simples e acessível para o cliente, por meio de uma interface intuitiva que facilita o uso da plataforma. Assim que o drone captura as imagens das estruturas, o sistema identifica e classifica as rachaduras automaticamente, utilizando um modelo de visão computacional, sem a necessidade de processos manuais, que são demorados e sujeitos a erros.
+&nbsp;&nbsp;&nbsp;&nbsp;Nossa solução oferece uma experiência simples e acessível para o cliente, por meio de uma interface intuitiva que facilita o uso da plataforma. Assim que o drone captura as imagens das estruturas, o sistema identifica e classifica as rachaduras automaticamente, utilizando um modelo de visão computacional, sem a necessidade de processos manuais, que são demorados e sujeitos a erros.
 Nosso objetivo é oferecer agilidade, precisão nos resultados e incentivando o uso contínuo da solução.
 
 ## 1.6 Canais
 
-Interface, acessível em telas de notebook e tablets
+&nbsp;&nbsp;&nbsp;&nbsp;Interface, acessível em telas de notebook e tablets
 
 
 ## 1.7 Segmento do Cliente
@@ -66,7 +72,7 @@ Interface, acessível em telas de notebook e tablets
 
 ## Conclusão
 
-A elaboração do Business Model Canvas permitiu estruturar de forma clara e estratégica o funcionamento da solução proposta, alinhando as necessidades do IPT com a inovação tecnológica desenvolvida. Com isso, foi possível visualizar os principais parceiros, recursos, atividades, canais e o valor agregado ao cliente, reforçando a eficiência e a aplicabilidade da ferramenta no contexto de inspeção de fissuras em edificações.
+&nbsp;&nbsp;&nbsp;&nbsp;A elaboração do Business Model Canvas permitiu estruturar de forma clara e estratégica o funcionamento da solução proposta, alinhando as necessidades do IPT com a inovação tecnológica desenvolvida. Com isso, foi possível visualizar os principais parceiros, recursos, atividades, canais e o valor agregado ao cliente, reforçando a eficiência e a aplicabilidade da ferramenta no contexto de inspeção de fissuras em edificações.
 
 ---
 
