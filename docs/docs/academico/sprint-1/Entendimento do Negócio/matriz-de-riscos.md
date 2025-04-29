@@ -15,7 +15,7 @@ custom_edit_url: null
 <p style={{textAlign: 'center'}}>Figura 1 - Matriz de Risco</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
-        <img src={require("../../../static/img/matriz_de_riscos.png").default} style={{width: 800}} alt="Matriz de Riscos" />
+        <img src={require("../../../../static/img/matriz_de_riscos.png").default} style={{width: 800}} alt="Matriz de Riscos" />
         <br />
     </div>
 </div>
@@ -91,7 +91,7 @@ custom_edit_url: null
 <p style={{textAlign: 'center'}}>Figura 2 - Matriz de Oportunidades</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
-        <img src={require("../../../static/img/matriz_de_oportunidades.png").default} style={{width: 800}} alt="Matriz de Oportunidades" />
+        <img src={require("../../../../static/img/matriz_de_oportunidades.png").default} style={{width: 800}} alt="Matriz de Oportunidades" />
         <br />
     </div>
 </div>
