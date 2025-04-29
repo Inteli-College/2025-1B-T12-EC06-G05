@@ -49,19 +49,12 @@ custom_edit_url: null
 
 - **Probabilidade:** 50% 
 
-### **Problemas na integração com o drone:** 
-- **Descrição:** Capturar a imagem que o drone transmite pode ser complicado, pois ele a transmite por meio de uma rede local. Quando iniciamos o drone, ele cria um Wi-Fi, e os dispositivos que têm acesso a essa rede conseguem capturar a imagem, o que deixa a pessoa que captura a imagem sem acesso à internet.
-
-- **Impacto:** Moderado
-
-- **Probabilidade:** 70% 
-
 ### **Baixa qualidade das imagens/vídeos:** 
 - **Descrição:** O sistema de visão computacional pode apresentar dificuldades para distinguir diferentes tipos de fissuras ou até mesmo identificar fissuras em imagens de baixa qualidade, com iluminação ruim ou obstruções.
 
-- **Impacto:** Moderado
+- **Impacto:** Alto
 
-- **Probabilidade:** 30% 
+- **Probabilidade:** 70% 
 
 ### **Erros no upload de arquivos ou limitação de tamanho/formato:** 
 - **Descrição:** Se o sistema não aceitar certos formatos de vídeo/imagem ou limitar o tamanho dos arquivos, pode impedir que usuários consigam utilizar a plataforma.
@@ -75,7 +68,14 @@ custom_edit_url: null
 
 - **Impacto:** Alto
 
-- **Probabilidade:** 10% 
+- **Probabilidade:** 10%
+
+### **Problemas na integração com o drone:** 
+- **Descrição:** Capturar a imagem que o drone transmite pode ser complicado, pois ele a transmite por meio de uma rede local. Quando iniciamos o drone, ele cria um Wi-Fi, e os dispositivos que têm acesso a essa rede conseguem capturar a imagem, o que deixa a pessoa que captura a imagem sem acesso à internet.
+
+- **Impacto:** Moderado
+
+- **Probabilidade:** 50% 
 
 ### **Falha ao calcular a espessura da fissuras:** 
 - **Descrição:** Caso o sistema não consiga calcular a espessura das fissuras corretamente, isso comprometerá a precisão do relatório.
