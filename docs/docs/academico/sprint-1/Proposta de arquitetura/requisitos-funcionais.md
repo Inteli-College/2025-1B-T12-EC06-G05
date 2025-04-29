@@ -55,6 +55,9 @@ Este é um requisito funcional desejável, que poderá ser implementado conforme
 
 O sistema deve contar com um mecanismo de login para controle de acesso. Essa funcionalidade é fundamental para garantir a criação e a gestão de usuários, bem como a segurança e a rastreabilidade das alterações realizadas. Por meio do login, apenas pessoas autorizadas poderão acessar a plataforma, e todas as modificações feitas no sistema serão vinculadas ao usuário responsável, permitindo a identificação e auditoria das ações.
 
+## Conclusão
+A definição clara dos requisitos funcionais é essencial para guiar o desenvolvimento da solução, assegurando que todas as funcionalidades críticas, importantes e desejáveis sejam atendidas conforme as necessidades do cliente. Com isso, o projeto estabelece uma base sólida para a construção de um sistema eficiente, confiável e alinhado às expectativas dos usuários finais.
+
 ---
 
 #### Referências:
