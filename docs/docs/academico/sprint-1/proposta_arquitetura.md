@@ -9,7 +9,7 @@ title: "Proposta inicial de arquitetura"
 
 ### Visão geral
 
-<p style={{textAlign: 'center'}}>Figura 1 - Matriz de Risco</p>
+<p style={{textAlign: 'center'}}>Figura 1 - Proposta de arquitetura</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
         <img src={require("../../../static/img/arquitetura.png").default} style={{width: 800}} alt="Matriz de Riscos" />
