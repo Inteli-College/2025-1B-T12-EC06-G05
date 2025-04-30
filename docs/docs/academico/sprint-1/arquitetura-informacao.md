@@ -5,45 +5,77 @@ custom_edit_url: /arquitetura-de-informacao
 
 # Arquitetura de Informação
 
-&emsp;A Arquitetura de Informação tem como objetivo estruturar, organizar e representar de forma lógica e funcional a navegação e os fluxos de um sistema. Ela é importante pois ajuda a garantir que os usuários encontrem facilmente o que precisam, que o sistema seja coerente em seu funcionamento e que o desenvolvimento seja orientado por uma visão clara e bem definida do projeto.   
-&emsp;No contexto do nosso projeto, a plataforma tem como objetivo mostrar para o usuário através de uma interface a identificação e classificação de fissuras em edificações por meio de imagens. Para isso, foi desenvolvida uma arquitetura de informação, com base nas necessidades das personas.    
-&emsp;Para isso, foram utilizados dois tipos principais de arquitetura, representados por diagramas UML: o Diagrama de Sequência e o Diagrama de Relacionamento.
+## Introdução
 
+&emsp;A Arquitetura de Informação (AI) tem como objetivo estruturar, organizar e representar de forma lógica e funcional a navegação e os fluxos de um sistema. Uma AI bem definida é fundamental para garantir que os usuários encontrem facilmente o que precisam, que o sistema seja coerente em seu funcionamento e que o desenvolvimento seja orientado por uma visão clara do projeto. Ela serve como um mapa que guia tanto a experiência do usuário quanto a construção da plataforma.
 
+## Contexto do Projeto
 
-<p style={{textAlign: 'center'}}>Figura 1 - Diagrama de Sequência </p>
+&emsp;Este projeto foca no desenvolvimento de um software para a detecção e classificação de fissuras em edificações. Utilizando imagens capturadas por drones ou câmeras, o sistema tem como objetivo automatizar a identificação e a análise do tipo de cada fissura encontrada. Atualmente, a inspeção manual é o método predominante, um processo que consome tempo e está sujeito a imprecisões. O software proposto busca transformar essa realidade, oferecendo aos profissionais uma ferramenta para realizar análises de forma mais rápida, prática, segura e precisa. 
+&emsp;A organização do sistema e suas interfaces foram concebidas levando em conta as necessidades específicas de cada tipo de usuário (persona), garantindo uma navegação intuitiva e o acesso facilitado às ferramentas relevantes para suas respectivas funções.
+ 
+
+## Personas e Suas Necessidades  
+
+**Alberto (Pesquisador)**
+
+&emsp;Atualmente, o processo de inspeção para identificação de fissuras é lento, podendo levar meses para ser concluído. Essa demora impacta diretamente na capacidade de resposta e no planejamento de ações corretivas.   
+&emsp;Além do tempo, existe também a dificuldade em garantir precisão na identificação e no registro das fissuras, o que pode gerar retrabalho e aumentar os custos. 
+
+**Airton (Piloto de Drone)**
+
+&emsp;Atualmente, Airton enfrenta a dificuldade de garantir, durante a operação, que as imagens capturadas estejam com a qualidade necessária para a análise de fissuras.   
+&emsp;A possibilidade de acompanhar as imagens em tempo real por meio de uma interface paralela facilita seu trabalho, permitindo ajustes imediatos de ângulo, distância e foco, sem a necessidade de etapas adicionais de verificação pós-voo.
+
+## Diagrama - Pesquisador 
+
+<p style={{textAlign: 'center'}}>Figura 1 - Arquitetura de Informação - Pesquisador</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
-        <img src={require("../../../static/img/arquitetura_de_informacao.png").default} style={{width: 800}} alt="Diagrama de Sequência" />
+        <img src={require("../../../static/img/Arquitetura_Informacao_Alberto.png").default} style={{width: 800}} alt="Arquitetura de Informação - Pesquisador" />
         <br/>
     </div>
 </div>
 <p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
 
-&emsp;O Diagrama de Sequência elaborado representa o fluxo de navegação do usuário dentro da plataforma, desde o momento do login até a realização das principais ações disponíveis na interface. A modelagem foi pensada com base na persona Alberto, um pesquisador que utiliza diretamente o sistema para visualizar e registrar informações sobre fissuras detectadas em edificações.
+**Descrição das interações**
 
-**1 - Login (Inserção de login/senha)** 
+&emsp;Assim que o pesquisador faz o login, ele é levado diretamente à página de Histórico, onde ficam registradas todas as expedições já realizadas, com as respectivas datas para facilitar a gestão. Ao selecionar uma dessas expedições, ele visualiza os prédios inspecionados naquela ocasião, organizados como subpastas — isso ajuda na separação por prédio, garantindo que os dados fiquem bem organizados.    
+&emsp;Dentro de cada prédio, é possível visualizar todas as imagens analisadas, que ficará separadas automaticamente entre dois tipos principais (ex: Tipo A e Tipo B, com base na classificação da fissura). Além disso, há um painel com estatísticas, que mostra de forma clara a distribuição percentual das classificações — ideal para entender rapidamente a gravidade geral da situação.
 
-&emsp;O fluxo se inicia com Alberto acessando a Tela de Login, onde ele insere suas credenciais para autenticação no sistema. Caso ele já tenha uma conta, ele prossegue para a próxima etapa.
+Ainda nessa tela, o pesquisador pode:
 
-**2 - Cadastro (Inserção de dados de cadastro)**  
+- Gerar um relatório completo para enviar ao cliente que solicitou a inspeção;
 
-&emsp;Caso o usuário não possua uma conta na plataforma, ele será redirecionado à Tela de Cadastro. Nessa etapa, ele preenche seus dados para criar um novo perfil na plataforma. Após a conclusão do cadastro, o sistema redireciona o usuário de volta à Tela de Login, onde ele poderá realizar o login com os dados recém-criados.
+- Fazer o upload de novas imagens, caso alguma tenha sido esquecida ou capturada por outro dispositivo, como um celular. Essas imagens passam imediatamente pelo processo de análise automática, integrando-se às demais.
 
-**3 - Tela Principal – Acesso ao Histórico de Imagens** 
+&emsp;Por fim, na tela de histórico o usuário também pode clicar em "Nova Expedição" para iniciar um novo processo de inspeção. Isso cria uma nova pasta no histórico, iniciando um novo ciclo de organização de dados.
 
-&emsp;Após realizar o login com sucesso, Alberto é redirecionado à Tela Principal, onde encontra as funcionalidades centrais da plataforma. A partir dessa tela, ele pode selecionar a opção de visualizar o Histórico de Imagens.
+## Diagrama - Piloto de Drone
 
-**3.1 - Acessar Pastas com Imagens do Drone**   
+<p style={{textAlign: 'center'}}>Figura 1 - Arquitetura de Informação - Piloto de Drone</p>
+<div style={{margin: 25}}>
+    <div style={{textAlign: 'center'}}>
+        <img src={require("../../../static/img/Arquitetura_Informacao_Airton.png").default} style={{width: 800}} alt="Arquitetura de Informação - Piloto de Drone" />
+        <br/>
+    </div>
+</div>
+<p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
 
-&emsp;Ao acessar o histórico, a plataforma exibe as imagens capturadas pelo drone, organizadas em pastas específicas por localidade, em alguns casos, subpastas de prédio/bloco, e por fim, as imagens separadas por tipo de fissuras. Isso permite a Alberto uma navegação organizada e eficiente para acessar os registros conforme necessário.
+**Descrição das interações**
 
-**4 - Upload de Imagem**    
+&emsp;Embora o piloto de drone não utilize diretamente a plataforma principal, ele interage com o sistema por meio de uma interface paralela, desenvolvida para funcionar em tempo real durante os voos. Nessa tela, ele consegue visualizar as imagens capturadas instantaneamente e acompanhar a análise automática feita pelo sistema.
 
-&emsp;Caso queira registrar uma nova fissura, Alberto pode usar a opção de Upload de Imagem, acessível pela Tela Principal. A imagem será analisada e registrada na plataforma.
+ Para cada imagem exibida, o sistema mostra:
 
-**4.1** - Enviar Imagem e Preencher Informações**
+- A porcentagem de confiança de que há uma fissura presente na imagem;
 
-&emsp;&emsp;Durante o envio, o sistema solicita que Alberto informe dados adicionais, como localidade e data da inspeção. Após o preenchimento, a imagem é armazenada no histórico e a plataforma exibe um feedback de confirmação, indicando que o processo de upload e análise foi concluído com sucesso.
+- A porcentagem de acerto sobre o tipo de fissura (por exemplo, térmica ou retração).
 
+&emsp;Essa visualização em tempo real, ajuda o piloto a ajustar o enquadramento, a distância e o ângulo da câmera ainda durante o voo, garantindo imagens mais claras e relevantes — o que reduz a chance de erros e retrabalhos posteriores. 
 
+&emsp;Caso o sistema indique uma confiança baixa, mas o piloto perceba que há sim uma fissura, ele pode clicar no botão “Confirmar Fissura”. Com isso, ele é redirecionado para a plataforma principal, usada pelo pesquisador, onde essa imagem será integrada ao fluxo normal de análise e registro.
+
+## Conclusão
+
+&emsp;Através da arquitetura de informação, é possível mapear de forma clara como a plataforma deve funcionar para atender melhor às necessidades das personas. Ela orienta a estrutura do sistema, ajudando a organizar as funcionalidades de forma lógica e garantindo uma experiência mais intuitiva e eficiente para cada perfil de usuário.
