@@ -12,7 +12,7 @@ title: "Proposta inicial de arquitetura"
 <p style={{textAlign: 'center'}}>Figura 1 - Proposta de arquitetura</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
-        <img src={require("../../../static/img/arquitetura.png").default} style={{width: 800}} alt="Matriz de Riscos" />
+        <img src={require("../../../../static/img/arquitetura.png").default} style={{width: 800}} alt="Matriz de Riscos" />
         <br/>
     </div>
 </div>
@@ -33,6 +33,11 @@ title: "Proposta inicial de arquitetura"
         - Agrupa de forma visual as imagens coletadas pelo drone;
         - Permite o usuário ver informações e fotos de diferentes localidades;
         - Possibilita identificar os diferentes tipos de fissuras presentes em cada imagem;
+    
+    - Banco de dados:
+        - Armazena informações dos usuários;
+        - Armazena dados das espedições e suas localizações;
+        - Armazena as imagens das fissuras de cada espedição
     
 #### Drone
         - É controlado por um agente de campo;
