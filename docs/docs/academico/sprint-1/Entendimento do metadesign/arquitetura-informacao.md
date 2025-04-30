@@ -7,11 +7,11 @@ custom_edit_url: /arquitetura-de-informacao
 
 ## Introdução
 
-&emsp;A Arquitetura de Informação (AI) tem como objetivo estruturar, organizar e representar de forma lógica e funcional a navegação e os fluxos de um sistema. Uma AI bem definida é fundamental para garantir que os usuários encontrem facilmente o que precisam, que o sistema seja coerente em seu funcionamento e que o desenvolvimento seja orientado por uma visão clara do projeto. Ela serve como um mapa que guia tanto a experiência do usuário quanto a construção da plataforma.
+&emsp;A arquitetura da informação é a arte e a ciência de organizar e rotular websites, aplicativos digitais e conteúdo online para apoiar a usabilidade e a navegabilidade. Ela envolve a criação de uma estrutura lógica que facilita o encontro de informações pelos usuários. Esse processo requer um entendimento profundo sobre como as pessoas pensam e como elas buscam e utilizam as informações. Ao estruturar os dados de maneira clara e acessível, a arquitetura da informação melhora tanto a experiência do usuário quanto a eficiência dos sistemas complexos.
 
 ## Contexto do Projeto
 
-&emsp;Este projeto foca no desenvolvimento de um software para a detecção e classificação de fissuras em edificações. Utilizando imagens capturadas por drones ou câmeras, o sistema tem como objetivo automatizar a identificação e a análise do tipo de cada fissura encontrada. Atualmente, a inspeção manual é o método predominante, um processo que consome tempo e está sujeito a imprecisões. O software proposto busca transformar essa realidade, oferecendo aos profissionais uma ferramenta para realizar análises de forma mais rápida, prática, segura e precisa. 
+&emsp;Este projeto foca no desenvolvimento de um software para a detecção e classificação de fissuras em edificações. Utilizando imagens capturadas por drones ou câmeras, o sistema tem como objetivo automatizar a identificação e a análise do tipo de cada fissura encontrada. Atualmente, a inspeção manual é o método predominante, um processo que consome tempo e está sujeito a imprecisões. O software proposto busca transformar essa realidade, oferecendo aos profissionais uma ferramenta para realizar análises de forma mais rápida, prática, segura e precisa.     
 &emsp;A organização do sistema e suas interfaces foram concebidas levando em conta as necessidades específicas de cada tipo de usuário (persona), garantindo uma navegação intuitiva e o acesso facilitado às ferramentas relevantes para suas respectivas funções.
  
 
@@ -82,3 +82,6 @@ Ainda nessa tela, o pesquisador pode:
 ## Conclusão
 
 &emsp;Através da arquitetura de informação, é possível mapear de forma clara como a plataforma deve funcionar para atender melhor às necessidades das personas. Ela orienta a estrutura do sistema, ajudando a organizar as funcionalidades de forma lógica e garantindo uma experiência mais intuitiva e eficiente para cada perfil de usuário.
+
+## Bibliografia
+PESSOA, Mariana. Arquitetura da informação: o que é, como fazer e exemplos práticos. Conversion, 29 nov. 2022. Disponível em: https://www.conversion.com.br/blog/arquitetura-da-informacao/. Acesso em: 29 abr. 2025.
