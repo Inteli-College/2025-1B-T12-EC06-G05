@@ -8,14 +8,6 @@
 # FissurAI - Detecção e Análise Inteligente de Fissuras Estruturais
 <br>
 
-<div style="width: 100%; max-width: 100%; text-align: center; margin: 0; padding: 0;">
-  
-  <img src="assets/fissurai-banner.png" alt="Branding FissurAI Banner" style="width: 100%; max-width: 100%; height: auto;" />
-  
-</div>
-
-
-<br>
 
 
 ## 👨‍🎓 Integrantes: 
@@ -25,55 +17,58 @@
 <table style="border-collapse: collapse; width: 100%; max-width: 1700px;">
   <tr>
     <td align="center" style="padding: 15px; border: 1px solid #464646;">
-        <img src="assets/danilo.png" width="130px;" height="170px;"  alt=""/><br>
+        <img src="assets/danilo.jpg" alt=""/><br>
         <sub><b>Danilo Martins</b></sub><br><br>
          <a href="https://www.linkedin.com/in/danilo-martins-merlo-381b76228/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white" /></a>
          <a href="https://github.com/DaniloMartinsMerlo"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white" /></a>
     </td>
     <td align="center" style="padding: 15px; border: 1px solid #464646;">
-        <img src="assets/davi.png" width="130px;" height="170px;"  alt=""/><br>
+        <img src="assets/davi.jpg" alt=""/><br>
         <sub><b>Davi Jesus</b></sub><br><br>
          <a href="https://www.linkedin.com/in/davi-nascimento-de-jesus/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white" /></a>
         <a href="https://github.com/nDaviii"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white" /></a>
     </td>
     <td align="center" style="padding: 15px; border: 1px solid #464646;">
-        <img src="assets/fernando.png" width="130px;" height="170px;"  alt=""/><br>
+        <img src="assets/fernando.jpg" alt=""/><br>
         <sub><b>Fernando Soares</b></sub><br><br>
         <a href="https://www.linkedin.com/in/fernando-soares-de-oliveira?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BmJEhalMsRNypxS7WAPIVfg%3D%3D"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white" /></a>
         <a href="https://github.com/Fernandoliveira05"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white" /></a>
     </td>
     <td align="center" style="padding: 15px; border: 1px solid #464646;">
-        <img src="assets/mariella.png" width="130px;" height="170px;"  height="170px;" alt=""/><br>
+        <img src="assets/mariella.jpg" alt=""/><br>
         <sub><b>Mariella Sayumi</b></sub><br><br>
         <a href="https://www.linkedin.com/in/mariella-kamezawa/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white" /></a>
         <a href="https://github.com/marikamezawa"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white" /></a> 
     </td>
+  </tr>
+  <tr>
     <td align="center" style="padding: 15px; border: 1px solid #464646;">
-        <img src="assets/miguel.png" width="130px;" height="170px;"  alt=""/><br>
+        <img src="assets/miguel.jpg" alt=""/><br>
         <sub><b>Miguel Claret</b></sub><br><br>
         <a href="https://www.linkedin.com/in/miguelclaret"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white" /></a>
         <a href="https://github.com/MiguelClaret"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white" /></a>
     </td>
     <td align="center" style="padding: 15px; border: 1px solid #464646;">
-        <img src="assets/roberto.png" width="130px;" height="170px;"  alt=""/><br>
+        <img src="assets/roberto.jpg" alt=""/><br>
         <sub><b>Roberto Filho</b></sub><br><br>
         <a href="https://www.linkedin.com/in/roberto-dbf"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white" /></a>
         <a href="https://github.com/robertof1lho"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white" /></a>
     </td>
     <td align="center" style="padding: 15px; border: 1px solid #464646;">
-      <img src="assets/vitoria.png" width="130px;" height="170px;"  alt=""/><br>
+      <img src="assets/vitoria.png" alt=""/><br>
       <sub><b>Vitoria Novaes</b></sub><br><br>
       <a href="https://www.linkedin.com/in/vitoria-novaes"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white" /></a>
       <a href="https://github.com/vitorianovaesx"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white" /></a>
     </td>
     <td align="center" style="padding: 15px; border: 1px solid #464646;">
-      <img src="assets/yasmim.png" width="130px;" height="170px;"  alt=""/><br>
+      <img src="assets/yasmim.jpg" alt=""/><br>
       <sub><b>Yasmim Passos</b></sub><br><br>
       <a href="https://www.linkedin.com/in/yasmim-passos/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white" /></a>
       <a href="https://github.com/yasmimpassos"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white" /></a>
     </td>
   </tr>
 </table>
+
 
 </div>
 
@@ -137,13 +132,6 @@ npm start
     * **[Sprint 1] Entendimento do usuário e negócio**
 
 
-<br>
-
-<div style="width: 100%; max-width: 100%; text-align: center; margin: 0; padding: 0;">
-  
-  <img src="assets/fissurai-branding.gif" alt="Branding FissuRAI Animation" style="width: 100%; max-width: 100%; height: auto;" />
-  
-</div>
 <br>
 
 ## 📋 Licença/License
