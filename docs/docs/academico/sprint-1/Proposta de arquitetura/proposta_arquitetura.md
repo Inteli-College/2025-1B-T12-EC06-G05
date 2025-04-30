@@ -37,7 +37,7 @@ title: "Proposta inicial de arquitetura"
     - Banco de dados:
         - Armazena informações dos usuários;
         - Armazena dados das espedições e suas localizações;
-        - Armazena as imagens das fissuras de cada espedição;
+        - Armazena as imagens das fissuras de cada expedição;
     
 #### Drone
         - É controlado por um agente de campo;
