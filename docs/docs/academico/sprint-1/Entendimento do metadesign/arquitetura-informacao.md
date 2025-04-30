@@ -29,14 +29,16 @@ custom_edit_url: /arquitetura-de-informacao
 
 ## Diagrama - Pesquisador 
 
+
 <p style={{textAlign: 'center'}}>Figura 1 - Arquitetura de Informação - Pesquisador</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
-        <img src={require("../../../static/img/Arquitetura_Informacao_Alberto.png").default} style={{width: 800}} alt="Arquitetura de Informação - Pesquisador" />
-        <br/>
+        <img src={require("../../../../static/img/Arquitetura_Informacao_Alberto.png").default} style={{width: 800}} alt="Arquitetura de Informação - Pesquisador" />
+        <br />
     </div>
 </div>
 <p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
+
 
 **Descrição das interações**
 
@@ -53,11 +55,12 @@ Ainda nessa tela, o pesquisador pode:
 
 ## Diagrama - Piloto de Drone
 
-<p style={{textAlign: 'center'}}>Figura 1 - Arquitetura de Informação - Piloto de Drone</p>
+
+<p style={{textAlign: 'center'}}>Figura 2 - Arquitetura de Informação - Piloto de Drone</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
-        <img src={require("../../../static/img/Arquitetura_Informacao_Airton.png").default} style={{width: 800}} alt="Arquitetura de Informação - Piloto de Drone" />
-        <br/>
+        <img src={require("../../../../static/img/Arquitetura_Informacao_Alberto.png").default} style={{width: 800}} alt="Arquitetura de Informação - Piloto de Drone" />
+        <br />
     </div>
 </div>
 <p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
