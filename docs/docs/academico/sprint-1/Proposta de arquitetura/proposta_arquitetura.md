@@ -5,6 +5,7 @@ title: "Proposta inicial de arquitetura"
 ---
 
 # Proposta inicial de arquitetura
+## Conceito
 &emsp; A proposta de arquitetura é um rascunho inicial que define a estrutura geral de um sistema, indicando seus principais componentes, como eles se comunicam entre si e quais tecnologias serão utilizadas. Ela serve como um guia inicial para alinhar a visão do projeto e facilitar as validações antes do desenvolvimento detalhado. Embora ainda não contenha todos os detalhes técnicos, a proposta inicial é fundamental para orientar as próximas etapas do projeto e garantir que todos tenham uma compreensão clara da direção que será seguida.
 
 ### Visão geral
@@ -60,3 +61,7 @@ title: "Proposta inicial de arquitetura"
 ## Conclusão
 
 &emsp; Com a proposta apresentada conseguimos garantir um tratamento eficiente das imagens coletadas pelo drone, facilitando a identificação dos agentes de campo e apresentando elas de forma intuitiva e otimizada em nosso front-end.
+
+## Bibliografia 
+
+FOWLER, Martin. Software Architecture Guide. 2019. Disponível em: https://martinfowler.com/architecture/​. Acesso em: 30 abr. 2025.
