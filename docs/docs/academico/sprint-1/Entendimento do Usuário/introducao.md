@@ -6,6 +6,8 @@ sidebar_position: 1
 
 # Entendimento do Usuário
 
+## Principais conceitos
+
 &emsp;A compreensão do usuário é um aspecto fundamental no desenvolvimento de qualquer solução, pois garante que o projeto esteja alinhado com as reais necessidades de quem irá utilizá-lo. Esse entendimento possibilita identificar dores, expectativas e características da rotina dos usuários, promovendo a construção de sistemas úteis, funcionais e integrados ao cotidiano profissional. 
 
 &emsp;Para alcançar esse objetivo, foram elaboradas personas e identificadas as principais necessidades dos usuários através de user stories, contribuindo para uma visão mais completa sobre o público-alvo.

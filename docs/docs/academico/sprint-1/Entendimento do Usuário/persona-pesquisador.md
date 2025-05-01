@@ -6,7 +6,7 @@ sidebar_position: 1
 
 # Pesquisador: Alberto Guimarães
 
-## Persona
+## Desenvolvimento da persona
 
 &emsp;A persona central deste projeto é Alberto Guimarães, pesquisador com mais de 30 anos de experiência na área de inspeção predial e análise de patologias construtivas. Reconhecido por sua capacidade de unir teoria e prática, Alberto atua na identificação de fissuras e demais anomalias estruturais, contribuindo com diagnósticos técnicos e propostas de intervenção em edificações.
 

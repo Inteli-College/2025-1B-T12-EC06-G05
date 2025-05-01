@@ -6,7 +6,7 @@ sidebar_position: 1
 
 # Piloto de drones: Airton Campos
 
-## Persona
+## Desenvolvimento da persona
 
 &emsp;Airton Campos é piloto de drones com carreira consolidada no setor de inspeções técnicas e mapeamento aéreo de estruturas. Com experiência em pilotagem de precisão e coleta de imagens de alta resolução, atua diretamente em campo, sendo responsável por registrar os dados visuais utilizados para diagnósticos estruturais.
 
