@@ -15,13 +15,13 @@ const config = {
   favicon: "img/logo_modo_claro.png",
 
   // Set the production url of your site here
-  url: "https://2025-1B-T12-EC06-G05.github.io",
-  baseUrl: "/",
+  url: 'https://Inteli-College.github.io',
+  baseUrl: '/2025-1B-T12-EC06-G05/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: "Rachadores", // Usually your GitHub org/user name.
-  projectName: "Rachadores", // Usually your repo name.
+  organizationName: "Inteli-College", // Usually your GitHub org/user name.
+  projectName: "/2025-1B-T12-EC06-G05", // Usually your repo name.
 
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
