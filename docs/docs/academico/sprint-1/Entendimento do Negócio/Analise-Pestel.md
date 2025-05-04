@@ -5,7 +5,7 @@ custom_edit_url: null
 
 # Análise PESTEL
 
-&nbsp;&nbsp;&nbsp;&nbsp;O surgimento de projetos inovadores no setor da construção civil, particularmente aqueles que envolvem novas tecnologias, requer uma compreensão profunda não apenas dos aspectos técnicos, mas também do ecossistema em que a solução será inserida. Neste contexto, a análise PESTEL apresenta-se como uma ferramenta valiosa para o mapeamento dos fatores externos que podem influenciar o desenvolvimento e a adoção da nossa solução.  <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;O surgimento de projetos inovadores no setor da construção civil, particularmente aqueles que envolvem novas tecnologias, requer uma compreensão profunda não apenas dos aspectos técnicos, mas também do ecossistema em que a solução será inserida. Neste contexto, a análise PESTEL apresenta-se como uma ferramenta para o mapeamento dos fatores externos que podem influenciar o desenvolvimento e a adoção da nossa solução.  <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;O framework PESTEL analisa aspectos Políticos, Econômicos, Sociais, Tecnológicos, Ecológicos/Ambientais e Legais, oferecendo uma visão holística do ecossistema em que o IPT ou qualquer outra empresa opera. Esta abordagem multidimensional não apenas mapeia os fatores externos que moldam o ambiente de atuação da instituição, mas também revela pontos de atenção sobre as necessidades, restrições e oportunidades específicas do Instituto. Ao aplicar esta análise estratégica, conseguiremos compreender o contexto operacional do IPT, identificar quais funcionalidades e características da solução agregarão maior valor às suas atividades de pesquisa e inspeção predial, e dimensionar o escopo do projeto para atender às expectativas institucionais e mercadológicas. <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;Com base nas reflexões trazidas pela análise PESTEL, nossa equipe estará bem preparada para aprimorar e validar a abordagem do projeto, desenvolvendo a solução com plena consciência do contexto em que o IPT está inserido. Essa visão estratégica não só ajuda a reduzir riscos e incertezas, como também aumenta o valor da entrega final. O algoritmo de identificação de fissuras deixará de ser apenas uma ferramenta técnica para se tornar um recurso estratégico, alinhado às necessidades do IPT, às exigências regulatórias e às oportunidades do setor de inspeção e manutenção predial. 
 
@@ -75,3 +75,28 @@ custom_edit_url: null
 - **Nomeações sem consulta à comunidade científica:** Em 2023, a nomeação de um ex-reitor do ITA para dirigir o programa de privatização do IPT foi vista por alguns funcionários como uma imposição do governo estadual, sem diálogo com os profissionais da instituição.
 
 &nbsp;&nbsp;&nbsp;&nbsp;Com forte atuação em metrologia e certificações, o Instituto tem papel relevante no apoio à formulação de políticas públicas e na definição de padrões técnicos que estruturam o ambiente regulatório nacional. Essa expertise técnica fortalece sua autoridade e influência nas discussões sobre regulamentação tecnológica e industrial. Por outro lado, decisões de gestão recentes, como a nomeação de lideranças sem consulta à comunidade científica, geraram críticas internas e levantaram preocupações sobre a transparência e a autonomia institucional. Esses episódios evidenciam como o contexto legal e administrativo pode afetar não apenas a governança do IPT, mas também sua legitimidade junto aos próprios profissionais e parceiros.
+
+
+## Referências
+
+INSTITUTO DE PESQUISAS TECNOLÓGICAS. *IPT Open Experience: como participar*. São Paulo: IPT, 2020. Disponível em: [https://ipt.br/2020/11/16/ipt-open-experience-como-participar](https://ipt.br/2020/11/16/ipt-open-experience-como-participar). Acesso em: 29 de abril de 2025.
+
+INSTITUTO DE PESQUISAS TECNOLÓGICAS. *Parceria com o Google*. São Paulo: IPT, 2022. Disponível em: [https://ipt.br/2022/06/21/parceria-com-o-google](https://ipt.br/2022/06/21/parceria-com-o-google). Acesso em: 29 de abril de 2025.
+
+INSTITUTO DE PESQUISAS TECNOLÓGICAS. *Novas empresas no IPT Open*. São Paulo: IPT, 2021. Disponível em: [https://ipt.br/2021/12/16/novas-empresas-no-ipt-open](https://ipt.br/2021/12/16/novas-empresas-no-ipt-open). Acesso em: 29 de abril de 2025.
+
+UNIVERSIDADE DE SÃO PAULO. *Programa de Pós-Graduação Interunidades em Biotecnologia (PPIB)*. São Paulo: USP, 2025. Disponível em: [https://sites.usp.br/biotecnologia](https://sites.usp.br/biotecnologia). Acesso em: 29 de abril de 2025.
+
+INSTITUTO DE PESQUISAS TECNOLÓGICAS. *Nanopartículas contra o câncer de mama*. São Paulo: IPT, 2024. Disponível em: [https://ipt.br/2024/05/28/nanoparticulas-contra-o-cancer-de-mama](https://ipt.br/2024/05/28/nanoparticulas-contra-o-cancer-de-mama). Acesso em: 29 de abril de 2025.
+
+INSTITUTO DE PESQUISAS TECNOLÓGICAS. *Nanotecnologia contra o câncer de cérebro*. São Paulo: IPT, 2024. Disponível em: [https://ipt.br/2024/09/12/nanotecnologia-contra-o-cancer-de-cerebro](https://ipt.br/2024/09/12/nanotecnologia-contra-o-cancer-de-cerebro). Acesso em: 29 de abril de 2025.
+
+INSTITUTO DE PESQUISAS TECNOLÓGICAS. *Laboratório de Bioenergia e Eficiência Energética*. São Paulo: IPT, 2023. Disponível em: [https://ipt.br/2023/09/05/laboratorio-de-bioenergia-e-eficiencia-energetica-2](https://ipt.br/2023/09/05/laboratorio-de-bioenergia-e-eficiencia-energetica-2). Acesso em: 29 de abril de 2025.
+
+INSTITUTO DE PESQUISAS TECNOLÓGICAS. *Seção de Investigações, Riscos e Gerenciamento Ambiental*. São Paulo: IPT, 2023. Disponível em: [https://ipt.br/2023/09/04/secao-de-investigacoes-riscos-e-gerenciamento-ambiental](https://ipt.br/2023/09/04/secao-de-investigacoes-riscos-e-gerenciamento-ambiental). Acesso em: 29 de abril de 2025.
+
+INSTITUTO DE PESQUISAS TECNOLÓGICAS. *SAA – Monitoramento de Normas Técnicas*. São Paulo: IPT, 2025. Disponível em: [https://ipt.br/saa](https://ipt.br/saa). Acesso em: 29 de abril de 2025.
+
+ASSOCIAÇÃO DOS DOCENTES DA USP. *Tarcísio quer transformar o IPT em empresa estatal com foco em novos negócios*. São Paulo: Adusp, 2024. Disponível em: [https://adusp.org.br/servico-publico/tarcisio-ipt/](https://adusp.org.br/servico-publico/tarcisio-ipt/). Acesso em: 30 de abril de 2025.
+
+
