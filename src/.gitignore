@@ -1,3 +1,5 @@
 /venv
 /imagens/fotos/*.png
 /imagens/videos/*.avi
+/imagens/inspecoes/*/*.jpg
+/imagens/inspecoes/*/*.png
