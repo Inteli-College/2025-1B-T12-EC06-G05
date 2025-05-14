@@ -3,3 +3,5 @@
 /imagens/videos/*.avi
 /imagens/inspecoes/*/*.jpg
 /imagens/inspecoes/*/*.png
+/imagens/inspecoes/*/resultados/*.jpg
+/imagens/inspecoes/*/resultados/*.png
