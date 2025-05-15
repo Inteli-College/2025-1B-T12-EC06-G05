@@ -14,6 +14,8 @@ INSPECTIONS_DIR = "imagens/inspecoes"
 DRONE_ADDR = ('192.168.10.1', 8889)
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
+st.set_page_config(layout="wide")
+
 def send_command(cmd: str):
     sock.sendto(cmd.encode('utf-8'), DRONE_ADDR)
 
@@ -104,38 +106,72 @@ def show_inspection_page(inspection_name):
         st.info("Nenhuma imagem com detecção ainda.")
 
 def show_main_page():
-    st.title("Painel de Inspeções - Drone Tello")
     os.makedirs(INSPECTIONS_DIR, exist_ok=True)
+    st.image("imagens/logo.png", width=200)
 
-    with st.expander("➕ Cadastrar Nova Inspeção"):
-        new_name = st.text_input("Nome da nova inspeção:")
-        if st.button("Criar Inspeção") and new_name.strip():
-            inspection_path = os.path.join(INSPECTIONS_DIR, new_name.strip())
-            if not os.path.exists(inspection_path):
-                os.makedirs(inspection_path)
-                st.success(f"Inspeção '{new_name}' criada.")
+    st.title("Computador de Bordo para captura de fissuras")
+    col1, col2 = st.columns([1, 2], gap="large")
 
-                st.query_params = {"inspection": new_name.strip()}
-                st.rerun()
-            else:
-                st.error("Inspeção com esse nome já existe.")
+    with col1:
+        st.subheader("Criar nova Expedição")
+        new_name = st.text_input("Nome da Expedição")
+        new_building = st.text_input("Nome do Prédio")
+        if st.button("Iniciar"):
+            if new_name.strip() and new_building.strip():
+                inspection_path = os.path.join(INSPECTIONS_DIR, f"{new_name.strip()} - {new_building.strip()}")
+                if not os.path.exists(inspection_path):
+                    os.makedirs(inspection_path)
+                    st.success(f"Inspeção '{new_name}' criada.")
+                    st.query_params = {"inspection": f"{new_name.strip()} - {new_building.strip()}"}
+                    st.rerun()
+                else:
+                    st.error("Inspeção com esse nome já existe.")
 
-    st.subheader("Inspeções Existentes")
-    folders = sorted(
-        [name for name in os.listdir(INSPECTIONS_DIR)
-         if os.path.isdir(os.path.join(INSPECTIONS_DIR, name))],
-        reverse=True
-    )
+    with col2:
+        st.subheader("Expedições")
+        folders = sorted(
+            [name for name in os.listdir(INSPECTIONS_DIR)
+             if os.path.isdir(os.path.join(INSPECTIONS_DIR, name))],
+            reverse=True
+        )
 
-    if folders:
-        cols = st.columns(3)
-        for i, folder in enumerate(folders):
-            with cols[i % 3]:
-                if st.button(folder):
+        mid_index = len(folders) // 2
+        col3, col4 = st.columns([1, 1], gap="medium")
+
+        with col3:
+            for folder in folders[:mid_index]:
+                creation_time = time.strftime('%d/%m/%Y', time.localtime(os.path.getctime(os.path.join(INSPECTIONS_DIR, folder))))
+                st.markdown(f"""
+                    <div style="background-color: #6892ad; border-radius: 10px; padding: 10px; margin-bottom: 10px; display: flex; align-items: center;">
+                        <div style="width: 60px; height: 60px; background-color: #ccc; margin-right: 15px; border-radius: 5px;"></div>
+                        <div>
+                            <strong style="color: black;">{folder}</strong><br>
+                            <span style="color: black;">{creation_time}</span>
+                        </div>
+                    </div>
+                """, unsafe_allow_html=True)
+
+                if st.button(f"Abrir {folder}"):
                     st.query_params = {"inspection": folder}
                     st.rerun()
-    else:
-        st.info("Nenhuma inspeção cadastrada.")
+
+        with col4:
+            for folder in folders[mid_index:]:
+                creation_time = time.strftime('%d/%m/%Y', time.localtime(os.path.getctime(os.path.join(INSPECTIONS_DIR, folder))))
+                st.markdown(f"""
+                    <div style="background-color: #6892ad; border-radius: 10px; padding: 10px; margin-bottom: 10px; display: flex; align-items: center;">
+                        <div style="width: 60px; height: 60px; background-color: #ccc; margin-right: 15px; border-radius: 5px;"></div>
+                        <div>
+                            <strong style="color: black;">{folder}</strong><br>
+                            <span style="color: black;">{creation_time}</span>
+                        </div>
+                    </div>
+                """, unsafe_allow_html=True)
+
+                if st.button(f"Abrir {folder}"):
+                    st.query_params = {"inspection": folder}
+                    st.rerun()
+
 
 def show_all_images_page():
     st.title("📸 Todas as Imagens Capturadas")
@@ -158,14 +194,27 @@ def show_all_images_page():
     else:
         st.info("Nenhuma imagem capturada ainda.")
 
-st.sidebar.title("Navegação")
-page = st.sidebar.radio("Ir para:", ["Página Principal", "Todas as Imagens"])
+if "user_id" not in st.session_state:
+    st.title("Computador de Bordo para captura de fissuras")
+    user_id = st.text_input("Insira seu id de usuário para começar", placeholder="ID usuário")
 
-params = st.query_params
-if "inspection" in params:
-    show_inspection_page(params["inspection"])
+    if st.button("Entrar") and user_id.strip():
+        st.session_state.user_id = user_id.strip()
+        st.rerun()
 else:
-    if page == "Página Principal":
-        show_main_page()
-    elif page == "Todas as Imagens":
-        show_all_images_page()
+    st.sidebar.title(f"Navegação - Usuário: {st.session_state.user_id}")
+    page = st.sidebar.radio("Ir para:", ["Página Principal", "Todas as Imagens"])
+
+    params = st.query_params
+    if "inspection" in params:
+        show_inspection_page(params["inspection"])
+    else:
+        if page == "Página Principal":
+            show_main_page()
+        elif page == "Todas as Imagens":
+            show_all_images_page()
+
+    if st.sidebar.button("Sair"):
+        del st.session_state.user_id
+        st.rerun()
+
