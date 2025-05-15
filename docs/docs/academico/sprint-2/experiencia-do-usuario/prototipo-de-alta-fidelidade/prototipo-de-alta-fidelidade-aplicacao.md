@@ -16,7 +16,7 @@ custom_edit_url: null
             style={{ border: '1px solid rgba(0, 0, 0, 0.1)' }}
             width="900"
             height="550"
-            src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/DYeAiDMVbmD6n9HxwKL1L6/Plataforma-Web?node-id=86-6320&p=f&t=7o6VicKH9Fg6zfTO-1&scaling=contain&content-scaling=fixed&page-id=0%3A1"
+            src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/DYeAiDMVbmD6n9HxwKL1L6/Plataforma-Web?node-id=112-4231&p=f&t=UdpY953uUFI6u3rr-1&scaling=contain&content-scaling=fixed&page-id=112%3A4230"
             allowFullScreen
         />
         <br/>
@@ -36,8 +36,8 @@ custom_edit_url: null
 <p style={{textAlign: 'center'}}>Figura 1 - User flow 01 Alberto</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
-        <!-- <img src={require("../../../../static/img/persona-alberto.png").default} style={{width: 800}} alt="Persona Alberto" />
-        <br/> -->
+        <img src={require("../../../../../static/img/wireflow/US01-Pesquisador.png").default} style={{width: 800}} alt="US01 Pesquisador" />
+        <br/>
     </div>
 </div>
 <p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
@@ -48,8 +48,7 @@ custom_edit_url: null
 <p style={{textAlign: 'center'}}>Figura 2 - User flow 02 Alberto</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
-        <!-- <img src={require("../../../../static/img/persona-alberto.png").default} style={{width: 800}} alt="Persona Alberto" />
-        <br/> -->
+        <img src={require("../../../../../static/img/wireflow/US02-Pesquisador.png").default} style={{width: 800}} alt="US02 Pesquisador" />
     </div>
 </div>
 <p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
@@ -60,8 +59,7 @@ custom_edit_url: null
 <p style={{textAlign: 'center'}}>Figura 3 - User flow 03 Alberto</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
-        <!-- <img src={require("../../../../static/img/persona-alberto.png").default} style={{width: 800}} alt="Persona Alberto" />
-        <br/> -->
+        <img src={require("../../../../../static/img/wireflow/US03-Pesquisador.png").default} style={{width: 800}} alt="US03 Pesquisador" />
     </div>
 </div>
 <p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
@@ -73,8 +71,7 @@ custom_edit_url: null
 <p style={{textAlign: 'center'}}>Figura 4 - User flow 04 Alberto</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
-        <!-- <img src={require("../../../../static/img/persona-alberto.png").default} style={{width: 800}} alt="Persona Alberto" />
-        <br/> -->
+        <img src={require("../../../../../static/img/wireflow/US04-Pesquisador.png").default} style={{width: 800}} alt="US04 Pesquisador" />
     </div>
 </div>
 <p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
@@ -86,8 +83,7 @@ custom_edit_url: null
 <p style={{textAlign: 'center'}}>Figura 5 - User flow 05 Alberto</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
-        <!-- <img src={require("../../../../static/img/persona-alberto.png").default} style={{width: 800}} alt="Persona Alberto" />
-        <br/> -->
+        <img src={require("../../../../../static/img/wireflow/US05-Pesquisador.png").default} style={{width: 800}} alt="US05 Pesquisador" />
     </div>
 </div>
 <p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
@@ -99,8 +95,7 @@ custom_edit_url: null
 <p style={{textAlign: 'center'}}>Figura 6 - User flow 06 Alberto</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
-        <!-- <img src={require("../../../../static/img/persona-alberto.png").default} style={{width: 800}} alt="Persona Alberto" />
-        <br/> -->
+        <img src={require("../../../../../static/img/wireflow/US06-Pesquisador.png").default} style={{width: 800}} alt="US06 Pesquisador" />
     </div>
 </div>
 <p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
@@ -114,8 +109,7 @@ custom_edit_url: null
 <p style={{textAlign: 'center'}}>Figura 1 - User flow 01 Airton</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
-        <!-- <img src={require("../../../../static/img/persona-Airton.png").default} style={{width: 800}} alt="Persona Airton" />
-        <br/> -->
+        <img src={require("../../../../../static/img/wireflow/US01-Piloto.png").default} style={{width: 800}} alt="US01 Piloto" />
     </div>
 </div>
 <p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
@@ -126,8 +120,7 @@ custom_edit_url: null
 <p style={{textAlign: 'center'}}>Figura 2 - User flow 02 Airton</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
-        <!-- <img src={require("../../../../static/img/persona-Airton.png").default} style={{width: 800}} alt="Persona Airton" />
-        <br/> -->
+        <img src={require("../../../../../static/img/wireflow/US02-Piloto.png").default} style={{width: 800}} alt="US02 Piloto" />
     </div>
 </div>
 <p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
@@ -138,8 +131,7 @@ custom_edit_url: null
 <p style={{textAlign: 'center'}}>Figura 3 - User flow 03 Airton</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
-        <!-- <img src={require("../../../../static/img/persona-Airton.png").default} style={{width: 800}} alt="Persona Airton" />
-        <br/> -->
+        <img src={require("../../../../../static/img/wireflow/US03-Piloto.png").default} style={{width: 800}} alt="US03 Piloto" />
     </div>
 </div>
 <p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
