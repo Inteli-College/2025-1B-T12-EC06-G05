@@ -25,10 +25,7 @@ def start_video_capture():
     send_command('streamon')    
 
     cap = cv2.VideoCapture(VIDEO_STREAM)
-    cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)  
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)  
-    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
-
+    cap.set(cv2.CAP_PROP_BUFFERSIZE, 2) 
     return cap
 
 def stop_video_capture():
@@ -69,8 +66,6 @@ def show_inspection_page(inspection_name):
                 cv2.imwrite(filename, frame)
                 st.success(f"Imagem salva em: {filename}")
                 foto = False
-
-            time.sleep(0.05)  # Ajuste o tempo conforme necessário para equilibrar desempenho e qualidade
 
         st.session_state.cap.release()
         stop_video_capture()
