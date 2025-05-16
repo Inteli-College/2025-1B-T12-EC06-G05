@@ -13,7 +13,14 @@ O wireframe do sistema geral mostra como funciona a interface usada por gestores
 
 Abaixo está o fluxo geral do sistema geral, representando a navegação entre login, cadastro de expedições e prédios, visualização de imagens e análise de dados.
 
-![Wireframe do Sistema Geral - Fluxo]()
+<p style={{textAlign: 'center'}}>Figura 1 - User Flow Aplicação de Geral</p>
+<div style={{margin: 25}}>
+    <div style={{textAlign: 'center'}}>
+        <img src={require("../../../../../static/img/wireframe_geral.png").default} style={{width: 800}} alt="Wireframe Aplicação de Geral" />
+        <br/>
+    </div>
+</div>
+<p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
 
 - **Login:** Tela inicial onde o usuário acessa sua conta com e-mail e senha.
 - **Home:** Exibe uma lista de expedições cadastradas. A partir daqui, é possível criar novas expedições ou acessar uma já existente.

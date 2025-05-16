@@ -14,7 +14,15 @@ O wireframe do sistema de campo mostra a estrutura visual da interface usada em 
 
 Abaixo está o fluxo geral de uso do sistema de bordo para captura de fissuras desenvolvido por nossos integrantes, representado pelo wireframe. Ele mostra o caminho percorrido pelo usuário, desde o login até a visualização e gerenciamento das fissuras registradas por drone.
 
-![Wireframe do Sistema de Campo]()
+<p style={{textAlign: 'center'}}>Figura 1 - User Flow Aplicação de Campo</p>
+<div style={{margin: 25}}>
+    <div style={{textAlign: 'center'}}>
+        <img src={require("../../../../../static/img/wireframe_campo.png").default} style={{width: 800}} alt="Wireframe Aplicação de Campo" />
+        <br/>
+    </div>
+</div>
+<p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
+
 
 ### Descrição do Fluxo:
 
