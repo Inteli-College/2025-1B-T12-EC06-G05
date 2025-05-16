@@ -24,7 +24,7 @@ A FissurAI é uma solução baseada em inteligência artificial que automatiza a
 ## Apresentações da Sprint Review
 
 - Sprint 1: [Link da Apresentação](https://www.canva.com/design/DAGmCcbv10c/gqI80psyWzV7sVGG6Zz4AQ/view?utm_content=DAGmCcbv10c&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h81b915e024)
-- Sprint 2: [Link da Apresentação](https://www.canva.com/design/DAGmCcbv10c/gqI80psyWzV7sVGG6Zz4AQ/view?utm_content=DAGmCcbv10c&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h81b915e024)
+- Sprint 2: [Link da Apresentação](https://www.canva.com/design/DAGne-uLiKE/461H9b1pXNs2xtX9JAcyWQ/view?utm_content=DAGne-uLiKE&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h1e3e103156)
 - Sprint 3: [Link da Apresentação](https://www.canva.com/design/DAGmCcbv10c/gqI80psyWzV7sVGG6Zz4AQ/view?utm_content=DAGmCcbv10c&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h81b915e024)
 - Sprint 4: [Link da Apresentação](https://www.canva.com/design/DAGmCcbv10c/gqI80psyWzV7sVGG6Zz4AQ/view?utm_content=DAGmCcbv10c&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h81b915e024)
 - Sprint 5: [Link da Apresentação](https://www.canva.com/design/DAGmCcbv10c/gqI80psyWzV7sVGG6Zz4AQ/view?utm_content=DAGmCcbv10c&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h81b915e024)
