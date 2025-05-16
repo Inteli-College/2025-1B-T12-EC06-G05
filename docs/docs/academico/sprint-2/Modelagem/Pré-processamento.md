@@ -168,6 +168,10 @@ Nesta seção, detalhamos o processo de anotação (labeling) aplicado às image
 
 O pipeline descrito padroniza e limpa as imagens, realça fissuras e organiza anotações no formato YOLO, resultando em um dataset consistente para treino (60 %/40 %) e validação. Esses procedimentos garantem qualidade e precisão na detecção automática de fissuras em revestimentos, sendo facilmente adaptáveis a outras aplicações de visão computacional.  
 
+### Observação
+
+Testamos dois pipelines de pré-processamento — um com CLAHE ao final e outro com Unsharp Mask — e avaliamos seu impacto nas métricas de desempenho e na classificação de imagens fora do conjunto de treino. Como ambos os pipelines não trouxeram ganhos significativos de acurácia nem robustez, optamos por utilizar as imagens originais, sem aplicação de filtros adicionais.  
+
 
 #### Referências:
 
