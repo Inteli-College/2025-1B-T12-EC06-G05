@@ -6,20 +6,33 @@ from PIL import Image, ImageFile
 import glob
 from ultralytics import YOLO
 from pathlib import Path
-from djitellopy import Tello
 import cv2
+
+st.set_page_config(layout="wide")
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 FRAME_PATH = "shared_frames/latest.jpg"
 INSPECTIONS_DIR = "imagens/inspecoes"
 DRONE_ADDR = ('192.168.10.1', 8889)
+VIDEO_STREAM = 'udp://0.0.0.0:11111'
+
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-st.set_page_config(layout="wide")
-
-def send_command(cmd: str):
+def send_command(cmd: str, wait: float = 0.2):
     sock.sendto(cmd.encode('utf-8'), DRONE_ADDR)
+    time.sleep(wait)
+
+def start_video_capture():
+    send_command('command')     
+    send_command('streamon')    
+
+    cap = cv2.VideoCapture(VIDEO_STREAM)
+    cap.set(cv2.CAP_PROP_BUFFERSIZE, 2) 
+    return cap
+
+def stop_video_capture():
+    send_command('streamoff')
 
 def load_model(model_path):
     model = YOLO(model_path)
@@ -31,7 +44,7 @@ def run_model(model_path, image_folder):
     images = sorted(glob.glob(f"{image_folder}/*.[jp][pn]g"), reverse=True)
 
     if not images:
-        return "Nenhuma imagem encontrada para rodar o modelo.", {}
+        return "Nenhuma imagem encontrada para rodar o modelo."
 
     results_folder = os.path.join(image_folder, "resultados")
     os.makedirs(results_folder, exist_ok=True)
@@ -83,6 +96,7 @@ def show_inspection_page(inspection_name):
             st.rerun()
 
 def show_building_page(building_path):
+
     col_top = st.columns([1, 5, 1])
     with col_top[0]:
         if st.button("⬅️", key="voltar_predio"):
@@ -106,28 +120,40 @@ def show_building_page(building_path):
     with col_main:
         st.markdown(f"**Sentido atual:** {st.session_state.sentido_atual or 'Nenhum selecionado'}")
         
-        if st.button("Tirar Foto", key="tirar_foto_predio"):
-            if st.session_state.sentido_atual:
-                try:
-                    tello = Tello()
-                    tello.connect()
-                    tello.streamon()
+        inspection_path = os.path.join(INSPECTIONS_DIR, building_path)
+        os.makedirs(inspection_path, exist_ok=True)
+        run_key = f"run_{building_path}"
+        if run_key not in st.session_state:
+            st.session_state[run_key] = False
 
-                    frame = tello.get_frame_read().frame
+        if st.checkbox('Run', key=run_key):
+
+            if 'cap' not in st.session_state:
+                st.session_state.cap = start_video_capture()
+            FRAME_WINDOW = st.empty()
+
+            foto = st.button("📸 Tirar Foto")
+            while st.session_state[run_key]:
+                ret, frame = st.session_state.cap.read()
+                if not ret:
+                    FRAME_WINDOW.info("Aguardando frame do drone...")
+                else:
+                    cv2.imwrite(FRAME_PATH, frame)
+                    FRAME_WINDOW.image(frame, channels="BGR", use_container_width=True)
+
+                if foto:
                     timestamp = int(time.time())
                     filename = f"{building_path}/{st.session_state.sentido_atual}_{timestamp}.jpg"
-
                     cv2.imwrite(filename, frame)
                     st.success(f"Imagem salva em: {filename}")
+                    foto = False
 
-                    tello.streamoff()
-                    tello.end()
-                    st.rerun()
+            st.session_state.cap.release()
+            stop_video_capture()
+            del st.session_state.cap
 
-                except Exception as e:
-                    st.error(f"Erro ao capturar a imagem do drone: {e}")
-            else:
-                st.warning("Selecione um sentido antes de tirar a foto.")
+        else:
+            st.write('Live feed parado.')
 
         st.subheader("Fotos tiradas por sentido")
         sentidos = ["Norte", "Leste", "Sul", "Oeste"]
@@ -141,11 +167,12 @@ def show_building_page(building_path):
                     with cols[i % 3]:
                         st.image(img, use_container_width=True)
 
-        if st.button("Salvar Detecção", key="salvar_modelo_predio"):
+        if st.button("Rodar Modelo"):
             model_path = 'best.pt'
             if os.path.exists(model_path):
                 result, crack_counts = run_model(model_path, building_path)
                 st.success(result)
+
                 st.subheader("📊 Detecções por Tipo de Rachadura")
                 for crack_type, count in crack_counts.items():
                     st.write(f"- **{crack_type.capitalize()}**: {count}")
@@ -219,28 +246,6 @@ def show_main_page():
                     st.query_params = {"inspection": folder}
                     st.rerun()
 
-def show_all_images_page():
-    st.title("📸 Todas as Imagens Capturadas")
-
-    all_images = []
-    for folder in os.listdir(INSPECTIONS_DIR):
-        building_path = os.path.join(INSPECTIONS_DIR, folder, "predios")
-        if os.path.isdir(building_path):
-            for sub in os.listdir(building_path):
-                imgs = glob.glob(f"{os.path.join(building_path, sub)}/*.[jp][pn]g")
-                all_images.extend([(img, f"{folder}/{sub}") for img in imgs])
-
-    all_images.sort(reverse=True)
-
-    if all_images:
-        cols = st.columns(3)
-        for i, (img_path, folder) in enumerate(all_images):
-            img = Image.open(img_path)
-            with cols[i % 3]:
-                st.image(img, caption=f"{folder}/{os.path.basename(img_path)}", use_container_width=True)
-    else:
-        st.info("Nenhuma imagem capturada ainda.")
-
 st.image("imagens/logo.png", width=200)
 
 st.title("Computador de Bordo para captura de fissuras")
@@ -252,8 +257,6 @@ if "user_id" not in st.session_state:
         st.session_state.user_id = user_id.strip()
         st.rerun()
 else:
-    st.sidebar.title(f"Navegação - Usuário: {st.session_state.user_id}")
-    page = st.sidebar.radio("Ir para:", ["Página Principal", "Todas as Imagens"])
 
     params = st.query_params
     if "inspection" in params:
@@ -263,11 +266,4 @@ else:
         else:
             show_inspection_page(params["inspection"])
     else:
-        if page == "Página Principal":
-            show_main_page()
-        elif page == "Todas as Imagens":
-            show_all_images_page()
-
-    if st.sidebar.button("Sair"):
-        del st.session_state.user_id
-        st.rerun()
+        show_main_page()
