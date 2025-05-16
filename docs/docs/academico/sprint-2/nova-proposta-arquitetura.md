@@ -13,7 +13,7 @@ title: "Proposta atualizada da arquitetura"
 <p style={{textAlign: 'center'}}>Figura 1 - Arquitetura atualizada do sistema</p>  
 <div style={{margin: 25}}>  
     <div style={{textAlign: 'center'}}>  
-        <img src={require("../../../../static/img/arquitetura_atualizada.jpg").default} style={{width: 800}} alt="Arquitetura Atualizada" />  
+        <img src={require("../../../static/img/arquitetura_atualizada.jpg").default} style={{width: 800}} alt="Arquitetura Atualizada" />  
         <br/>  
     </div>  
 </div>  
