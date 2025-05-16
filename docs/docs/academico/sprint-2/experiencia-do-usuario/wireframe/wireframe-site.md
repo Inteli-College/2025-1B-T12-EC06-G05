@@ -1,18 +1,19 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 custom_edit_url: null
 ---
 
-# Wireframe da Sistema Geral 
+# Wireframe do Sistema Geral 
 
-## Conceito
-&emsp;Um wireframe é um diagrama visual que representa a estrutura de uma página web ou de uma tela de aplicativo. Ele é um esboço, um protótipo de baixa fidelidade, que demonstra como os elementos se relacionam entre si e como são estruturados. 
+## Outra aplicação
 
-&emsp;O wireframe do sistema geral mostra como funciona a interface usada para acompanhar e organizar as expedições. Diferente do sistema de bordo, que é feito para uso em campo, o sistema geral foca na visualização de dados, como imagens, relatórios e estatísticas, e também é possível fazer *upload* de imagens de fissuras capturas por celular, permitindo, assim, uma gestão completa e centralizada das operações.
+&emsp;Segundo o conceito já apresentado sobre os *wireframes*, a ferramenta desenvolvida para apresentação do sistema geral mostra como funciona a interface usada para analisar e organizar as expedições. 
+
+&emsp;Diferente do sistema de bordo, que é feito para uso em campo, o sistema geral foca na visualização de dados, como imagens, relatórios e estatísticas, e também é possível fazer *upload* de imagens de fissuras capturas por outros mecanismos além dos drones, permitindo, assim, uma gestão completa e centralizada das operações.
 
 ## User Flow Geral
 
-&emsp;Abaixo está o fluxo geral do sistema geral, representando a navegação entre login, cadastro de expedições e prédios, visualização de imagens e análise de dados.
+&emsp;Abaixo está o fluxo geral do sistema geral, representando a navegação entre login, cadastro de expedições e prédios, visualização de imagens e análise de dados. É possível encontrá-lo com maior detalhes a partir desse [link](https://www.figma.com/design/DYeAiDMVbmD6n9HxwKL1L6/Plataforma-Web?node-id=0-1&t=UxIhSnCt139lOM1b-1) no figma, se dirigindo até a seção de "Wireframe - Site".
 
 <p style={{textAlign: 'center'}}>Figura 1 - User Flow Aplicação de Geral</p>
 <div style={{margin: 25}}>
@@ -23,8 +24,10 @@ custom_edit_url: null
 </div>
 <p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
 
-- **Login:** Tela inicial onde o usuário acessa sua conta com e-mail e senha.
-- **Home:** Exibe uma lista de expedições cadastradas. A partir daqui, é possível criar novas expedições ou acessar uma já existente.
+&emsp;As telas que estão presentes nessa versão do *wireframe* da solução são as descritas abaixo: 
+
+- ***Login*:** Tela inicial onde o usuário acessa sua conta com e-mail e senha.
+- ***Home*:** Exibe uma lista de expedições cadastradas. A partir daqui, é possível criar novas expedições ou acessar uma já existente.
 - **Card de Criar Expedição:** Formulário para registrar uma nova expedição, com campos como nome, data, endereço e descrição.
 - **Expedição X:** Tela que apresenta os prédios vinculados à expedição selecionada. Permite acessar prédios ou criar novos.
 - **Card de Criar Prédio:** Formulário para cadastrar um prédio, incluindo nome, localização, data e imagens da fachada.
@@ -32,7 +35,4 @@ custom_edit_url: null
 - **Card de Visualização da Imagem da Rachadura:** Exibe uma imagem específica coletada em campo, com dados como autor e data.
 
 ## Conclusão
-&emsp;O wireframe do sistema geral organiza as principais funções de gestão das expedições. Ele permite o acompanhamento de dados e imagens, desde o login até a visualização das rachaduras. O fluxo apresentado mostra uma navegação simples e direta entre as etapas da plataforma. Dessa forma, com o wireframe em mãos partimos para a criação do protótipo de alta fidelidade.
-
-## Referências
-1. BECKER, Lauro. Wireframes, o que são e por que os utilizamos? 20 abr. 2022. Disponível em: https://www.organicadigital.com/blog/o-que-sao-wireframes-e-por-que-os-utilizamos/. Acesso em: 15 maio 2025.
+&emsp;O *wireframe* do sistema geral organiza as principais funções de gestão das expedições. Ele permite o acompanhamento de dados e imagens, desde o *login* até a visualização das rachaduras. O fluxo apresentado mostra uma navegação simples e direta entre as etapas da plataforma. Dessa forma, com o *wireframe* em mãos partimos para a criação do protótipo de alta fidelidade.
