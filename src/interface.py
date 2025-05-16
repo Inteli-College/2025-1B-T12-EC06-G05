@@ -35,9 +35,12 @@ def stop_video_capture():
     send_command('streamoff')
 
 def load_model(model_path):
-    model = YOLO(model_path)
-    model.eval()
-    return model
+    try:
+        model = YOLO(model_path)
+        return model
+    except Exception as e:
+        st.error(f"Erro ao carregar o modelo: {e}")
+        return None
 
 def run_model(model_path, image_folder):
     model = load_model(model_path)
@@ -171,13 +174,45 @@ def show_building_page(building_path):
             model_path = 'best.pt'
             if os.path.exists(model_path):
                 result, crack_counts = run_model(model_path, building_path)
-                st.success(result)
+                st.session_state.crack_counts = crack_counts
+                st.session_state.building_path = building_path
+                st.query_params = {
+                    "inspection": Path(building_path).parents[1].name,
+                    "building": Path(building_path).name,
+                    "modelo": "ok"
+                }
+                st.rerun()
 
-                st.subheader("📊 Detecções por Tipo de Rachadura")
-                for crack_type, count in crack_counts.items():
-                    st.write(f"- **{crack_type.capitalize()}**: {count}")
-            else:
-                st.error("Modelo 'best.pt' não encontrado na pasta da inspeção.")
+def show_model_results_page(building_path):
+    st.markdown(f"<h3>Resultados de Detecção - {Path(building_path).name}</h3>", unsafe_allow_html=True)
+
+    if st.button("⬅️ Voltar ao prédio"):
+        st.query_params = {
+            "inspection": Path(building_path).parents[1].name,
+            "building": Path(building_path).name
+        }
+        st.rerun()
+
+    crack_counts = st.session_state.get("crack_counts", {})
+    if not crack_counts:
+        st.warning("Nenhum resultado de detecção encontrado.")
+        return
+
+    st.subheader("📊 Quantidade de rachaduras detectadas")
+    for crack_type, count in crack_counts.items():
+        st.write(f"- **{crack_type.capitalize()}**: {count}")
+
+    st.subheader("Detecção de Rachaduras")
+    sentidos = ["Norte", "Leste", "Sul", "Oeste"]
+    for sentido in sentidos:
+        sentido_images = sorted(glob.glob(f"{building_path}/resultados/detect_{sentido}_*.[jp][pn]g"), reverse=True)
+        if sentido_images:
+            st.markdown(f"### {sentido}")
+            cols = st.columns(3)
+            for i, img_path in enumerate(sentido_images):
+                img = Image.open(img_path)
+                with cols[i % 3]:
+                    st.image(img, use_container_width=True)
 
 
 def show_main_page():
@@ -262,8 +297,12 @@ else:
     if "inspection" in params:
         if "building" in params:
             building_path = os.path.join(INSPECTIONS_DIR, params["inspection"], "predios", params["building"])
-            show_building_page(building_path)
+            if "modelo" in params:
+                show_model_results_page(building_path)
+            else:
+                show_building_page(building_path)
         else:
             show_inspection_page(params["inspection"])
     else:
         show_main_page()
+
