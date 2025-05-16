@@ -6,13 +6,14 @@ custom_edit_url: null
 # Wireframe do Sistema de Campo
 
 ## Conceito
+&emsp;Um wireframe é um diagrama visual que representa a estrutura de uma página web ou de uma tela de aplicativo. Ele é um esboço, um protótipo de baixa fidelidade, que demonstra como os elementos se relacionam entre si e como são estruturados. 
 
-O wireframe do sistema de campo mostra a estrutura visual da interface usada em computadores de bordo por operadores, motoristas ou técnicos. Diferente do sistema geral, que é focado na gestão administrativa, o sistema de campo prioriza a operação prática em ambientes dinâmicos. O foco desse wireframe está na simplicidade, acesso rápido às funções essenciais, interação com poucos toques e integração com sensores para envio de dados em tempo real. Esse wireframe serve para alinhar design, desenvolvimento e stakeholders sobre o uso real da aplicação em campo, garantindo eficiência e usabilidade no dia a dia operacional.
+&emsp;O wireframe do sistema de campo mostra a estrutura visual da interface usada em computadores de bordo pelo pilotos de drone. Diferente do sistema geral, o sistema de campo prioriza a operação prática em ambientes dinâmicos. O foco desse wireframe está na simplicidade, acesso rápido às funções essenciais, interação com poucos toques e integração com o drone para captura de imagens.
 
 
 ## User Flow Geral
 
-Abaixo está o fluxo geral de uso do sistema de bordo para captura de fissuras desenvolvido por nossos integrantes, representado pelo wireframe. Ele mostra o caminho percorrido pelo usuário, desde o login até a visualização e gerenciamento das fissuras registradas por drone.
+&emsp;Abaixo está o fluxo geral de uso do sistema de bordo para captura de fissuras, representado pelo wireframe. Ele mostra o caminho percorrido pelo usuário, desde o login até a visualização e gerenciamento das fissuras registradas por drone.
 
 <p style={{textAlign: 'center'}}>Figura 1 - User Flow Aplicação de Campo</p>
 <div style={{margin: 25}}>
@@ -34,3 +35,8 @@ Abaixo está o fluxo geral de uso do sistema de bordo para captura de fissuras d
 
 **Expedição**:Exibe todas as fissuras capturadas e organizadas por tipo ou localização. O usuário pode revisar, classificar ou capturar mais fissuras.
 
+## Conclusão
+&emsp; O wireframe do sistema de campo apresenta a estrutura necessária para a operação com drones em ambientes práticos. Ele orienta o uso do sistema desde o login até a organização das fissuras registradas. Dessa forma, o fluxo proposto serve como base para o desenvolvimento do protótipo de alta fidelidade.
+
+## Referências
+1. BECKER, Lauro. Wireframes, o que são e por que os utilizamos? 20 abr. 2022. Disponível em: https://www.organicadigital.com/blog/o-que-sao-wireframes-e-por-que-os-utilizamos/. Acesso em: 15 maio 2025.
