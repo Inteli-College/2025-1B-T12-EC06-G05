@@ -67,7 +67,7 @@ Nesta seção, detalhamos o processo de anotação (labeling) aplicado às image
 - **MakeSense.ai**: ferramenta gráfica open-source otimizada para tarefas de anotação de visão computacional, com suporte a COCO, Pascal VOC e YOLO.  
   Link: https://www.makesense.ai/
 
-<p style={{textAlign: 'center'}}>Figura 1 - Fissuras com filtro</p>
+<p style={{textAlign: 'center'}}>Figura 2 - Fissuras com filtro</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
         <img src={require("../../../../static/img/CT1.png").default} style={{width: 800}} alt="Fissuras com filtro" />
@@ -78,7 +78,7 @@ Nesta seção, detalhamos o processo de anotação (labeling) aplicado às image
 
 - **Upload de imagens**: interface para subir as imagens que serão anotadas.
 
-<p style={{textAlign: 'center'}}>Figura 2 - Upload de imagens</p>
+<p style={{textAlign: 'center'}}>Figura 3 - Upload de imagens</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
         <img src={require("../../../../static/img/CT2.png").default} style={{width: 800}} alt="Upload de imagens" />
@@ -91,7 +91,7 @@ Nesta seção, detalhamos o processo de anotação (labeling) aplicado às image
   - `termica`
   - `retracao`
 
-<p style={{textAlign: 'center'}}>Figura 1 - Estrutura de Labels</p>
+<p style={{textAlign: 'center'}}>Figura 4 - Estrutura de Labels</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
         <img src={require("../../../../static/img/CT3.png").default} style={{width: 800}} alt="Estrutura de Labels" />
@@ -102,7 +102,7 @@ Nesta seção, detalhamos o processo de anotação (labeling) aplicado às image
 
 - **Desenho de Bounding Boxes**: marque retângulos ao redor de cada fissura, atribuindo o label correto.
 
-<p style={{textAlign: 'center'}}>Figura 1 - Desenho de Bounding Boxes</p>
+<p style={{textAlign: 'center'}}>Figura 5 - Desenho de Bounding Boxes</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
         <img src={require("../../../../static/img/CT4.png").default} style={{width: 800}} alt="Desenho de Bounding Boxes" />
@@ -117,7 +117,7 @@ Nesta seção, detalhamos o processo de anotação (labeling) aplicado às image
 
 - **Exportação e Organização**: Por fim, exportamos as labels das imagens clicando em _Actions_, selecionando _Export Annotation_
 
-<p style={{textAlign: 'center'}}>Figura 1 - Exportação e Organização</p>
+<p style={{textAlign: 'center'}}>Figura 6 - Exportação e Organização</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
         <img src={require("../../../../static/img/CT5.png").default} style={{width: 800}} alt="Exportação e Organização" />
@@ -132,7 +132,7 @@ Nesta seção, detalhamos o processo de anotação (labeling) aplicado às image
 
     onde `x_center`, `y_center`, `width` e `height` são normalizados pela largura e altura da imagem.
 
-<p style={{textAlign: 'center'}}>Figura 1 - Formato de Anotação</p>
+<p style={{textAlign: 'center'}}>Figura 7 - Formato de Anotação</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
         <img src={require("../../../../static/img/CT6.png").default} style={{width: 800}} alt="Formato de Anotação" />
@@ -155,7 +155,7 @@ Nesta seção, detalhamos o processo de anotação (labeling) aplicado às image
             ├─ train/
             └─ val/
         ```
-<p style={{textAlign: 'center'}}>Figura 1 - Exemplo de estruturação do dataset</p>
+<p style={{textAlign: 'center'}}>Figura 8 - Exemplo de estruturação do dataset</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
         <img src={require("../../../../static/img/CT7.png").default} style={{width: 800}} alt="Estruturação do dataset" />
