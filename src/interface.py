@@ -122,9 +122,7 @@ def show_building_page(building_path):
 
     with col_main:
         st.markdown(f"**Sentido atual:** {st.session_state.sentido_atual or 'Nenhum selecionado'}")
-        
-        inspection_path = os.path.join(INSPECTIONS_DIR, building_path)
-        os.makedirs(inspection_path, exist_ok=True)
+        os.makedirs(building_path, exist_ok=True)
         run_key = f"run_{building_path}"
         if run_key not in st.session_state:
             st.session_state[run_key] = False
@@ -216,7 +214,6 @@ def show_model_results_page(building_path):
 
 
 def show_main_page():
-    os.makedirs(INSPECTIONS_DIR, exist_ok=True)
     col1, col2 = st.columns([1, 2], gap="large")
 
     with col1:
