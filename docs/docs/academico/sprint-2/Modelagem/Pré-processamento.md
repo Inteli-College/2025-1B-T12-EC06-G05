@@ -6,18 +6,18 @@ custom_edit_url: null
 # Pré-processamento
 
 ## Conceito
-O pré-processamento de imagens consiste nas operações iniciais realizadas em dados de imagem brutos para torná-los adequados à análise e ao treinamento de modelos de visão computacional (MAAHIP, 2023). Seu principal objetivo é melhorar a qualidade do dado visual, reduzindo ruídos indesejados e realçando características relevantes para a tarefa em questão, como classificação ou detecção de objetos (Analytics Vidhya, 2023)
+&emsp; O pré-processamento de imagens consiste nas operações iniciais realizadas em dados de imagem brutos para torná-los adequados à análise e ao treinamento de modelos de visão computacional (MAAHIP, 2023). Seu principal objetivo é melhorar a qualidade do dado visual, reduzindo ruídos indesejados e realçando características relevantes para a tarefa em questão, como classificação ou detecção de objetos (Analytics Vidhya, 2023)
 
-Entre as operações mais comuns estão o redimensionamento (resize), a normalização de valores de pixel e a equalização de histograma, além de filtragens para remoção de ruído e detecção de bordas. Normalemnte utilizamos bibliotecas como OpenCV e frameworks de Deep Learning  que oferecem funções otimizadas para realiar essas etapas, permitindo pipelines de pré-processamento eficientes e reproducíveis em Python.
+&emsp; Entre as operações mais comuns estão o redimensionamento (resize), a normalização de valores de pixel e a equalização de histograma, além de filtragens para remoção de ruído e detecção de bordas. Normalmente, utilizamos bibliotecas como OpenCV e frameworks de Deep Learning  que oferecem funções otimizadas para realiar essas etapas, permitindo pipelines de pré-processamento eficientes e reproducíveis em Python.
 
 ### Aplicação no projeto
-Para nosso algoritmo de detecção de fissuras em revestimentos de argamassa, testamos uma série de filtros que:
+&emsp; Para nosso algoritmo de detecção de fissuras em revestimentos de argamassa, testamos uma série de filtros que:
 
 - **Suavizam manchas e texturas de fundo**  
 - **Realçam bordas e contornos de fissuras**  
 - **Equalizam contraste quando necessário**
 
-No pré-processamento, seguimos um fluxo sequencial de filtros para uniformizar os dados de entrada e ressaltar as fissuras contra o fundo de argamassa:
+&emsp; No pré-processamento, seguimos um fluxo sequencial de filtros para uniformizar os dados de entrada e ressaltar as fissuras contra o fundo de argamassa:
 
 1. **Redimensionamento**  
    Primeiro, redimensionamos todas as imagens para 512×512 pixels, garantindo consistência de escala e reduzindo a carga computacional do modelo.
@@ -46,9 +46,9 @@ No pré-processamento, seguimos um fluxo sequencial de filtros para uniformizar 
 9. **CLAHE (Equalização Adaptativa de Histograma)**  
    No script de batch, introduzimos CLAHE para equalizar localmente o contraste em áreas muito claras ou escuras, melhorando a visibilidade das fissuras em diferentes condições de iluminação.
 
-Esse encadeamento produz imagens com ruído minimizado e bordas de fissura acentuadas, facilitando a segmentação e a classificação precisa pelas etapas subsequentes do modelo.
+&emsp; Esse encadeamento produz imagens com ruído minimizado e bordas de fissura acentuadas, facilitando a segmentação e a classificação precisa pelas etapas subsequentes do modelo.
 
-A seguir, está uma imagem que mostra o comportamento de cada filtro na imagem.
+&emsp; A seguir, está uma imagem que mostra o comportamento de cada filtro na imagem.
 
 <p style={{textAlign: 'center'}}>Figura 1 - Fissuras com filtro</p>
 <div style={{margin: 25}}>
@@ -61,7 +61,7 @@ A seguir, está uma imagem que mostra o comportamento de cada filtro na imagem.
 
 ### Labeling
 
-Nesta seção, detalhamos o processo de anotação (labeling) aplicado às imagens pré-processadas, classificando fissuras térmicas e de retração para treinamento do modelo.
+&emsp; Nesta seção, detalhamos o processo de anotação (labeling) aplicado às imagens pré-processadas, classificando fissuras térmicas e de retração para treinamento do modelo.
 
 #### Ferramenta Utilizada  
 - **MakeSense.ai**: ferramenta gráfica open-source otimizada para tarefas de anotação de visão computacional, com suporte a COCO, Pascal VOC e YOLO.  
@@ -166,11 +166,11 @@ Nesta seção, detalhamos o processo de anotação (labeling) aplicado às image
 
 ### Conclusão
 
-O pipeline descrito padroniza e limpa as imagens, realça fissuras e organiza anotações no formato YOLO, resultando em um dataset consistente para treino (60 %/40 %) e validação. Esses procedimentos garantem qualidade e precisão na detecção automática de fissuras em revestimentos, sendo facilmente adaptáveis a outras aplicações de visão computacional.  
+&emsp; O pipeline descrito padroniza e limpa as imagens, realça fissuras e organiza anotações no formato YOLO, resultando em um dataset consistente para treino (60 %/40 %) e validação. Esses procedimentos garantem qualidade e precisão na detecção automática de fissuras em revestimentos, sendo facilmente adaptáveis a outras aplicações de visão computacional.  
 
 ### Observação
 
-Testamos dois pipelines de pré-processamento — um com CLAHE ao final e outro com Unsharp Mask — e avaliamos seu impacto nas métricas de desempenho e na classificação de imagens fora do conjunto de treino. Como ambos os pipelines não trouxeram ganhos significativos de acurácia nem robustez, optamos por utilizar as imagens originais, sem aplicação de filtros adicionais.  
+&emsp; Testamos dois pipelines de pré-processamento — um com CLAHE ao final e outro com Unsharp Mask — e avaliamos seu impacto nas métricas de desempenho e na classificação de imagens fora do conjunto de treino. Como ambos os pipelines não trouxeram ganhos significativos de acurácia nem robustez, optamos por utilizar as imagens originais, sem aplicação de filtros adicionais.  
 
 
 #### Referências:
