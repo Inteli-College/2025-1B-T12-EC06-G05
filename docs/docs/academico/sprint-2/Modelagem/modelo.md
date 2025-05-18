@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 custom_edit_url: null
 ---
 
@@ -42,7 +42,7 @@ model.train(
 <p style={{textAlign: 'center'}}>Figura 1 - Resultados de um dos nossos primeiros treinamentos</p>
 <div style={{margin: 25}}>  
     <div style={{textAlign: 'center'}}>
-        <img src={require("../../../static/img/resultados_150epochs.png").default} style={{width: 800}} alt="Resultados de um dos nossos primeiros treinamentos" />
+        <img src={require("../../../../static/img/resultados_150epochs.png").default} style={{width: 800}} alt="Resultados de um dos nossos primeiros treinamentos" />
         <br/>
     </div>
 </div>
