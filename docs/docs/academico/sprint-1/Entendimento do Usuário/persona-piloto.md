@@ -29,8 +29,8 @@ sidebar_position: 1
 | ID    | User Story                                                                                                                                                                               |
 |-------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | US01  | Eu, como piloto de drone, gostaria de visualizar as imagens capturadas em tempo real através da plataforma, para garantir que estou registrando a área correta com a qualidade necessária. |
-| US02  | Eu, como piloto de drone, gostaria de acompanhar a qualidade da imagem enquanto voo, para poder ajustar manualmente o ângulo, distância ou foco conforme necessário.                     |
-| US03  | Eu, como piloto de drone, gostaria de confirmar durante a operação se as imagens atendem aos requisitos mínimos de nitidez e enquadramento, para evitar a necessidade de nova missão.   |
+| US02  | Eu, como piloto de drone, gostaria de tirar as imagens capturadas em tempo real através da plataforma, para verificar se as imagens atendem aos requisitos mínimos de nitidez e enquadramento, asimm evitando a necessidade de nova missão.                     |
+| US03  | Eu, como piloto de drone, gostaria de visualizar a expedição feita por mim antes do seu envio para a nuvem, para evitar a necessidade de nova missão.   |
 
 ## Conclusão
 
