@@ -1,22 +1,22 @@
 ---
 sidebar_position: 3
 custom_edit_url: null
-title: "Tela de bordo"
+title: "Aplicação de campo"
 ---
 
-# Tela de bordo
+# Aplicação de campo
 
 ## Introdução
 
-Para o desenvolvimento da tela de bordo foi utilizada a biblioteca `Streamlit` que nos permitiu construir uma interface web prática para a o projeto. Por meio dela conseguimos realizar a capturadas de imagens do drone, organizar elas em expedições e prédios, e posteriormente analisadas por um modelo de classificação baseado em YOLO para identificação de fissuras.
+&emsp;Para o desenvolvimento da tela de bordo foi utilizada a biblioteca `Streamlit` que nos permitiu construir uma interface web prática para a o projeto. Por meio dela conseguimos realizar a capturadas de imagens do drone, organizar elas em expedições e prédios, e posteriormente analisadas por um modelo de classificação baseado em YOLO para identificação de fissuras.
 
-A seguir, documentamos as principais funções responsáveis pela captura de imagens, exibição das expedições e utilização do modelo treinado.
+&emsp; A seguir, documentamos as principais funções responsáveis pela captura de imagens, exibição das expedições e utilização do modelo treinado.
 
 ## Captura de Imagens do Drone
 
 ### `start_video_capture()`
 
-Inicia a captura de vídeo do drone utilizando protocolo UDP.
+&emsp; Inicia a captura de vídeo do drone utilizando protocolo UDP.
 
 ```python
 def start_video_capture():
@@ -36,7 +36,7 @@ def start_video_capture():
 
 ### `show_main_page()`
 
-Renderiza a tela inicial da aplicação.
+&emsp; Renderiza a tela inicial da aplicação.
 
 ```python
 def show_main_page():
@@ -106,20 +106,20 @@ def show_main_page():
                     st.rerun()
 ```
 
-Essa tela permite:
+&emsp; Essa tela permite:
 
 * Criar uma nova expedição com o nome e prédio inicial.
 * Exibir dinamicamente as expedições existentes localmente.
 * Acesar as expecições.
 * Exibir dinamicamente o nome e data de criação de cada expedição.
 
-Cada expedição pode ser acessada clicando no botão "Abrir", o que redireciona para a tela específica da expedição.
+&emsp; Cada expedição pode ser acessada clicando no botão "Abrir", o que redireciona para a tela específica da expedição.
 
 ## Execução do Modelo de classificação
 
 ### `run_model(model_path, image_folder)`
 
-Passa todas as imagens de uma pasta pelo modelo e retorna a detecção de fissuras em cada uma delas.
+&emsp; Passa todas as imagens de uma pasta pelo modelo e retorna a detecção de fissuras em cada uma delas.
 
 ```python
 def run_model(model_path, image_folder):
@@ -162,3 +162,7 @@ def run_model(model_path, image_folder):
 2. Percorre todas as imagens da pasta.
 3. Executa a predição e salva as imagens anotadas em uma subpasta `resultados/`.
 4. Conta as ocorrências de cada tipo de fissura detectada.
+
+# Conclusão
+
+&emsp; Em resumo, a aplicação de campo construída com Streamlit permitiu a integração eficiente entre a captura de imagens via drone, organização em expedições e análise automatizada por meio de um modelo de classificação baseado em YOLO. Essa estrutura proporciona uma interface intuitiva e funcional para inspeções visuais, otimizando o processo de identificação de fissuras em edificações.
