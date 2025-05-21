@@ -3,8 +3,6 @@ from ..services.user_services import register_user, login_user, delete_user, get
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from ..models.user import User
 
-
-
 # Instancia o blueprint
 user_bp = Blueprint('user', __name__, url_prefix='/user')
 
@@ -26,13 +24,16 @@ def delete(id_user):
     return delete_user(id_user, email_admin)
 
 @user_bp.route('<id_user>', methods=['GET'])
+@jwt_required()
 def get_user(id_user):
     return get_user_by_id(id_user)
 
 @user_bp.route('/cargo/<cargo>', methods=['GET'])
+@jwt_required()
 def users_by_cargo(cargo):
     return get_users_by_cargo(cargo)
 
 @user_bp.route('/all', methods=['GET'])
+@jwt_required()
 def get_all():
     return get_all_users()
