@@ -1,43 +1,75 @@
-from flask import Flask, Blueprint
-from .config.database import db
 import os
+from dotenv import load_dotenv
+from flask import Flask
+from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_bcrypt import Bcrypt
-from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
-# Importações dos modelos
-from .app.models.user import User
 
-# Importações das rotas
+# importa a instância do SQLAlchemy
+from .config.database import db
+from sqlalchemy import create_engine
+
+# importa todos os seus models para registro no metadata
+from .app.models.user       import User
+from .app.models.expedition import Expedition
+from .app.models.model      import Model 
+from .app.models.building   import Building
+from .app.models.image      import Image
+from .app.models.fissure    import Fissure
+from .app.models.result     import Result
+from .app.models.audit      import Audit
+
+# importa seus blueprints
 from .app.routes.users import user_bp
 
-app = Flask(__name__)
-CORS(app)
+# Load environment variables from .env
+load_dotenv()
 
-# Configura o banco de dados para salvar na pasta `data/`
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-DB_PATH = os.path.join(BASE_DIR, "data", "database.db")
-app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_PATH}"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+def create_app():
+    app = Flask(__name__)
+    CORS(app)
 
-# Chave secreta do JWT
-app.config['JWT_SECRET_KEY'] = 'Rachadores' 
-jwt = JWTManager(app)
-bcrypt = Bcrypt(app)
+    # Fetch variables
+    USER = os.getenv("user")
+    PASSWORD = os.getenv("password")
+    HOST = os.getenv("host")
+    PORT = os.getenv("port")
+    DBNAME = os.getenv("dbname")
 
-# Inicializa o banco no app
-db.init_app(app)
+    # Construct the SQLAlchemy connection string
+    DATABASE_URL = f"postgresql+psycopg2://{USER}:{PASSWORD}@{HOST}:{PORT}/{DBNAME}?sslmode=require"
+        
+    # Create the SQLAlchemy engine
+    engine = create_engine(DATABASE_URL)
 
-# Criando o banco de dados e tabelas
-with app.app_context():
-    db.create_all()
+    # Test the connection
+    try:
+        with engine.connect() as connection:
+            print("Connection successful!")
+    except Exception as e:
+        print(f"Failed to connect: {e}")
+    
+    app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
 
-# Registrando as rotas 
-app.register_blueprint(user_bp)
+    # Chave secreta do JWT
+    app.config['JWT_SECRET_KEY'] = 'Rachadores' 
+    jwt = JWTManager(app)
+    bcrypt = Bcrypt(app)
 
+    # Inicializa o banco no app
+    db.init_app(app)
+
+    # Criando o banco de dados e tabelas
+    with app.app_context():
+        db.create_all()
+
+    # Registrando as rotas 
+    app.register_blueprint(user_bp)
+
+    return app
 
 # Configurando para iniciar o projeto
 if __name__ == '__main__':
-    app.run(
+    create_app().run(
         debug=True,
         )

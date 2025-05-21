@@ -10,6 +10,10 @@ class User(db.Model):
     nome_completo = db.Column(db.String(200), nullable=False)
     senha = db.Column(db.String(), nullable=False)
     cargo = db.Column(db.String(), nullable=False)
+    
+    # Relacionamentos
+    expedicoes = db.relationship('Expedition', backref='user', lazy=True)
+    auditorias = db.relationship('Audit', backref='user', lazy=True)
 
     # Função para transformar em json
     def as_dict(self):
