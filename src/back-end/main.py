@@ -25,6 +25,9 @@ from .app.routes.users import user_bp
 # Load environment variables from .env
 load_dotenv()
 
+jwt = JWTManager()  # <- só instancia aqui, sem app
+bcrypt = Bcrypt()
+
 def create_app():
     app = Flask(__name__)
     CORS(app)
@@ -53,8 +56,9 @@ def create_app():
 
     # Chave secreta do JWT
     app.config['JWT_SECRET_KEY'] = 'Rachadores' 
-    jwt = JWTManager(app)
-    bcrypt = Bcrypt(app)
+
+    jwt.init_app(app)
+    bcrypt.init_app(app) 
 
     # Inicializa o banco no app
     db.init_app(app)

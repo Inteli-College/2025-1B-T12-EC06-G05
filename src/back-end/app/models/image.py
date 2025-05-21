@@ -10,7 +10,7 @@ class Image(db.Model):
     nome = db.Column(db.String(200), nullable=False)
     hora_coleta = db.Column(db.String(), nullable=False)
     orientacao = db.Column(db.String(), nullable=False)
-    id_predio = db.Column(db.Integer, db.ForeignKey('expedition.id'), nullable=False)
+    id_predio = db.Column(db.Integer, db.ForeignKey('building.id'), nullable=False)
     img_resultado = db.Column(db.String(), nullable=False)
     anotacao = db.Column(db.String(), nullable=False)
     confiabilidade = db.Column(db.String(), nullable=False)
