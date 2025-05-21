@@ -74,6 +74,5 @@ def create_app():
 
 # Configurando para iniciar o projeto
 if __name__ == '__main__':
-    create_app().run(
-        debug=True,
-        )
+    app = create_app()
+    app.run(debug=True)

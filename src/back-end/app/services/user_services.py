@@ -5,47 +5,105 @@ from flask import jsonify
 
 def register_user(data):
     from ...main import bcrypt  # Importa o bcrypt do main
+    try:
+        email = data['email']
+        senha = data['senha']
 
-    # Busca do body as info do novo usuario
-    email = data['email']
-    senha = data['senha']
+        if User.query.filter_by(email=email).first():
+            raise Exception("Email já cadastrado")
 
-    # Verifica se o email já na está cadastrado
-    if User.query.filter_by(email=email).first():
-        return jsonify({"error": "Email já Cadastrado!"}), 400
+        hashed_senha = bcrypt.generate_password_hash(senha).decode('utf-8')
+        cargo_user = data['cargo'].lower()
+        new_user = User(
+            email=email,
+            senha=hashed_senha,
+            nome_completo=data['nome_completo'],
+            cargo=cargo_user
+        )
 
-    # Colocando hash na senha
-    hashed_senha = bcrypt.generate_password_hash(senha).decode('utf-8')
+        db.session.add(new_user)
+        db.session.commit()
 
-    # Criando o objeto do usuario
-    new_user = User(
-        email=email, 
-        senha=hashed_senha,
-        nome_completo=data['nome_completo'],
-        cargo = data['cargo']
-    )
+        return jsonify({"message": "Usuário registrado com sucesso!"}), 201
 
-    # Salva no DB o novo usuário
-    db.session.add(new_user)
-    db.session.commit()
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
-    return jsonify({"message": "Usuário registrado com sucesso!"}), 201
 
 def login_user(data):
     from ...main import bcrypt  # Importa o bcrypt do main
+    try:
+        email = data['email']
+        senha = data['senha']
 
-    # Busca do body as info do novo usuario
-    email = data['email']
-    senha = data['senha']
+        user = User.query.filter_by(email=email).first()
 
-    # Busca o usuario qual esta cadastrado nesse email
-    user = User.query.filter_by(email=email).first()
+        if not user or not bcrypt.check_password_hash(user.senha, senha):
+            raise Exception("Usuário ou senha inválidos")
 
-    # Valida a senha pelo hash
-    if user and bcrypt.check_password_hash(user.senha, senha):
-        # Cria o token de acesso para o JWT
         access_token = create_access_token(identity=email)
-        
+
         return jsonify(access_token=access_token), 200
 
-    return jsonify({"error": "Usuário ou senha inválidos"}), 401
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+def delete_user(id_user, email_admin):
+    try:
+        admin = User.query.filter_by(email=email_admin).first()
+        if admin.cargo.lower() != "admin":
+            raise Exception("Você não possui permissão para deletar outros usuários")
+
+        user = db.session.get(User, id_user)
+        if not user:
+            raise Exception("Usuário não encontrado!")
+
+        db.session.delete(user)
+        db.session.commit()
+        return jsonify({"message": "Usuário deletado com sucesso!"}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+def get_user_by_id(id_user):
+    try:
+        user = db.session.get(User, id_user)
+        if not user:
+            raise Exception("Usuário não encontrado!")
+
+        return jsonify({
+            "message": "Usuário encontrado com sucesso",
+            "user": user.as_dict()
+        }), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+def get_users_by_cargo(cargo):
+    try:
+        cargo = cargo.lower()
+        users = User.query.filter_by(cargo=cargo).all()
+        if not users:
+            raise Exception("Não há usuários com esse cargo")
+
+        return jsonify({
+            "message": "Usuários encontrados com sucesso",
+            "users": [user.as_dict() for user in users]
+        }), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+def get_all_users():
+    try:
+        users = User.query.all()
+        if not users:
+            raise Exception("Não há usuários!")
+
+        return jsonify({
+            "message": "Usuários encontrados com sucesso",
+            "users": [user.as_dict() for user in users]
+        }), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
