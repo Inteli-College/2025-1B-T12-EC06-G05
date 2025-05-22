@@ -21,6 +21,5 @@ class User(db.Model):
             'id': self.id,
             'email': self.email,
             'nome_completo': self.nome_completo,
-            'senha': self.senha,
             'cargo': self.cargo
             }
