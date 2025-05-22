@@ -2,13 +2,10 @@ from flask import request, Blueprint
 from ..services.modelo_services import *
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
-# Instancia o blueprint
 model_bp = Blueprint('model', __name__, url_prefix='/model')
 
-#Rotas do usuario
 @model_bp.route('/add', methods=['POST'])
 @jwt_required()
-
 def add():
     data = request.get_json()
     return create_model(data)
