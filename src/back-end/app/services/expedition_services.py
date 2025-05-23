@@ -4,10 +4,11 @@ from ..models.user import User
 from ...config.database import db
 from flask import jsonify
 from werkzeug.exceptions import NotFound, BadRequest
+from ...datetime import datetime_sp_string
 
-def register_expedition(data):
+def register_expedition(data, email_user):
     
-    required = ["nome", "localizacao", "data_criacao", "ultima_att"]
+    required = ["nome", "localizacao", "data_criacao"]
     for field in required:
         if not data.get(field):
             raise BadRequest(f"Campo obrigatório ausente: {field}")
@@ -19,16 +20,17 @@ def register_expedition(data):
             nome=data["nome"],
             localizacao=data["localizacao"],
             data_criacao=data["data_criacao"],
-            ultima_att=data["ultima_att"],
-            id_responsavel=4,
+            ultima_att=datetime_sp_string,
+            id_responsavel=user.id,
             descricao=data.get("descricao"),
             foto_capa=data.get("foto_capa")
         )
         db.session.add(new_expedition)
         db.session.commit()
-        return jsonify({"message": "Expedição registrado com sucesso!"}), 201
+        return jsonify({"message": "Expedição registrada com sucesso!"}), 201
 
     except Exception as e:
+        db.session.rollback()
         return jsonify({"error": str(e)}), 500
 
 def delete_expedition(id_expedition):
@@ -40,7 +42,7 @@ def delete_expedition(id_expedition):
     try:
         db.session.delete(expedition)
         db.session.commit()
-        return jsonify({"message": "Expedição deletado com sucesso!"}), 200
+        return jsonify({"message": "Expedição deletada com sucesso!"}), 200
 
     except Exception as e:
         db.session.rollback()
@@ -50,11 +52,11 @@ def get_expedition_by_id(id_expedition):
     try:
         expedition = db.session.get(Expedition, id_expedition)
         if not Expedition:
-            raise Exception("Expedição não encontrado!")
+            raise Exception("Expedição não encontrada!")
 
         return jsonify({
-            "message": "Expedição encontrado com sucesso",
-            "Expedição": expedition.as_dict()
+            "message": "Expedição encontrada com sucesso",
+            "exepedition": expedition.as_dict()
         }), 200
 
     except Exception as e:
@@ -67,7 +69,7 @@ def get_all_expeditions():
             raise Exception("Não há expedições!")
 
         return jsonify({
-            "message": "Expedições encontrados com sucesso",
+            "message": "Expedições encontradas com sucesso",
             "expeditions": [expedition.as_dict() for expedition in expeditions]
         }), 200
 
@@ -89,7 +91,9 @@ def search_expedition_by_nome(q: str):
 
         # converte para lista de dicts
         payload = [exp.as_dict() for exp in results]
-        return {"message": "Expedições encontradas", "results": payload}, 200
+        return jsonify({"message": "Expedições encontradas", 
+                "results": payload
+               }), 200
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -109,22 +113,30 @@ def search_expedition_by_data_criacao(q: str):
 
         # converte para lista de dicts
         payload = [exp.as_dict() for exp in results]
-        return {"message": "Expedições encontradas", "results": payload}, 200
+        return jsonify({"message": "Expedições encontradas",
+                        "results": payload
+                       }), 200
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
-def get_expedition_by_id(id_expedition):
+def update_expedition(data):
     try:
-        expedition = db.session.get(Expedition, id_expedition)
-        if not Expedition:
-            raise Exception("Expedição não encontrado!")
+        expedition = db.session.get(Expedition, data['id'])
+        if not expedition:
+            raise Exception("Expedição não encontrada!")
+
+        for field in ["nome", "localizacao", "data_criacao", "ultima_att", "descricao", "foto_capa"]:
+            if field in data:
+                setattr(expedition, field, data[field])
+
+        db.session.commit()
 
         return jsonify({
-            "message": "Expedição encontrado com sucesso",
-            "Expedição": expedition.as_dict()
-        }), 200
+            "message": "Expedição atualizada com sucesso!",
+            "expedition": expedition.as_dict()
+            }), 200
 
     except Exception as e:
+        db.session.rollback() 
         return jsonify({"error": str(e)}), 500
-    

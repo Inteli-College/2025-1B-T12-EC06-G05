@@ -1,6 +1,6 @@
 from flask import request, Blueprint
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from ..services.expedition_services import register_expedition, delete_expedition, get_expedition_by_id, get_all_expeditions, search_expedition_by_nome, search_expedition_by_data_criacao
+from ..services.expedition_services import register_expedition, delete_expedition, get_expedition_by_id, get_all_expeditions, search_expedition_by_nome, search_expedition_by_data_criacao, update_expedition
 
 # Instancia o blueprint
 expedition_bp = Blueprint('expedition', __name__, url_prefix='/expedition')
@@ -11,7 +11,7 @@ expedition_bp = Blueprint('expedition', __name__, url_prefix='/expedition')
 def register():
     email_user = get_jwt_identity()
     data = request.get_json()
-    return register_expedition(data)
+    return register_expedition(data, email_user)
 
 @expedition_bp.route('/delete/<int:id_expedition>', methods=['DELETE'])
 @jwt_required()
@@ -30,12 +30,18 @@ def get_all():
 
 @expedition_bp.route('/search/nome', methods=['GET'])
 @jwt_required()
-def get_expedition_by_nome():
+def get_by_nome():
     q = request.args.get('q')
     return search_expedition_by_nome(q)
 
 @expedition_bp.route('/search/data_criacao', methods=['GET'])
 @jwt_required()
-def get_expedition_by_data_criacao():
+def get_by_data_criacao():
     q = request.args.get('q')
     return search_expedition_by_data_criacao(q)
+
+@expedition_bp.route('/update', methods=['PATCH'])
+@jwt_required()
+def update():
+    data = request.get_json()
+    return update_expedition(data)

@@ -3,15 +3,13 @@ sidebar_position: 1
 custom_edit_url: null
 ---
 
-# Rotas
-## Conceito
-&emsp; Uma rota de uma API é um caminho específico dentro de um servidor que responde a requisições HTTP. Ela define como as solicitações dos clientes (como um site ou um app) serão processadas e quais respostas serão enviadas. A organização e padronização dessas rotas asseguram o funcionamento sincronizado e eficiente do sistema, desse modo, vamos analisar as rotas atuais do nosso projeto.
+# Rotas de Usuário
 
-## Rotas de Usuário
+## Conceito 
 &emsp;Estas rotas estão responsável por toda manipulação de usuários dentro do nosso sistema, como o cadastro e login de usuários, utilizando autenticação JWT para geração de tokens de acesso.
 
 
-### Rota para cadastro do usuário
+## Rota para cadastro do usuário
 
 ```
 /user/register
@@ -37,7 +35,7 @@ custom_edit_url: null
 }
 ```
 
-### Rota para login do usuário
+## Rota para login do usuário
 
 ```
 /user/login
@@ -66,7 +64,7 @@ custom_edit_url: null
 
 ---
 
-### Rota para deletar um usuário
+## Rota para deletar um usuário
 &emsp;Rota protegida, somente acessada por usuários logados e com perfil de administradores.
 
 ```
@@ -91,7 +89,7 @@ custom_edit_url: null
 
 ---
 
-### Rota para buscar usuário por ID
+## Rota para buscar usuário por ID
 &emsp;Rota protegida, somente acessada por usuários logados.
 
 ```
@@ -121,7 +119,7 @@ custom_edit_url: null
 
 ---
 
-### Rota para buscar usuários por cargo
+## Rota para buscar usuários por cargo
 &emsp;Rota protegida, somente acessada por usuários logados.
 
 ```
@@ -154,7 +152,7 @@ custom_edit_url: null
 
 ---
 
-### Rota para buscar todos os usuários
+## Rota para buscar todos os usuários
 &emsp;Rota protegida, somente acessada por usuários logados.
 
 ```
