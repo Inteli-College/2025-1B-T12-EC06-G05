@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from flask import Flask
+from flask import Flask, render_template
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_bcrypt import Bcrypt
@@ -21,6 +21,7 @@ from .app.models.audit      import Audit
 
 # importa seus blueprints
 from .app.routes.users import user_bp
+from .app.routes.expeditions import expedition_bp
 
 # Load environment variables from .env
 load_dotenv()
@@ -69,6 +70,7 @@ def create_app():
 
     # Registrando as rotas 
     app.register_blueprint(user_bp)
+    app.register_blueprint(expedition_bp)
 
     return app
 
