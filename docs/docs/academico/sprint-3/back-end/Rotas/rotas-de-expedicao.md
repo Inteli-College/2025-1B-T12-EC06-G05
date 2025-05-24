@@ -1,15 +1,16 @@
 ---
-sidebar_position: 1
+sidebar_position: 3
 custom_edit_url: null
 ---
 
 # Rotas de Expedição
 
 ## Conceito 
-&emsp;Estas rotas estão responsável por toda manipulação de expedições dentro do nosso sistema, como o cadastro de expedições, visualização de expedições e pesquisa por nome ou data de criação
+&emsp;Estas rotas estão responsável por toda manipulação de expedições dentro do nosso sistema, como o cadastro de expedições, visualização de expedições e pesquisa por nome ou data de criação.
 
 
 ## Rota para registro de expedição
+&emsp;Rota protegida, somente acessada por usuários logados.
 
 ```
 /expedition/register
@@ -41,6 +42,7 @@ custom_edit_url: null
 ```
 
 ## Rota para deletar expedição
+&emsp;Rota protegida, somente acessada por usuários logados.
 
 ```
 /expedition/delete/<int:id_expedition>
@@ -216,7 +218,7 @@ custom_edit_url: null
 &emsp;Rota protegida, somente acessada por usuários logados.
 
 ```
-/expedition/search/data_criacao
+/expedition/update
 ```
 
 * **Método**: PATCH
