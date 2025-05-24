@@ -1,4 +1,3 @@
-from flask_jwt_extended import create_access_token
 from ..models.expedition import Expedition
 from ..models.user import User
 from ...config.database import db

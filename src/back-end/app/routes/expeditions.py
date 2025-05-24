@@ -5,7 +5,7 @@ from ..services.expedition_services import register_expedition, delete_expeditio
 # Instancia o blueprint
 expedition_bp = Blueprint('expedition', __name__, url_prefix='/expedition')
 
-#Rotas do usuario
+# Rotas de expedição
 @expedition_bp.route('/register', methods=['POST'])
 @jwt_required()
 def register():
