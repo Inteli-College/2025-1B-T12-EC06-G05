@@ -107,3 +107,27 @@ def get_all_users():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+def update_user(email_user, data):
+    try:
+        user = User.query.filter_by(email=email_user).first()
+        if (user.cargo.lower() != "admin") and data['id'] != user.id:
+            raise Exception("Você não possui permissão para atualizar outros usuários")
+
+        user_update = db.session.get(User, data["id"])
+        if not user:
+            raise Exception("Usuário não encontrado!")
+        
+        user_update.email = data.get('email', user_update.email)
+        user_update.nome_completo = data.get('nome_completo', user_update.nome_completo)
+        user_update.cargo = data.get('cargo', user_update.cargo)
+
+        db.session.commit()
+        return jsonify({
+            "message": "Usuário atualizado com sucesso!",
+            "model": user_update.as_dict()
+            }), 200
+
+    except Exception as e:
+        db.session.rollback() 
+        return jsonify({"error": str(e)}), 500
