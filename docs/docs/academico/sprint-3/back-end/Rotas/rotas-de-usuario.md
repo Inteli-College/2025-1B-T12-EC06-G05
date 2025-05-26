@@ -194,6 +194,16 @@ custom_edit_url: null
 * **Cabeçalho da Requisição**:
 
   * Authorization: Bearer `<access_token>`
+* **Corpo da Requisição**:
+
+```
+{
+    "id": 0,
+    "email": "",
+    "nome_completo": "",
+    "cargo": "",
+}
+```
 * **Resposta Esperada**:
 
   * status code: 200
