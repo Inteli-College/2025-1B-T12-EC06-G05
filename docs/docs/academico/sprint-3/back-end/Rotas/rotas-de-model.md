@@ -20,19 +20,21 @@ Essas rotas permitem o gerenciamento de modelos de machine learning armazenados 
   * Authorization: Bearer `<access_token>`
 * **Corpo da Requisição**:
 
-```json
+```
 {
   "url": "",
   "nome_modelo": "",
   "tipo": "",
-  "loss": 0.0,
+  "loss": 0,
   "loss_tipo": ""
 }
 ```
-
 * **Resposta Esperada**:
 
-```json
+  * status code: 201
+  * *response*:
+
+```
 {
   "message": "Modelo registrado com sucesso!"
 }
@@ -52,7 +54,10 @@ Essas rotas permitem o gerenciamento de modelos de machine learning armazenados 
   * Authorization: Bearer `<access_token>`
 * **Resposta Esperada**:
 
-```json
+  * status code: 200
+  * *response*:
+
+```
 {
   "message": "Modelos encontrados com sucesso",
   "models": [
@@ -82,7 +87,9 @@ Essas rotas permitem o gerenciamento de modelos de machine learning armazenados 
   * Authorization: Bearer `<access_token>`
 * **Resposta Esperada**:
 
-```json
+  * status code: 200
+  * *response*:
+```
 {
   "message": "Modelo encontrado com sucesso",
   "model": {
@@ -110,7 +117,9 @@ Essas rotas permitem o gerenciamento de modelos de machine learning armazenados 
   * Authorization: Bearer `<access_token>`
 * **Resposta Esperada**:
 
-```json
+  * status code: 200
+  * *response*:
+```
 {
   "message": "Modelo deletado com sucesso!"
 }
@@ -130,7 +139,7 @@ Essas rotas permitem o gerenciamento de modelos de machine learning armazenados 
   * Authorization: Bearer `<access_token>`
 * **Corpo da Requisição**:
 
-```json
+```
 {
   "id": 1,
   "url": "...",
@@ -143,7 +152,9 @@ Essas rotas permitem o gerenciamento de modelos de machine learning armazenados 
 
 * **Resposta Esperada**:
 
-```json
+  * status code: 200
+  * *response*:
+```
 {
   "message": "Modelo atualizado com sucesso!",
   "model": {
