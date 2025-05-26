@@ -183,3 +183,34 @@ custom_edit_url: null
 }
 ```
 
+## Rota para atualziar o usuário
+&emsp;Rota protegida, somente acessada por usuários logados.
+
+```
+/user/update
+```
+
+* **Método**: PATCH
+* **Cabeçalho da Requisição**:
+
+  * Authorization: Bearer `<access_token>`
+* **Resposta Esperada**:
+
+  * status code: 200
+  * *response*:
+
+```
+{
+  "message": "Usuário atualizado com sucesso",
+  "user": [
+    {
+      "id": 1,
+      "email": "...",
+      "nome_completo": "...",
+      "cargo": "..."
+    },
+    ...
+  ]
+}
+```
+
