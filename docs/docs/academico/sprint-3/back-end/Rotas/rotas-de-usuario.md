@@ -35,6 +35,8 @@ custom_edit_url: null
 }
 ```
 
+---
+
 ## Rota para login do usuário
 
 ```
@@ -182,6 +184,8 @@ custom_edit_url: null
   ]
 }
 ```
+
+---
 
 ## Rota para atualziar o usuário
 &emsp;Rota protegida, somente acessada por usuários logados.

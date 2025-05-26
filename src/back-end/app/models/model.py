@@ -6,11 +6,11 @@ class Model(db.Model):
 
     # Definindo as colunas
     id = db.Column(db.Integer, primary_key=True, nullable=False)
-    url = db.Column(db.Integer, db.ForeignKey('expedition.id'), nullable=False)
+    url = db.Column(db.String(), nullable=False)
     nome = db.Column(db.String(200), nullable=False)
     tipo = db.Column(db.String(), nullable=False)
-    loss = db.Column(db.String(), nullable=False)
-    loss_tipo = db.Column(db.String(), nullable=False)
+    loss = db.Column(db.Integer, nullable=False) # Valor numerico da métrica que vamos usar
+    loss_tipo = db.Column(db.String(), nullable=False) # Nome da métrica que vamos usar
     
     # Relacionamentos
     imagens = db.relationship('Image', backref='model', lazy=True)

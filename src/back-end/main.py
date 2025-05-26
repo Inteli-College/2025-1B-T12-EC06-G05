@@ -21,6 +21,8 @@ from .app.models.audit      import Audit
 
 # importa seus blueprints
 from .app.routes.users import user_bp
+from .app.routes.models import model_bp
+
 
 # Load environment variables from .env
 load_dotenv()
@@ -69,6 +71,7 @@ def create_app():
 
     # Registrando as rotas 
     app.register_blueprint(user_bp)
+    app.register_blueprint(model_bp)
 
     return app
 
