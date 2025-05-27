@@ -23,6 +23,7 @@ from .app.models.audit      import Audit
 from .app.routes.users import user_bp
 from .app.routes.models import model_bp
 from .app.routes.fissures import fissure_bp
+from .app.routes.images import image_bp
 
 
 # Load environment variables from .env
@@ -74,6 +75,7 @@ def create_app():
     app.register_blueprint(user_bp)
     app.register_blueprint(model_bp)
     app.register_blueprint(fissure_bp)
+    app.register_blueprint(image_bp)
 
     return app
 
