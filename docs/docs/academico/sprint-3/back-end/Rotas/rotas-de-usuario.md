@@ -35,6 +35,8 @@ custom_edit_url: null
 }
 ```
 
+---
+
 ## Rota para login do usuário
 
 ```
@@ -172,6 +174,49 @@ custom_edit_url: null
 {
   "message": "Usuários encontrados com sucesso",
   "users": [
+    {
+      "id": 1,
+      "email": "...",
+      "nome_completo": "...",
+      "cargo": "..."
+    },
+    ...
+  ]
+}
+```
+
+---
+
+## Rota para atualziar o usuário
+&emsp;Rota protegida, somente acessada por usuários logados.
+
+```
+/user/update
+```
+
+* **Método**: PATCH
+* **Cabeçalho da Requisição**:
+
+  * Authorization: Bearer `<access_token>`
+* **Corpo da Requisição**:
+
+```
+{
+    "id": 0,
+    "email": "",
+    "nome_completo": "",
+    "cargo": "",
+}
+```
+* **Resposta Esperada**:
+
+  * status code: 200
+  * *response*:
+
+```
+{
+  "message": "Usuário atualizado com sucesso",
+  "user": [
     {
       "id": 1,
       "email": "...",
