@@ -7,6 +7,7 @@ import glob
 from ultralytics import YOLO
 from pathlib import Path
 import cv2
+from upload_file import upload_file
 
 st.set_page_config(layout="wide")
 
@@ -303,3 +304,5 @@ else:
     else:
         show_main_page()
 
+    if st.button("📤 Subir imagens"):
+        upload_file()
