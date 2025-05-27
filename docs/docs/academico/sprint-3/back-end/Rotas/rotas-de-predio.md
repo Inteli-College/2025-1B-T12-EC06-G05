@@ -9,7 +9,7 @@ custom_edit_url: null
 &emsp;Estas rotas estão responsável por toda manipulação de prédios dentro do nosso sistema, como o cadastro de prédios, visualização de prédios e atualização de dados de prédios.
 
 
-## Rota para registro de prédio
+## Registro de prédio
 &emsp;Rota protegida, somente acessada por usuários logados.
 
 ```
@@ -40,7 +40,7 @@ custom_edit_url: null
 }
 ```
 
-## Rota para deletar prédio
+## Deletar prédio
 &emsp;Rota protegida, somente acessada por usuários logados.
 
 ```
@@ -65,7 +65,7 @@ custom_edit_url: null
 
 ---
 
-## Rota para buscar prédio por ID
+## Buscar prédio por ID
 &emsp;Rota protegida, somente acessada por usuários logados.
 
 ```
@@ -98,7 +98,7 @@ custom_edit_url: null
 
 ---
 
-## Rota para buscar todas os prédios
+## Buscar todas os prédios
 &emsp;Rota protegida, somente acessada por usuários logados.
 
 ```
@@ -134,7 +134,7 @@ custom_edit_url: null
 ---
 
 
-## Rota para atualizar dados de prédio
+## Atualizar dados de prédio
 &emsp;Rota protegida, somente acessada por usuários logados.
 
 ```

@@ -9,7 +9,7 @@ custom_edit_url: null
 &emsp;Estas rotas estão responsável por toda manipulação de expedições dentro do nosso sistema, como o cadastro de expedições, visualização de expedições e pesquisa por nome ou data de criação.
 
 
-## Rota para registro de expedição
+## Registro de expedição
 &emsp;Rota protegida, somente acessada por usuários logados.
 
 ```
@@ -41,7 +41,7 @@ custom_edit_url: null
 }
 ```
 
-## Rota para deletar expedição
+## Deletar expedição
 &emsp;Rota protegida, somente acessada por usuários logados.
 
 ```
@@ -66,7 +66,7 @@ custom_edit_url: null
 
 ---
 
-## Rota para buscar expedição por ID
+## Buscar expedição por ID
 &emsp;Rota protegida, somente acessada por usuários logados.
 
 ```
@@ -101,7 +101,7 @@ custom_edit_url: null
 
 ---
 
-## Rota para buscar todas as expedições
+## Buscar todas as expedições
 &emsp;Rota protegida, somente acessada por usuários logados.
 
 ```
@@ -138,7 +138,7 @@ custom_edit_url: null
 
 ---
 
-## Rota para buscar expedição por nome
+## Buscar expedição por nome
 &emsp;Rota protegida, somente acessada por usuários logados.
 
 ```
@@ -176,7 +176,7 @@ custom_edit_url: null
 
 ---
 
-## Rota para buscar expedição por data_criacao
+## Buscar expedição por data_criacao
 &emsp;Rota protegida, somente acessada por usuários logados.
 
 ```
@@ -214,7 +214,7 @@ custom_edit_url: null
 
 ---
 
-## Rota para atualizar dados de expedição
+## Atualizar dados de expedição
 &emsp;Rota protegida, somente acessada por usuários logados.
 
 ```
@@ -225,6 +225,18 @@ custom_edit_url: null
 * **Cabeçalho da Requisição**:
 
   * Authorization: Bearer `<access_token>`
+
+* **Corpo da Requisição**:
+```
+{
+  "nome": "...",
+  "localizacao": "...",            
+  "data_criacao": "...",
+  "id_responsavel": "...",
+  "descricao": "...",
+  "foto_capa": "..."
+}
+```
 
 * **Resposta Esperada**:
 
@@ -238,7 +250,6 @@ custom_edit_url: null
     "id": 1,
     "nome": "...",
     "localizacao": "...",            
-    "data_criacao": "...",
     "ultima_att": "...",
     "id_responsavel": "...",
     "descricao": "...",
