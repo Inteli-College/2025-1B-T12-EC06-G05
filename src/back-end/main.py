@@ -22,6 +22,7 @@ from .app.models.audit      import Audit
 # importa seus blueprints
 from .app.routes.users import user_bp
 from .app.routes.models import model_bp
+from .app.routes.fissures import fissure_bp
 
 
 # Load environment variables from .env
@@ -72,6 +73,7 @@ def create_app():
     # Registrando as rotas 
     app.register_blueprint(user_bp)
     app.register_blueprint(model_bp)
+    app.register_blueprint(fissure_bp)
 
     return app
 
