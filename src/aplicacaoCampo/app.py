@@ -1,5 +1,4 @@
 import streamlit as st
-
 import os
 from pages.login_page import render_login
 from pages.start_page import render_start_page
@@ -9,6 +8,32 @@ from pages.model_results_page import render_model_results_page
 from services.s3_uploader import upload_images_to_s3
 
 INSPECTIONS_DIR = 'imagens/inspecoes'
+
+st.set_page_config(layout="wide", initial_sidebar_state="collapsed")
+
+# Remove a sidebar
+st.markdown("""
+    <style>
+        section[data-testid="stSidebar"] {
+            display: none !important;
+        }
+
+        div[aria-expanded="false"][data-testid="collapsedControl"] {
+            display: none !important;
+        }
+
+        div[data-testid="stAppViewContainer"] > div:first-child {
+            display: none !important;
+        }
+
+        div[data-testid="stAppViewContainer"] > main {
+            margin-left: 0 !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
+
+
 
 if "user_id" not in st.session_state:
     render_login()
