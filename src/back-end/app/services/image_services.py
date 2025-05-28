@@ -11,7 +11,7 @@ def create_image(data):
             orientacao=data['orientacao'],
             id_predio=data['id_predio'],
             img_resultado=data['img_resultado'],
-            anotacao=data['anotacao'],
+            anotacao=data.get('anotacao'),
             id_modelo=data.get('id_modelo')
         )
 
