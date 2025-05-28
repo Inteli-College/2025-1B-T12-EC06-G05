@@ -12,7 +12,8 @@ export const COLORS = {
     loginBG: '#281001',
     inputBg: '#D9D9D9',
     buttonLgn: '#261001', 
-    hoverLgn: '#3f2a1d'
+    hoverLgn: '#3f2a1d',
+    cadastroBG: '#D35400',
   };
   
   export const FONTS = {
