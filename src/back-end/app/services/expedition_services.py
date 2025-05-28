@@ -3,23 +3,28 @@ from ..models.user import User
 from ...config.database import db
 from flask import jsonify
 from werkzeug.exceptions import NotFound, BadRequest
-from ...datetime import datetime_sp_string
+from datetime import datetime
+from ...datetime import datetime_sp
+
 
 def register_expedition(data, email_user):
-    
     required = ["nome", "localizacao", "data_criacao"]
     for field in required:
         if not data.get(field):
             raise BadRequest(f"Campo obrigatório ausente: {field}")
 
-        user = User.query.filter_by(email=email_user).first()
+    user = User.query.filter_by(email=email_user).first()
+    if not user:
+        raise NotFound("Usuário responsável não encontrado.")
 
-    try:        
+    try:
+        data_criacao = datetime.strptime(data["data_criacao"], '%d-%m-%Y').date()
+
         new_expedition = Expedition(
             nome=data["nome"],
             localizacao=data["localizacao"],
-            data_criacao=data["data_criacao"],
-            ultima_att=datetime_sp_string,
+            data_criacao=data_criacao,
+            ultima_att=data_criacao, 
             id_responsavel=user.id,
             descricao=data.get("descricao"),
             foto_capa=data.get("foto_capa")
@@ -50,7 +55,7 @@ def delete_expedition(id_expedition):
 def get_expedition_by_id(id_expedition):
     try:
         expedition = db.session.get(Expedition, id_expedition)
-        if not Expedition:
+        if not expedition:
             raise Exception("Expedição não encontrada!")
 
         return jsonify({
@@ -88,7 +93,6 @@ def search_expedition_by_nome(q: str):
         if not results:
             raise NotFound(f"Não foi encontrada nenhuma expedição contendo '{q}'.")
 
-        # converte para lista de dicts
         payload = [exp.as_dict() for exp in results]
         return jsonify({"message": "Expedições encontradas", 
                 "results": payload
@@ -125,9 +129,11 @@ def update_expedition(data):
         if not expedition:
             raise Exception("Expedição não encontrada!")
 
-        for field in ["nome", "localizacao", "data_criacao", "ultima_att", "descricao", "foto_capa"]:
+        for field in ["nome", "localizacao", "data_criacao", "descricao", "foto_capa"]:
             if field in data:
                 setattr(expedition, field, data[field])
+        
+        expedition.ultima_att = datetime_sp.date()
 
         db.session.commit()
 
