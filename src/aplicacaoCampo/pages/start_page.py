@@ -8,20 +8,16 @@ def render_start_page(inspections_dir):
     with col1:
         st.subheader("Criar nova Expedição")
         new_name = st.text_input("Nome da Expedição")
-        col_building, col_floor = st.columns(2)
-        with col_building:
-            new_building = st.text_input("Nome do Prédio")
-        with col_floor:
-            new_floor = st.text_input("Andar", placeholder="Ex: 1, 2, Térreo")
+        new_building = st.text_input("Nome do Prédio")
 
         if st.button("Iniciar"):
-            if new_name.strip() and new_building.strip() and new_floor.strip():
-                building_name = f"{new_building.strip()}_Andar_{new_floor.strip()}"
+            if new_name.strip() and new_building.strip():
+                building_name = new_building.strip()
                 inspection_path = os.path.join(inspections_dir, new_name.strip())
                 building_path = os.path.join(inspection_path, "predios", building_name)
                 if not os.path.exists(building_path):
                     os.makedirs(building_path)
-                    st.success(f"Inspeção '{new_name}' e prédio '{new_building}' - Andar '{new_floor}' criados.")
+                    st.success(f"Inspeção '{new_name}' e prédio '{new_building}' criados.")
                     st.query_params = {"inspection": new_name.strip(), "building": building_name}
                     st.rerun()
                 else:

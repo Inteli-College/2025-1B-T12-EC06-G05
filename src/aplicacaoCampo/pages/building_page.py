@@ -19,24 +19,25 @@ def render_building_page(building_path):
             st.query_params = {"inspection": inspection_path.name}
             st.rerun()
     with col_top[1]:
-        building_name = Path(building_path).name
-        if "_Andar_" in building_name:
-            predio, andar = building_name.split("_Andar_", 1)
-            title = f"Expedição {Path(building_path).parents[1].name} - Prédio {predio} - Andar {andar}"
-        else:
-            title = f"Expedição {Path(building_path).parents[1].name} - Prédio {building_name}"
+        title = f"Expedição {Path(building_path).parents[1].name} - Prédio {Path(building_path).name}"
         st.markdown(f"<h3 style='text-align: center;'>{title}</h3>", unsafe_allow_html=True)
 
     if "sentido_atual" not in st.session_state:
         st.session_state.sentido_atual = None
+    if "andar_atual" not in st.session_state:
+        st.session_state.andar_atual = ""
 
     col_menu, col_main = st.columns([1, 4])
 
     with col_menu:
-        st.write("**Selecione o sentido para gravar**")
-        for sentido in ["Norte", "Leste", "Sul", "Oeste"]:
-            if st.button(sentido):
-                st.session_state.sentido_atual = sentido
+        st.write("**Selecione o sentido**")
+        sentidos_opcoes = [
+            "Norte", "Nordeste", "Leste", "Sudeste",
+            "Sul", "Sudoeste", "Oeste", "Noroeste"
+        ]
+        st.session_state.sentido_atual = st.selectbox("Sentido", sentidos_opcoes, index=0)
+
+        st.text_input("Andar atual", key="andar_atual")
 
         st.markdown("---")
         st.write("**Upload para S3**")
@@ -46,6 +47,7 @@ def render_building_page(building_path):
 
     with col_main:
         st.markdown(f"**Sentido atual:** {st.session_state.sentido_atual or 'Nenhum selecionado'}")
+        st.markdown(f"**Andar atual:** {st.session_state.andar_atual or 'Não informado'}")
         os.makedirs(building_path, exist_ok=True)
         run_key = f"run_{building_path}"
         if run_key not in st.session_state:
@@ -67,7 +69,8 @@ def render_building_page(building_path):
 
                 if foto:
                     timestamp = int(time.time())
-                    filename = f"{building_path}/{st.session_state.sentido_atual}_{timestamp}.jpg"
+                    andar = st.session_state.andar_atual or "andar_desconhecido"
+                    filename = f"{building_path}/{st.session_state.sentido_atual}_{andar}_{timestamp}.jpg"
                     cv2.imwrite(filename, frame)
                     st.success(f"Imagem salva em: {filename}")
                     foto = False
@@ -78,11 +81,14 @@ def render_building_page(building_path):
         else:
             st.write('Live feed parado.')
 
-        st.subheader("Fotos tiradas por sentido (somente com rachaduras)")
-        sentidos = ["Norte", "Leste", "Sul", "Oeste"]
+        st.subheader("Fotos tiradas por sentido (com rachaduras)")
+        sentidos_opcoes = [
+            "Não informado", "Norte", "Nordeste", "Leste", "Sudeste",
+            "Sul", "Sudoeste", "Oeste", "Noroeste"
+        ]
         images_with_cracks = get_images_with_cracks(building_path)
 
-        for sentido in sentidos:
+        for sentido in sentidos_opcoes:
             sentido_images = []
             all_images = sorted(glob.glob(f"{building_path}/{sentido}_*.[jp][pn]g"), reverse=True)
             for img_path in all_images:
@@ -100,7 +106,7 @@ def render_building_page(building_path):
                         st.caption(f"🔴 {os.path.basename(img_path)}")
 
         if st.button("Rodar Modelo"):
-            model_path = 'best.pt'
+            model_path = 'modelo/best.pt'
             if os.path.exists(model_path):
                 result, crack_counts = run_detection_model(model_path, building_path)
                 st.session_state.crack_counts = crack_counts

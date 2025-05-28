@@ -7,13 +7,7 @@ from services.model import get_images_with_cracks
 
 def render_model_results_page(building_path, crack_counts):
     building_name = Path(building_path).name
-    if "_Andar_" in building_name:
-        predio, andar = building_name.split("_Andar_", 1)
-        title = f"Resultados de Detecção - {predio} - Andar {andar}"
-    else:
-        title = f"Resultados de Detecção - {building_name}"
-
-    st.markdown(f"<h3>{title}</h3>", unsafe_allow_html=True)
+    st.markdown(f"<h3>Resultados de Detecção - {building_name}</h3>", unsafe_allow_html=True)
 
     if st.button("⬅️ Voltar ao prédio"):
         st.query_params = {
@@ -30,7 +24,7 @@ def render_model_results_page(building_path, crack_counts):
     for crack_type, count in crack_counts.items():
         st.write(f"- **{crack_type.capitalize()}**: {count}")
 
-    st.subheader("Detecção de Rachaduras (somente imagens com rachaduras)")
+    st.subheader("Detecção de Rachaduras (imagens com rachaduras)")
     sentidos = ["Norte", "Leste", "Sul", "Oeste"]
     images_with_cracks = get_images_with_cracks(building_path)
 
