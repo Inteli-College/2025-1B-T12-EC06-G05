@@ -6,7 +6,7 @@ class Fissure(db.Model):
 
     # Definindo as colunas
     id = db.Column(db.Integer, primary_key=True, nullable=False)
-    confiabilidade = db.Column(db.String(200), unique=True, nullable=False)
+    confiabilidade = db.Column(db.Integer, nullable=False)
     categoria = db.Column(db.String(200), nullable=False)
     id_image = db.Column(db.Integer, db.ForeignKey('image.id'), nullable=False)
 
