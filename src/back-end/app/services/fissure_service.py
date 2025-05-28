@@ -1,4 +1,6 @@
 from ..models.fissure import Fissure
+from ..models.building import Building
+from ..models.image import Image
 from ...config.database import db
 from flask import jsonify
 
@@ -79,4 +81,34 @@ def update_fissure(data):
 
     except Exception as e:
         db.session.rollback() 
+        return jsonify({"error": str(e)}), 500
+    
+def get_fissures_by_predio(id_predio):
+    try:
+        fissures = db.session.query(Fissure).join(Image).filter(Image.id_predio == id_predio).all()
+        if not fissures:
+            raise Exception("Não há fissuras nesse prédio")
+        
+        resultado = {
+            "termica": [],
+            "retracao": []
+        }
+
+        sem_class = []
+
+
+        for fissure in fissures:
+            categoria = fissure.categoria
+            if fissure.categoria in resultado:
+                resultado[categoria].append(fissure.as_dict())
+            else:
+                sem_class.append(fissure.as_dict())
+
+        return jsonify({
+            "message": "Fissuras encontradas com sucesso",
+            "fissures": resultado,
+            "sem-classificacao": sem_class
+        }), 200
+
+    except Exception as e:
         return jsonify({"error": str(e)}), 500
