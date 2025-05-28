@@ -9,7 +9,7 @@ custom_edit_url: null
 &emsp;Estas rotas estão responsável por toda manipulação de usuários dentro do nosso sistema, como o cadastro e login de usuários, utilizando autenticação JWT para geração de tokens de acesso.
 
 
-## Rota para cadastro do usuário
+## Cadastro do usuário
 
 ```
 /user/register
@@ -37,7 +37,7 @@ custom_edit_url: null
 
 ---
 
-## Rota para login do usuário
+## Login do usuário
 
 ```
 /user/login
@@ -66,7 +66,7 @@ custom_edit_url: null
 
 ---
 
-## Rota para deletar um usuário
+## Deletar um usuário
 &emsp;Rota protegida, somente acessada por usuários logados e com perfil de administradores.
 
 ```
@@ -91,7 +91,7 @@ custom_edit_url: null
 
 ---
 
-## Rota para buscar usuário por ID
+## Buscar usuário por ID
 &emsp;Rota protegida, somente acessada por usuários logados.
 
 ```
@@ -121,7 +121,7 @@ custom_edit_url: null
 
 ---
 
-## Rota para buscar usuários por cargo
+## Buscar usuários por cargo
 &emsp;Rota protegida, somente acessada por usuários logados.
 
 ```
@@ -154,7 +154,7 @@ custom_edit_url: null
 
 ---
 
-## Rota para buscar todos os usuários
+## Buscar todos os usuários
 &emsp;Rota protegida, somente acessada por usuários logados.
 
 ```
@@ -187,7 +187,7 @@ custom_edit_url: null
 
 ---
 
-## Rota para atualziar o usuário
+## Atualziar o usuário
 &emsp;Rota protegida, somente acessada por usuários logados.
 
 ```
