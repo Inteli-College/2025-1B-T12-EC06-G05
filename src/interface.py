@@ -9,6 +9,7 @@ from pathlib import Path
 import cv2
 import shutil
 import json
+from upload_file import upload_file
 
 st.set_page_config(layout="wide")
 
@@ -455,3 +456,6 @@ else:
             show_inspection_page(params["inspection"])
     else:
         show_main_page()
+
+    if st.button("📤 Subir imagens"):
+        upload_file()
