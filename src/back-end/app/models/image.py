@@ -16,8 +16,7 @@ class Image(db.Model):
     id_modelo = db.Column(db.Integer, db.ForeignKey('model.id'), nullable=True)
     
     # Relacionamentos
-    fissuras = db.relationship('Fissure', backref='image', lazy=True)
-    auditorias = db.relationship('Audit', backref='image', lazy=True)
+    fissuras = db.relationship('Fissure', back_populates='image', lazy=True)
 
     # Função para transformar em json
     def as_dict(self):
