@@ -20,7 +20,7 @@ def register_expedition(data, email_user):
             localizacao=data["localizacao"],
             data_criacao=data["data_criacao"],
             ultima_att=datetime_sp_string,
-            id_responsavel=user.id,
+            id_responsavel=data.get("id_responsavel", user.id),
             descricao=data.get("descricao"),
             foto_capa=data.get("foto_capa")
         )

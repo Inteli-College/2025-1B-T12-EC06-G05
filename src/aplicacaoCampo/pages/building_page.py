@@ -9,6 +9,7 @@ import cv2
 from services.drone import start_video_capture, stop_video_capture
 from services.model import run_detection_model, get_images_with_cracks
 from services.s3_uploader import upload_images_to_s3
+from pages.model_results_page import render_model_results_page
 
 FRAME_PATH = "shared_frames/latest.jpg"
 
@@ -95,35 +96,39 @@ def render_building_page(building_path):
         else:
             st.write('Live feed parado.')
 
-        st.subheader("Fotos tiradas por sentido (com rachaduras)")
-        images_with_cracks = get_images_with_cracks(building_path)
+        st.subheader("📷 Todas as imagens do prédio por sentido")
+        sentidos_opcoes_exibicao = [
+            "Norte", "Nordeste", "Leste", "Sudeste",
+            "Sul", "Sudoeste", "Oeste", "Noroeste", "Não informado"
+        ]
 
-        for sentido in sentidos_opcoes:
+        for sentido in sentidos_opcoes_exibicao:
             sentido_images = []
-            all_images = sorted(glob.glob(f"{building_path}/{sentido}_*.[jp][pn]g"), reverse=True)
-            for img_path in all_images:
-                img_name = os.path.basename(img_path)
-                if img_name in images_with_cracks:
-                    sentido_images.append(img_path)
-
+            for f in os.listdir(building_path):
+                if f.lower().endswith((".jpg", ".jpeg", ".png")) and not f.startswith("detect_") and f.startswith(f"{sentido}_"):
+                    sentido_images.append(f)
             if sentido_images:
-                st.markdown(f"### {sentido} ({len(sentido_images)} imagens com rachaduras)")
+                st.markdown(f"### {sentido} ({len(sentido_images)} imagens)")
                 cols = st.columns(3)
-                for i, img_path in enumerate(sentido_images):
-                    img = Image.open(img_path)
+                for i, file in enumerate(sorted(sentido_images, reverse=True)):
+                    img_path = os.path.join(building_path, file)
                     with cols[i % 3]:
-                        st.image(img, use_container_width=True)
-                        st.caption(f"🔴 {os.path.basename(img_path)}")
+                        st.image(Image.open(img_path), use_container_width=True)
+                        st.caption(file)
 
         if st.button("Rodar Modelo"):
-            model_path = 'modelo/best.pt'
-            if os.path.exists(model_path):
-                result, crack_counts = run_detection_model(model_path, building_path)
-                st.session_state.crack_counts = crack_counts
-                st.session_state.building_path = building_path
-                st.query_params = {
-                    "inspection": Path(building_path).parents[1].name,
-                    "building": Path(building_path).name,
-                    "modelo": "ok"
-                }
-                st.rerun()
+            with st.spinner("Executando modelo de detecção de rachaduras..."):
+                model_path = Path("modelo") / "best.pt"
+                if model_path.exists():
+                    result, crack_counts = run_detection_model(str(model_path), building_path)
+                    st.session_state.crack_counts = crack_counts
+                    st.session_state.building_path = building_path
+                    st.query_params = {
+                        "inspection": Path(building_path).parents[1].name,
+                        "building": Path(building_path).name,
+                        "modelo": "ok"
+                    }
+                    st.rerun()
+                else:
+                    st.error(f"Modelo não encontrado em '{model_path}'")
+

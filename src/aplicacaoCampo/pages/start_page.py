@@ -32,12 +32,14 @@ def render_start_page(inspections_dir):
                             f.write(foto_capa.read())
                         foto_capa_path = capa_nome
 
-                    now = datetime.now().isoformat()
+                    now = datetime.now()
+                    data_formatada = now.strftime("%d-%m-%Y")
+
                     expedition_data = {
                         'nome': new_name.strip(),
                         'localizacao': localizacao.strip(),
-                        'data_criacao': now,
-                        'ultima_att': now,
+                        'data_criacao': data_formatada,
+                        'ultima_att': data_formatada,
                         'id_responsavel': user_id,
                         'descricao': descricao.strip() if descricao else "",
                         'foto_capa': foto_capa_path
