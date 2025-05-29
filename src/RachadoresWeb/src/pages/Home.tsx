@@ -275,25 +275,24 @@ const Home: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [expeditions, setExpeditions] = useState<Expedition[]>([]);
 
+  const fetchExpeditions = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(
+        "http://localhost:5000/expedition/all",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("API response:", response.data.expeditions);
+      setExpeditions(response.data.expeditions);
+    } catch (error) {
+      console.error("Erro ao buscar expedições:", error);
+    }
+  };
   useEffect(() => {
-    const fetchExpeditions = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get(
-          "http://localhost:5000/expedition/all",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        console.log("API response:", response.data.expeditions);
-        setExpeditions(response.data.expeditions);
-      } catch (error) {
-        console.error("Erro ao buscar expedições:", error);
-      }
-    };
-
     fetchExpeditions();
   }, []);
 
@@ -429,7 +428,10 @@ const Home: React.FC = () => {
 
       <ExpeditionModal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={() => {
+          setIsModalOpen(false);
+          fetchExpeditions();
+        }}
         onSubmit={handleAddExpedition}
         responsavelId={"123456"} // Tem que mudar isso aqui! Tô mokando por enquanto
       />

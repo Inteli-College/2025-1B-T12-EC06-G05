@@ -284,6 +284,14 @@ const ExpeditionModal: React.FC<ExpeditionModalProps> = ({
     foto_capa: null as File | null,
   });
 
+  const formatDateToDDMMYYYY = (dateStr: string) => {
+    const date = new Date(dateStr);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // meses começam em 0
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
+
   const uploadImage = async (file: File): Promise<string | null> => {
     try {
       const formData = new FormData();
@@ -339,7 +347,7 @@ const ExpeditionModal: React.FC<ExpeditionModalProps> = ({
       const jsonToSend = {
         nome: formData.nome,
         descricao: formData.descricao,
-        data_criacao: formData.data_criacao,
+        data_criacao: formatDateToDDMMYYYY(formData.data_criacao),
         localizacao: formData.localizacao,
         id_responsavel: responsavelId,
         foto_capa: imageUrl, // adiciona o link aqui!
