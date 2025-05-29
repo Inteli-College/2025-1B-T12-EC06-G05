@@ -27,8 +27,6 @@ from .app.routes.fissures import fissure_bp
 from .app.routes.images import image_bp
 from .app.routes.building import building_bp
 
-
-
 # Load environment variables from .env
 load_dotenv()
 
@@ -37,7 +35,7 @@ bcrypt = Bcrypt()
 
 def create_app():
     app = Flask(__name__)
-    CORS(app)
+    CORS(app, resources={r"/*": {"origins": "*"}})
 
     # Fetch variables
     USER = os.getenv("user")
