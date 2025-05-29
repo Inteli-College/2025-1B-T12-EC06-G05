@@ -60,7 +60,6 @@ else:
                 token = login_and_get_token()
                 api = APIClient("http://127.0.0.1:5000", token)
                 result = publish_full_inspection(api, inspections_dir=INSPECTIONS_DIR)
-                st.success(f"Expedições publicadas: {result['expeditions']}")
                 if result['errors']:
                     st.error(f"Erros durante a publicação: {result['errors']}")
             except Exception as e:

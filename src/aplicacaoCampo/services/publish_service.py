@@ -1,21 +1,43 @@
 import os
 import json
 from datetime import datetime
+import streamlit as st
 
-def publish_expedition(api, path):
+def publish_expedition(api, path, bucket_name="fissurai"):
     with open(os.path.join(path, "expedition_info.json")) as f:
         data = json.load(f)
-    return api.post("/expedition/register", data)
+    
+    if data.get("foto_capa"):
+        s3_key = os.path.join(path, data["foto_capa"]).replace(os.path.sep, "_")
+        data["foto_capa"] = f"https://{bucket_name}.s3.amazonaws.com/{s3_key}"
 
-def publish_building(api, path, expedition_id):
+    res = api.post("/expedition/register", data)
+    return res
+
+
+def publish_building(api, path, expedition_id, bucket_name="fissurai"):
     with open(os.path.join(path, "building_info.json")) as f:
         data = json.load(f)
     data["id_expedicao"] = expedition_id
-    return api.post("/building/register", data)
+    
+    if data.get("foto_fachada"):
+        s3_key = os.path.join(path, data["foto_fachada"]).replace(os.path.sep, "_")
+        data["foto_fachada"] = f"https://{bucket_name}.s3.amazonaws.com/{s3_key}"
+
+    res = api.post("/building/register", data)
+    return res
+
 
 def publish_image(api, path, filename, building_id, bucket_name="fissurai"):
     sentido = filename.split("_")[0]
-    timestamp = int(filename.split("_")[-1].split(".")[0])
+    parts = filename.split("_")
+    if len(parts) < 3:
+        return None
+    timestamp_str = parts[2].split(".")[0]
+    try:
+        timestamp = int(timestamp_str)
+    except ValueError:
+        return None
 
     local_path = os.path.join(path, filename)
     result_filename = f"detect_{filename}"
@@ -40,33 +62,46 @@ def publish_image(api, path, filename, building_id, bucket_name="fissurai"):
 
     image_response = api.post("/image/add", payload)
 
-    if image_response.status_code == 201:
+    fissures_json_path = os.path.join(path, "resultados", "fissures_per_image.json")
+
+    if image_response and image_response.status_code == 201:
         image_id = image_response.json().get("id")
         if image_id:
-            publish_fissures(api, image_id, local_path)
+            publish_fissures(api, image_id, filename, fissures_json_path)
 
     return image_response
 
 
-def publish_fissures(api, image_id, image_path):
-    fissure_file = os.path.splitext(image_path)[0] + ".txt"
-    if not os.path.exists(fissure_file):
+def publish_fissures(api, image_id, image_name, fissures_json_path):
+    if not os.path.exists(fissures_json_path):
         return []
 
-    with open(fissure_file, "r") as f:
-        fissures = [line.strip().split(",") for line in f if "," in line]
+    with open(fissures_json_path, "r") as f:
+        fissures_dict = json.load(f)
+
+    fissuras = fissures_dict.get(image_name, [])
+    if not fissuras:
+        return []
 
     results = []
-    for category, confidence in fissures:
+    for fissura in fissuras:
+        try:
+            confiabilidade = int(fissura.get("confiabilidade", 0) * 100)
+        except Exception:
+            confiabilidade = 0
+
+        categoria = fissura.get("categoria", "").lower()
         payload = {
-            "confiabilidade": int(confidence),
-            "categoria": category.lower(),
+            "confiabilidade": confiabilidade,
+            "categoria": categoria,
             "id_image": image_id
         }
+
         res = api.post("/fissure/add", payload)
-        results.append((payload, res.status_code))
+        results.append((payload, res.status_code if res else "No response"))
 
     return results
+
 
 def publish_full_inspection(api, inspections_dir="imagens/inspecoes"):
     result = {"expeditions": [], "errors": []}
@@ -77,8 +112,8 @@ def publish_full_inspection(api, inspections_dir="imagens/inspecoes"):
             continue
 
         res = publish_expedition(api, exp_path)
-        if res.status_code != 201:
-            result["errors"].append((exp_name, res.text))
+        if res is None or res.status_code != 201:
+            result["errors"].append((exp_name, res.text if res else "No response"))
             continue
 
         expedition_id = res.json().get("id")
@@ -91,15 +126,29 @@ def publish_full_inspection(api, inspections_dir="imagens/inspecoes"):
                 continue
 
             res = publish_building(api, bpath, expedition_id)
-            if res.status_code != 201:
-                result["errors"].append((bname, res.text))
+            if res is None or res.status_code != 201:
+                result["errors"].append((bname, res.text if res else "No response"))
                 continue
 
             building_id = res.json().get("id")
             for fname in os.listdir(bpath):
                 if fname.endswith((".jpg", ".png")) and not fname.startswith("detect_"):
-                    img_res = publish_image(api, bpath, fname, building_id)
-                    if img_res.status_code != 201:
-                        result["errors"].append((fname, img_res.text))
+                    parts = fname.split("_")
+                    if len(parts) >= 3:
+                        try:
+                            int(parts[2].split(".")[0])
+                        except ValueError:
+                            continue
+                        img_res = publish_image(api, bpath, fname, building_id)
+                        if img_res is None or img_res.status_code != 201:
+                            result["errors"].append((fname, img_res.text if img_res else "No response"))
+
+    with st.expander("Resultado da Publicação", expanded=True):
+        if result["errors"]:
+            st.error("Alguns erros ocorreram durante a publicação:")
+            for item, msg in result["errors"]:
+                st.write(f"- {item}: {msg}")
+        else:
+            st.success("Todas as expedições, prédios e imagens foram publicadas com sucesso!")
 
     return result
