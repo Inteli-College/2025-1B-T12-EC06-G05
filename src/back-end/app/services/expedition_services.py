@@ -31,7 +31,10 @@ def register_expedition(data, email_user):
         )
         db.session.add(new_expedition)
         db.session.commit()
-        return jsonify({"message": "Expedição registrada com sucesso!"}), 201
+        return jsonify({
+            "message": "Expedição registrada com sucesso!",
+            
+            }), 201
 
     except Exception as e:
         db.session.rollback()
