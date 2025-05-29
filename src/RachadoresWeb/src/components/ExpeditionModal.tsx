@@ -284,6 +284,26 @@ const ExpeditionModal: React.FC<ExpeditionModalProps> = ({
     foto_capa: null as File | null,
   });
 
+  const uploadImage = async (file: File): Promise<string | null> => {
+    try {
+      const formData = new FormData();
+      formData.append("image", file);
+  
+      const response = await axios.post("http://localhost:5000/image/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
+      });
+  
+      return response.data.url; // o backend precisa retornar isso
+    } catch (error) {
+      console.error("Erro ao fazer upload da imagem:", error);
+      return null;
+    }
+  };
+  
+
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -303,42 +323,53 @@ const ExpeditionModal: React.FC<ExpeditionModalProps> = ({
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-
-  try {
-    const jsonToSend = {
-      nome: formData.nome,
-      descricao: formData.descricao,
-      data_criacao: formData.data_criacao,
-      localizacao: formData.localizacao,
-      id_responsavel: responsavelId
-    };
-
-    const response = await axios.post(
-      "http://localhost:5000/expedition/register",
-      jsonToSend,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`
-        },
+    e.preventDefault();
+  
+    try {
+      let imageUrl = null;
+  
+      if (formData.foto_capa) {
+        imageUrl = await uploadImage(formData.foto_capa);
+        if (!imageUrl) {
+          alert("Erro ao enviar a imagem. Tente novamente.");
+          return;
+        }
       }
-    );
-
-    onSubmit(response.data);
-    onClose();
-    setFormData({
-      nome: "",
-      descricao: "",
-      data_criacao: "",
-      localizacao: "",
-      foto_capa: null,
-    });
-
-  } catch (error) {
-    console.error("Erro ao enviar expedição:", error);
-  }
-};
+  
+      const jsonToSend = {
+        nome: formData.nome,
+        descricao: formData.descricao,
+        data_criacao: formData.data_criacao,
+        localizacao: formData.localizacao,
+        id_responsavel: responsavelId,
+        foto_capa: imageUrl, // adiciona o link aqui!
+      };
+  
+      const response = await axios.post(
+        "http://localhost:5000/expedition/register",
+        jsonToSend,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          },
+        }
+      );
+  
+      onSubmit(response.data);
+      onClose();
+      setFormData({
+        nome: "",
+        descricao: "",
+        data_criacao: "",
+        localizacao: "",
+        foto_capa: null,
+      });
+    } catch (error) {
+      console.error("Erro ao enviar expedição:", error);
+    }
+  };
+  
 
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
