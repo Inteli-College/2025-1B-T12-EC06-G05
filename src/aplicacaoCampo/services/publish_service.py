@@ -77,7 +77,7 @@ def publish_full_inspection(api, inspections_dir="imagens/inspecoes"):
             continue
 
         res = publish_expedition(api, exp_path)
-        if res.status_code != 200:
+        if res.status_code != 201:
             result["errors"].append((exp_name, res.text))
             continue
 
@@ -91,7 +91,7 @@ def publish_full_inspection(api, inspections_dir="imagens/inspecoes"):
                 continue
 
             res = publish_building(api, bpath, expedition_id)
-            if res.status_code != 200:
+            if res.status_code != 201:
                 result["errors"].append((bname, res.text))
                 continue
 
@@ -99,7 +99,7 @@ def publish_full_inspection(api, inspections_dir="imagens/inspecoes"):
             for fname in os.listdir(bpath):
                 if fname.endswith((".jpg", ".png")) and not fname.startswith("detect_"):
                     img_res = publish_image(api, bpath, fname, building_id)
-                    if img_res.status_code != 200:
+                    if img_res.status_code != 201:
                         result["errors"].append((fname, img_res.text))
 
     return result
