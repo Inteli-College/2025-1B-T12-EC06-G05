@@ -1,6 +1,7 @@
 import os
 import time
 import glob
+import json
 from pathlib import Path
 from PIL import Image
 import streamlit as st
@@ -22,6 +23,19 @@ def render_building_page(building_path):
         title = f"Expedição {Path(building_path).parents[1].name} - Prédio {Path(building_path).name}"
         st.markdown(f"<h3 style='text-align: center;'>{title}</h3>", unsafe_allow_html=True)
 
+    info_path = os.path.join(building_path, 'building_info.json')
+    if os.path.exists(info_path):
+        with open(info_path, 'r') as f:
+            building_info = json.load(f)
+            st.markdown("### Informações do Prédio")
+            st.write(f"**Nome:** {building_info.get('nome', '')}")
+            st.write(f"**Complemento:** {building_info.get('complemento', '')}")
+            st.write(f"**Descrição:** {building_info.get('descricao', '')}")
+            if building_info.get("foto_fachada"):
+                img_path = os.path.join(building_path, building_info["foto_fachada"])
+                if os.path.exists(img_path):
+                    st.image(img_path, caption="Foto da Fachada", width=300)
+
     if "sentido_atual" not in st.session_state:
         st.session_state.sentido_atual = None
     if "andar_atual" not in st.session_state:
@@ -32,7 +46,7 @@ def render_building_page(building_path):
     with col_menu:
         st.write("**Selecione o sentido**")
         sentidos_opcoes = [
-            "Norte", "Nordeste", "Leste", "Sudeste",
+            "Não informado", "Norte", "Nordeste", "Leste", "Sudeste",
             "Sul", "Sudoeste", "Oeste", "Noroeste"
         ]
         st.session_state.sentido_atual = st.selectbox("Sentido", sentidos_opcoes, index=0)
@@ -82,10 +96,6 @@ def render_building_page(building_path):
             st.write('Live feed parado.')
 
         st.subheader("Fotos tiradas por sentido (com rachaduras)")
-        sentidos_opcoes = [
-            "Não informado", "Norte", "Nordeste", "Leste", "Sudeste",
-            "Sul", "Sudoeste", "Oeste", "Noroeste"
-        ]
         images_with_cracks = get_images_with_cracks(building_path)
 
         for sentido in sentidos_opcoes:

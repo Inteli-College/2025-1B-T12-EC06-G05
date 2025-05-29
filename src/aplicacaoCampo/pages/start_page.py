@@ -1,5 +1,7 @@
 import os
 import time
+import json
+from datetime import datetime
 import streamlit as st
 
 def render_start_page(inspections_dir):
@@ -8,20 +10,47 @@ def render_start_page(inspections_dir):
     with col1:
         st.subheader("Criar nova Expedição")
         new_name = st.text_input("Nome da Expedição")
-        new_building = st.text_input("Nome do Prédio")
+        localizacao = st.text_input("Localização")
+        descricao = st.text_area("Descrição")
+        foto_capa = st.file_uploader("Foto de Capa (opcional)", type=["png", "jpg", "jpeg"])
 
         if st.button("Iniciar"):
-            if new_name.strip() and new_building.strip():
-                building_name = new_building.strip()
+            user_id = st.session_state.get("user_id")
+            if all([new_name.strip(), localizacao.strip(), user_id]):
                 inspection_path = os.path.join(inspections_dir, new_name.strip())
-                building_path = os.path.join(inspection_path, "predios", building_name)
-                if not os.path.exists(building_path):
-                    os.makedirs(building_path)
-                    st.success(f"Inspeção '{new_name}' e prédio '{new_building}' criados.")
-                    st.query_params = {"inspection": new_name.strip(), "building": building_name}
+                predios_path = os.path.join(inspection_path, "predios")
+
+                if not os.path.exists(predios_path):
+                    os.makedirs(predios_path)
+
+                    foto_capa_path = ""
+                    if foto_capa is not None:
+                        ext = foto_capa.name.split('.')[-1]
+                        capa_nome = f"capa_{new_name.strip()}.{ext}"
+                        capa_path = os.path.join(inspection_path, capa_nome)
+                        with open(capa_path, "wb") as f:
+                            f.write(foto_capa.read())
+                        foto_capa_path = capa_nome
+
+                    now = datetime.now().isoformat()
+                    expedition_data = {
+                        'nome': new_name.strip(),
+                        'localizacao': localizacao.strip(),
+                        'data_criacao': now,
+                        'ultima_att': now,
+                        'id_responsavel': user_id,
+                        'descricao': descricao.strip() if descricao else "",
+                        'foto_capa': foto_capa_path
+                    }
+
+                    with open(os.path.join(inspection_path, 'expedition_info.json'), 'w') as f:
+                        json.dump(expedition_data, f, indent=4)
+
+                    st.success(f"Inspeção '{new_name}' criada com sucesso.")
+                    st.query_params = {"inspection": new_name.strip()}
                     st.rerun()
                 else:
-                    st.error("Essa expedição e/ou prédio já existem.")
+                    st.error("Essa expedição já existe.")
 
     with col2:
         st.subheader("Expedições")
