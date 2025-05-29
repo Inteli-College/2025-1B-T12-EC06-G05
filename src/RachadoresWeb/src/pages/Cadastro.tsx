@@ -6,10 +6,60 @@ import { COLORS, FONTS, BREAKPOINTS } from "../constants/style";
 import lupa from "../constants/assets/lupa.svg";
 import cadastroBG from "../constants/assets/cadastro_bkg.svg";
 import axios from "axios";
+import Lottie from "lottie-react";
+import correto from "../constants/assets/animations/certo.json";
 
 type Props = {
   options?: string[];
 };
+
+// Modal de Cadastro concluído com sucesso
+const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+`;
+
+const ModalContent = styled.div`
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  text-align: center;
+  font-family: ${FONTS.primary};
+  max-width: 400px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  h3 {
+    color: ${COLORS.secondary};
+    margin-bottom: 1rem;
+  }
+
+  button {
+    margin-top: 1.5rem;
+    padding: 0.6rem 1.2rem;
+    background-color: ${COLORS.secondary};
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+
+    &:hover {
+      background-color: #1a0f08;
+    }
+  }
+`;
 
 const wiggle = keyframes`
   0% { transform: rotate(0deg); }
@@ -92,7 +142,7 @@ const FormContainer = styled.form`
   max-width: 400px;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 0.5rem;
   position: relative;
 `;
 
@@ -108,6 +158,7 @@ const Label = styled.label`
   font-size: 1rem;
   color: #333;
   font-weight: 600;
+  align-self: flex-start;
 `;
 
 const Input = styled.input`
@@ -130,7 +181,6 @@ const Input = styled.input`
     color: #888;
   }
 `;
-
 
 const BotaoCadastro = styled.button`
   background-color: #2c1810;
@@ -174,7 +224,6 @@ const Select = styled.select`
   }
 `;
 
-
 const TextoLogin = styled.p`
   font-family: ${FONTS.primary};
   color: #656;
@@ -193,6 +242,8 @@ const TextoLogin = styled.p`
 `;
 
 const Cadastro: React.FC<Props> = ({ options }) => {
+  const [showSuccessModal, setShowSuccessModal] = useState(true);
+
   const navigate = useNavigate();
 
   const defaultOptions = ["estudante", "professor", "coordenador", "outro"];
@@ -226,8 +277,11 @@ const Cadastro: React.FC<Props> = ({ options }) => {
         cargo: formData.cargo,
       });
 
+      if (response.status === 201) {
+        setShowSuccessModal(true); // mostra o modal
+      }
+
       console.log("Cadastro realizado com sucesso:", response.data);
-      navigate("/");
     } catch (error) {
       console.error("Erro ao cadastrar:", error);
       setErro("Erro ao cadastrar. Verifique os dados e tente novamente.");
@@ -239,89 +293,105 @@ const Cadastro: React.FC<Props> = ({ options }) => {
   };
 
   return (
-    <Container>
-      <SectionComFundo>
-        <Lupa src={lupa} alt="Lupa" />
-      </SectionComFundo>
-
-      <SectionBranca>
-        <h2>Faça o seu cadastro</h2>
-
-        <FormContainer onSubmit={handleSubmit}>
-          <InputGroup>
-            <Label htmlFor="nome">Nome completo</Label>
-            <Input
-              type="text"
-              id="nome"
-              name="nome"
-              value={formData.nome}
-              onChange={handleInputChange}
-              placeholder="Insira seu nome completo aqui"
-              required
+    <>
+      {showSuccessModal && (
+        <ModalOverlay>
+          <ModalContent>
+            <Lottie
+              animationData={correto}
+              style={{ width: 150, height: 150 }}
             />
-          </InputGroup>
+            <h3>Cadastro realizado com sucesso!</h3>
+            <p>Você já pode fazer login com seu email e senha.</p>
+            <button onClick={() => navigate("/")}>Ir para login</button>
+          </ModalContent>
+        </ModalOverlay>
+      )}
 
-          <InputGroup>
-            <Label htmlFor="email">Email institucional</Label>
-            <Input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              placeholder="Insira seu email aqui"
-              required
-            />
-          </InputGroup>
+      <Container>
+        <SectionComFundo>
+          <Lupa src={lupa} alt="Lupa" />
+        </SectionComFundo>
 
-          <InputGroup>
-            <Label htmlFor="senha">Senha</Label>
-            <Input
-              type="password"
-              id="senha"
-              name="senha"
-              value={formData.senha}
-              onChange={handleInputChange}
-              placeholder="Insira sua senha aqui"
-              required
-            />
-          </InputGroup>
+        <SectionBranca>
+          <h2>Faça o seu cadastro</h2>
 
-          <InputGroup>
-            <Label htmlFor="senha">Cargo</Label>
-            <Select
-              id="cargo"
-              name="cargo"
-              value={formData.cargo}
-              onChange={(e) =>
-                setFormData((prev) => ({ ...prev, cargo: e.target.value }))
-              }
-              required
-            >
-              <option value="" disabled>
-                Selecione seu cargo
-              </option>
-              {cargoOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
+          <FormContainer onSubmit={handleSubmit}>
+            <InputGroup>
+              <Label htmlFor="nome">Nome completo</Label>
+              <Input
+                type="text"
+                id="nome"
+                name="nome"
+                value={formData.nome}
+                onChange={handleInputChange}
+                placeholder="Insira seu nome completo aqui"
+                required
+              />
+            </InputGroup>
+
+            <InputGroup>
+              <Label htmlFor="email">Email institucional</Label>
+              <Input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                placeholder="Insira seu email aqui"
+                required
+              />
+            </InputGroup>
+
+            <InputGroup>
+              <Label htmlFor="senha">Senha</Label>
+              <Input
+                type="password"
+                id="senha"
+                name="senha"
+                value={formData.senha}
+                onChange={handleInputChange}
+                placeholder="Insira sua senha aqui"
+                required
+              />
+            </InputGroup>
+
+            <InputGroup>
+              <Label htmlFor="senha">Cargo</Label>
+              <Select
+                id="cargo"
+                name="cargo"
+                value={formData.cargo}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, cargo: e.target.value }))
+                }
+                required
+              >
+                <option value="" disabled>
+                  Selecione seu cargo
                 </option>
-              ))}
-            </Select>
-          </InputGroup>
+                {cargoOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </Select>
+            </InputGroup>
 
-          <BotaoCadastro type="submit">Fazer cadastro</BotaoCadastro>
-        </FormContainer>
+            <BotaoCadastro type="submit">Fazer cadastro</BotaoCadastro>
+          </FormContainer>
 
-        {erro && <p style={{ color: "red", marginTop: "1rem" }}>{erro}</p>}
+          {erro && <p style={{ color: "red", marginTop: "1rem" }}>{erro}</p>}
 
-        <LoginSection>
-          <TextoLogin>
-            Já possui uma conta? Entre na plataforma{" "}
-            <span onClick={handleLoginRedirect}>aqui</span>
-          </TextoLogin>
-        </LoginSection>
-      </SectionBranca>
-    </Container>
+          <LoginSection>
+            <TextoLogin>
+              Já possui uma conta? Entre na plataforma{" "}
+              <span onClick={handleLoginRedirect}>aqui</span>
+            </TextoLogin>
+          </LoginSection>
+        </SectionBranca>
+      </Container>
+    </>
   );
 };
 
