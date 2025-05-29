@@ -2,6 +2,7 @@ import os
 import json
 from datetime import datetime
 import streamlit as st
+import shutil
 
 def publish_expedition(api, path, bucket_name="fissurai"):
     with open(os.path.join(path, "expedition_info.json")) as f:
@@ -150,5 +151,10 @@ def publish_full_inspection(api, inspections_dir="imagens/inspecoes"):
                 st.write(f"- {item}: {msg}")
         else:
             st.success("Todas as expedições, prédios e imagens foram publicadas com sucesso!")
+            for folder in os.listdir(inspections_dir):
+                folder_path = os.path.join(inspections_dir, folder)
+                if os.path.isdir(folder_path):
+                    shutil.rmtree(folder_path)
+            st.info("Todas as pastas dentro de 'imagens/inspecoes' foram removidas.")
 
     return result
