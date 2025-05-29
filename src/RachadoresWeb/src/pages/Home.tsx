@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
 import { COLORS, BREAKPOINTS } from "../constants/style.ts";
 import Header from "../components/Header.tsx";
 import ExpeditionModal from "../components/ExpeditionModal.tsx";
+import axios from "axios";
 
 const Container = styled.div`
   background-color: ${COLORS.background};
   min-height: 100vh;
-  padding-top: 110px; /* Espaço para o header fixo */
+  padding-top: 110px;
 `;
 
 const MainContent = styled.div`
   max-width: 900px;
   margin: 0 auto;
-  padding: 20px 24px 100px; /* Padding bottom para o botão flutuante */
-  
+  padding: 20px 24px 100px;
+
   @media (max-width: ${BREAKPOINTS.mobile}) {
     padding: 20px 16px 100px;
   }
@@ -34,7 +36,7 @@ const ExpeditionsHeader = styled.div`
   padding: 20px 32px;
   font-size: 18px;
   font-weight: 500;
-  
+
   @media (max-width: ${BREAKPOINTS.mobile}) {
     padding: 16px 20px;
     font-size: 16px;
@@ -47,12 +49,12 @@ const SearchSection = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
-  
+
   @media (max-width: ${BREAKPOINTS.tablet}) {
     grid-template-columns: 1fr;
     padding: 24px;
   }
-  
+
   @media (max-width: ${BREAKPOINTS.mobile}) {
     padding: 20px;
     gap: 16px;
@@ -68,17 +70,17 @@ const SearchInput = styled.input`
   font-size: 14px;
   color: #374151;
   box-sizing: border-box;
-  
+
   &::placeholder {
     color: #9ca3af;
   }
-  
+
   &:focus {
     outline: none;
     background-color: #f3f4f6;
     box-shadow: 0 0 0 2px #f97316;
   }
-  
+
   @media (max-width: ${BREAKPOINTS.mobile}) {
     padding: 14px 16px;
     font-size: 14px;
@@ -88,7 +90,7 @@ const SearchInput = styled.input`
 const ExpeditionsList = styled.div`
   padding: 32px;
   background-color: white;
-  
+
   @media (max-width: ${BREAKPOINTS.mobile}) {
     padding: 20px;
   }
@@ -105,16 +107,16 @@ const ExpeditionItem = styled.div`
   margin: 0 -8px;
   padding-left: 8px;
   padding-right: 8px;
-  
+
   &:hover {
     background-color: #f9fafb;
     transform: translateX(4px);
   }
-  
+
   &:last-child {
     border-bottom: none;
   }
-  
+
   @media (max-width: ${BREAKPOINTS.mobile}) {
     padding: 16px 8px;
   }
@@ -131,19 +133,19 @@ const ExpeditionLogo = styled.div`
   color: white;
   font-size: 24px;
   flex-shrink: 0;
-  
+
   &.inteli {
     background: linear-gradient(135deg, #8b5cf6, #3b82f6);
   }
-  
+
   &.ipt {
     background: linear-gradient(135deg, #06b6d4, #0891b2);
   }
-  
+
   &.custom {
     background: linear-gradient(135deg, #f97316, #f59e0b);
   }
-  
+
   @media (max-width: ${BREAKPOINTS.mobile}) {
     width: 48px;
     height: 48px;
@@ -154,7 +156,7 @@ const ExpeditionLogo = styled.div`
 
 const ExpeditionInfo = styled.div`
   flex: 1;
-  min-width: 0; /* Permite que o texto seja truncado se necessário */
+  min-width: 0;
 `;
 
 const ExpeditionName = styled.h3`
@@ -162,7 +164,7 @@ const ExpeditionName = styled.h3`
   font-weight: 600;
   color: #111827;
   margin: 0 0 6px 0;
-  
+
   @media (max-width: ${BREAKPOINTS.mobile}) {
     font-size: 16px;
   }
@@ -172,7 +174,7 @@ const ExpeditionDate = styled.p`
   font-size: 14px;
   color: #6b7280;
   margin: 0;
-  
+
   @media (max-width: ${BREAKPOINTS.mobile}) {
     font-size: 13px;
   }
@@ -194,18 +196,22 @@ const AddButton = styled.button`
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
   transition: all 0.15s ease;
   z-index: 10;
-  
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   &:hover {
     background-color: #4b5563;
     transform: translateY(-2px);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
   }
-  
+
   &:active {
     transform: translateY(0);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   }
-  
+
   @media (max-width: ${BREAKPOINTS.mobile}) {
     bottom: 20px;
     right: 20px;
@@ -220,7 +226,7 @@ const NoResults = styled.div`
   padding: 48px 24px;
   color: #6b7280;
   font-size: 16px;
-  
+
   @media (max-width: ${BREAKPOINTS.mobile}) {
     padding: 32px 16px;
     font-size: 14px;
@@ -231,7 +237,7 @@ const EmptyState = styled.div`
   text-align: center;
   padding: 48px 24px;
   color: #9ca3af;
-  
+
   @media (max-width: ${BREAKPOINTS.mobile}) {
     padding: 32px 16px;
   }
@@ -240,7 +246,7 @@ const EmptyState = styled.div`
 const EmptyStateIcon = styled.div`
   font-size: 48px;
   margin-bottom: 16px;
-  
+
   @media (max-width: ${BREAKPOINTS.mobile}) {
     font-size: 40px;
   }
@@ -249,7 +255,7 @@ const EmptyStateIcon = styled.div`
 const EmptyStateText = styled.p`
   font-size: 16px;
   margin: 0;
-  
+
   @media (max-width: ${BREAKPOINTS.mobile}) {
     font-size: 14px;
   }
@@ -257,54 +263,61 @@ const EmptyStateText = styled.p`
 
 interface Expedition {
   id: number;
-  name: string;
-  date: string;
-  logoClass: string;
-  icon: string;
-  description?: string;
-  address?: string;
+  descricao: string;
+  data_criacao: string;
+  logoClass?: string;
+  icon?: string;
 }
 
 const Home: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchDate, setSearchDate] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [expeditions, setExpeditions] = useState<Expedition[]>([
-    {
-      id: 1,
-      name: "Expedição Inteli",
-      date: "12/05/2025",
-      logoClass: "inteli",
-      icon: "🏢"
-    },
-    {
-      id: 2,
-      name: "Expedição IPT", 
-      date: "15/05/2025",
-      logoClass: "ipt",
-      icon: "🏛️"
-    }
-  ]);
+  const [expeditions, setExpeditions] = useState<Expedition[]>([]);
 
-  const filteredExpeditions = expeditions.filter(expedition => {
-    const matchesName = expedition.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesDate = searchDate === "" || expedition.date.includes(searchDate);
+  useEffect(() => {
+    const fetchExpeditions = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(
+          "http://localhost:5000/expedition/all",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log("API response:", response.data.expeditions);
+        setExpeditions(response.data.expeditions);
+      } catch (error) {
+        console.error("Erro ao buscar expedições:", error);
+      }
+    };
+
+    fetchExpeditions();
+  }, []);
+
+  const filteredExpeditions = expeditions.filter((expedition) => {
+    const matchesName = expedition.descricao
+      ?.toLowerCase()
+      .includes(searchTerm.toLowerCase());
+    const matchesDate =
+      searchDate === "" || expedition.data_criacao.includes(searchDate);
     return matchesName && matchesDate;
   });
 
   const handleAddExpedition = (expeditionData: any) => {
     const newExpedition: Expedition = {
-      id: Date.now(), 
-      name: expeditionData.name,
-      date: expeditionData.date,
+      id: Date.now(),
+      descricao:
+        expeditionData.name || expeditionData.descricao || "Nova expedição",
+      data_criacao:
+        expeditionData.date || new Date().toISOString().split("T")[0],
       logoClass: "custom",
       icon: "🏗️",
-      description: expeditionData.description,
-      address: expeditionData.address
     };
-    
-    setExpeditions(prev => [...prev, newExpedition]);
-    setIsModalOpen(false); 
+    setExpeditions((prev) => [...prev, newExpedition]);
+    setIsModalOpen(false);
   };
 
   const handleExpeditionClick = (expedition: Expedition) => {
@@ -321,10 +334,8 @@ const Home: React.FC = () => {
       <Header />
       <MainContent>
         <ExpeditionsCard>
-          <ExpeditionsHeader>
-            Expedições
-          </ExpeditionsHeader>
-          
+          <ExpeditionsHeader>Expedições</ExpeditionsHeader>
+
           <SearchSection>
             <SearchInput
               type="text"
@@ -352,40 +363,52 @@ const Home: React.FC = () => {
               </EmptyState>
             ) : filteredExpeditions.length > 0 ? (
               filteredExpeditions.map((expedition) => (
-                <ExpeditionItem 
+                <ExpeditionItem
                   key={expedition.id}
                   onClick={() => handleExpeditionClick(expedition)}
                   role="button"
                   tabIndex={0}
                   onKeyPress={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
+                    if (e.key === "Enter" || e.key === " ") {
                       handleExpeditionClick(expedition);
                     }
                   }}
                 >
                   <ExpeditionLogo className={expedition.logoClass}>
-                    {expedition.icon}
+                    {expedition.foto_capa ? (
+                      <img
+                        src={expedition.foto_capa}
+                        alt={`Logo da expedição ${expedition.descricao}`}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
+                      />
+                    ) : (
+                      expedition.icon
+                    )}
                   </ExpeditionLogo>
                   <ExpeditionInfo>
-                    <ExpeditionName>{expedition.name}</ExpeditionName>
-                    <ExpeditionDate>{expedition.date}</ExpeditionDate>
+                    <ExpeditionName>{expedition.descricao}</ExpeditionName>
+                    <ExpeditionDate>{expedition.data_criacao}</ExpeditionDate>
                   </ExpeditionInfo>
                 </ExpeditionItem>
               ))
             ) : (
               <NoResults>
-                <div style={{ marginBottom: '16px' }}>🔍</div>
+                <div style={{ marginBottom: "16px" }}>🔍</div>
                 Nenhuma expedição encontrada com os filtros aplicados.
                 <br />
-                <button 
+                <button
                   onClick={clearSearch}
                   style={{
-                    background: 'none',
-                    border: 'none',
-                    color: '#f97316',
-                    cursor: 'pointer',
-                    textDecoration: 'underline',
-                    marginTop: '8px'
+                    background: "none",
+                    border: "none",
+                    color: "#f97316",
+                    cursor: "pointer",
+                    textDecoration: "underline",
+                    marginTop: "8px",
                   }}
                 >
                   Limpar filtros
@@ -395,8 +418,8 @@ const Home: React.FC = () => {
           </ExpeditionsList>
         </ExpeditionsCard>
       </MainContent>
-      
-      <AddButton 
+
+      <AddButton
         onClick={() => setIsModalOpen(true)}
         title="Adicionar nova expedição"
         aria-label="Adicionar nova expedição"
@@ -408,6 +431,7 @@ const Home: React.FC = () => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onSubmit={handleAddExpedition}
+        responsavelId={"123456"} // Tem que mudar isso aqui! Tô mokando por enquanto
       />
     </Container>
   );
