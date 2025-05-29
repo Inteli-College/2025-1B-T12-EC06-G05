@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import VisaoGeral from './pages/AnaliseFissuras';
 import Predio from './pages/Predio';
+import Cadastro from './pages/Cadastro';
 import './App.css'
 
 const App: React.FC = () => {
@@ -14,6 +15,7 @@ const App: React.FC = () => {
         <Route path="/analise-de-fissuras" element={<VisaoGeral />} />
         <Route path="/login" element={<Login />} />
         <Route path="/predio" element={<Predio />} />
+        <Route path="/cadastro" element={<Cadastro />} />
       </Routes>
     </Router>
   );

@@ -13,7 +13,6 @@ class User(db.Model):
     
     # Relacionamentos
     expedicoes = db.relationship('Expedition', backref='user', lazy=True)
-    auditorias = db.relationship('Audit', backref='user', lazy=True)
 
     # Função para transformar em json
     def as_dict(self):

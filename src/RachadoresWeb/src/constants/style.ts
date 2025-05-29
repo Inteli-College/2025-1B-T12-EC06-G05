@@ -15,6 +15,7 @@ export const COLORS = {
     hoverLgn: '#3f2a1d',
     tablePredio: '#FFFFFF',
     tablePredioTop: '#58453D',
+    cadastroBG: '#D35400',
   };
   
   export const FONTS = {
