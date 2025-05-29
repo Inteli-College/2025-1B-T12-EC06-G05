@@ -13,6 +13,8 @@ export const COLORS = {
     inputBg: '#D9D9D9',
     buttonLgn: '#261001', 
     hoverLgn: '#3f2a1d',
+    tablePredio: '#FFFFFF',
+    tablePredioTop: '#58453D',
     cadastroBG: '#D35400',
   };
   
