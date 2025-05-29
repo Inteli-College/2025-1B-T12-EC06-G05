@@ -263,8 +263,8 @@ const EmptyStateText = styled.p`
 
 interface Expedition {
   id: number;
-  descricao: string; 
-  data_criacao: string; 
+  descricao: string;
+  data_criacao: string;
   logoClass?: string;
   icon?: string;
 }
@@ -312,7 +312,7 @@ const Home: React.FC = () => {
       descricao:
         expeditionData.name || expeditionData.descricao || "Nova expedição",
       data_criacao:
-      expeditionData.date || new Date().toISOString().split("T")[0],
+        expeditionData.date || new Date().toISOString().split("T")[0],
       logoClass: "custom",
       icon: "🏗️",
     };
@@ -375,7 +375,19 @@ const Home: React.FC = () => {
                   }}
                 >
                   <ExpeditionLogo className={expedition.logoClass}>
-                    {expedition.icon}
+                    {expedition.foto_capa ? (
+                      <img
+                        src={expedition.foto_capa}
+                        alt={`Logo da expedição ${expedition.descricao}`}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
+                      />
+                    ) : (
+                      expedition.icon
+                    )}
                   </ExpeditionLogo>
                   <ExpeditionInfo>
                     <ExpeditionName>{expedition.descricao}</ExpeditionName>

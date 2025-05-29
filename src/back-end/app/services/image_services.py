@@ -1,6 +1,10 @@
 from ..models.image import Image
 from ...config.database import db
 from flask import jsonify
+import boto3
+import uuid
+import os
+
 
 def create_image(data):
     try:
@@ -108,3 +112,31 @@ def get_images_by_predio(id_predio):
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+def upload_image(image):
+
+    s3_client = boto3.client('s3')
+
+    S3_BUCKET = 'fissurai'
+    S3_REGION = 'us-east-1'
+
+    if image.filename == '':
+        return jsonify({'error': 'Nenhum arquivo selecionado'}), 400
+
+    # Gera um nome único e limpo pro arquivo
+    file_ext = os.path.splitext(image.filename)[1]
+    s3_filename = f"{uuid.uuid4()}{file_ext}"
+
+    try:
+        s3_client.upload_fileobj(
+            image,
+            S3_BUCKET,
+            s3_filename,
+            ExtraArgs={'ContentType': image.content_type}
+        )
+
+        public_url = f"https://{S3_BUCKET}.s3.{S3_REGION}.amazonaws.com/{s3_filename}"
+        return jsonify({'url': public_url}), 200
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
