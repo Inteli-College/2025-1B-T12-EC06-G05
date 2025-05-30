@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { COLORS, BREAKPOINTS } from "../constants/style.ts";
 import axios from "axios";
+import Lottie from "lottie-react";
+import prancheta from "../constants/assets/animations/prancheta.json";
+
 
 interface ExpeditionModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (expeditionData: any) => void;
 }
+
 
 const ModalOverlay = styled.div<{ isOpen: boolean }>`
   position: fixed;
@@ -284,6 +289,8 @@ const ExpeditionModal: React.FC<ExpeditionModalProps> = ({
     foto_capa: null as File | null,
   });
 
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+
   const uploadImage = async (file: File): Promise<string | null> => {
     try {
       const formData = new FormData();
@@ -355,6 +362,10 @@ const ExpeditionModal: React.FC<ExpeditionModalProps> = ({
           },
         }
       );
+
+      if (response.status === 201) {
+        setShowSuccessModal(true); // mostra o modal
+      }
   
       onSubmit(response.data);
       onClose();
@@ -384,6 +395,20 @@ const ExpeditionModal: React.FC<ExpeditionModalProps> = ({
     formData.localizacao.trim();
 
   return (
+    <>
+          {showSuccessModal && (
+            <ModalOverlay>
+              <ModalContent>
+                <Lottie
+                  animationData={prancheta}
+                  style={{ width: 150, height: 150 }}
+                />
+                <h3>Cadastro realizado com sucesso!</h3>
+                <p>Você já pode fazer login com seu email e senha.</p>
+                <button onClick={() => navigate("/")}>Ir para login</button>
+              </ModalContent>
+            </ModalOverlay>
+          )}
     <ModalOverlay isOpen={isOpen} onClick={handleOverlayClick}>
       <ModalContent>
         <ModalHeader>
@@ -479,6 +504,7 @@ const ExpeditionModal: React.FC<ExpeditionModalProps> = ({
         </ModalBody>
       </ModalContent>
     </ModalOverlay>
+    </>
   );
 };
 

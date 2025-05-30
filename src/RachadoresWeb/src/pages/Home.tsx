@@ -5,8 +5,6 @@ import { COLORS, BREAKPOINTS } from "../constants/style.ts";
 import Header from "../components/Header.tsx";
 import ExpeditionModal from "../components/ExpeditionModal.tsx";
 import axios from "axios";
-import Lottie from "lottie-react";]
-import prancheta from "../constants/assets/animations/prancheta.json";
 
 const Container = styled.div`
   background-color: ${COLORS.background};

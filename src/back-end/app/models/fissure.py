@@ -10,6 +10,8 @@ class Fissure(db.Model):
     categoria = db.Column(db.String(200), nullable=False)
     id_image = db.Column(db.Integer, db.ForeignKey('image.id'), nullable=False)
 
+    image = db.relationship('Image', back_populates='fissuras')
+
     # Função para transformar em json
     def as_dict(self):
         return{

@@ -242,7 +242,7 @@ const TextoLogin = styled.p`
 `;
 
 const Cadastro: React.FC<Props> = ({ options }) => {
-  const [showSuccessModal, setShowSuccessModal] = useState(true);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const navigate = useNavigate();
 

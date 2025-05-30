@@ -16,8 +16,7 @@ from .app.models.model      import Model
 from .app.models.building   import Building
 from .app.models.image      import Image
 from .app.models.fissure    import Fissure
-from .app.models.result     import Result
-from .app.models.audit      import Audit
+
 
 # importa seus blueprints
 from .app.routes.users import user_bp
