@@ -53,7 +53,7 @@ sidebar_position: 6
 
 **Fissuras térmicas:** *Prompt: Gere uma imagem realista da fachada de um prédio externo pintado em cor pastel (como bege, azul claro ou verde-claro), com leve desgaste de tinta em algumas regiões. A parede apresenta uma fissura térmica horizontal contínua e ramificações suaves, com abertura de até 0,5 mm. As rachaduras devem ser visíveis sobre a superfície pintada e o contraste deve ser suficiente para a observação. A iluminação natural deve ressaltar o relevo da fissura, sem tornar a imagem artificial. A fissura não deve ocupar o centro absoluto da imagem, mas estar claramente legível.*
 
-**Fissuras de retração:** *Prompt: ere uma imagem realista da parede externa de um prédio residencial com pintura colorida (amarelo-claro, azul claro, salmão ou verde pálido). A superfície deve apresentar fissuras de retração curtas, visíveis a olho nu, com traçado vertical ou oblíquo. As fissuras devem ser discretamente destacadas sobre a tinta, com áreas desgastadas ou descascadas ao redor de algumas rachaduras, revelando o reboco abaixo. Iluminação suave e natural, que ajude a mostrar o contraste entre fissura e fundo pintado.*
+**Fissuras de retração:** *Prompt: Gere uma imagem realista da parede externa de um prédio residencial com pintura colorida (amarelo-claro, azul claro, salmão ou verde pálido). A superfície deve apresentar fissuras de retração curtas, visíveis a olho nu, com traçado vertical ou oblíquo. As fissuras devem ser discretamente destacadas sobre a tinta, com áreas desgastadas ou descascadas ao redor de algumas rachaduras, revelando o reboco abaixo. Iluminação suave e natural, que ajude a mostrar o contraste entre fissura e fundo pintado.*
 
 ## Quarto caso: Interferência de umidade e sombras intensas
 
