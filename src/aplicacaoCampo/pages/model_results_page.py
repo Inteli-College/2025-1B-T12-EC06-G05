@@ -25,7 +25,10 @@ def render_model_results_page(building_path, crack_counts):
         st.write(f"- **{crack_type.capitalize()}**: {count}")
 
     st.subheader("Detecção de Rachaduras (imagens com rachaduras)")
-    sentidos = ["Norte", "Leste", "Sul", "Oeste"]
+    sentidos = [
+            "Não informado", "Norte", "Nordeste", "Leste", "Sudeste",
+            "Sul", "Sudoeste", "Oeste", "Noroeste"
+        ]
     images_with_cracks = get_images_with_cracks(building_path)
 
     for sentido in sentidos:

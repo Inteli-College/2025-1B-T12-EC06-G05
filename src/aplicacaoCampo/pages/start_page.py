@@ -3,6 +3,10 @@ import time
 import json
 from datetime import datetime
 import streamlit as st
+from services.s3_uploader import upload_images_to_s3
+from services.api_auth import login_and_get_token
+from services.api_client import APIClient
+from services.publish_service import publish_full_inspection
 
 def render_start_page(inspections_dir):
     col1, col2 = st.columns([1, 2], gap="large")
@@ -81,3 +85,16 @@ def render_start_page(inspections_dir):
                     if st.button(f"Abrir {folder}"):
                         st.query_params = {"inspection": folder}
                         st.rerun()
+
+    if "inspection" not in st.query_params:
+        if st.button("📤 Subir imagens"):
+            with st.spinner("Subindo imagens para S3 e publicando na API..."):
+                upload_images_to_s3()
+                try:
+                    token = login_and_get_token()
+                    api = APIClient("http://127.0.0.1:5000", token)
+                    result = publish_full_inspection(api)
+                    if result['errors']:
+                        st.error(f"Erros durante a publicação: {result['errors']}")
+                except Exception as e:
+                    st.error(f"Erro durante upload ou publicação: {e}")

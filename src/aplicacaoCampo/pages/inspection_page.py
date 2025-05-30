@@ -1,7 +1,5 @@
 import os
-import time
 import json
-from datetime import datetime
 import streamlit as st
 
 def render_inspection_page(inspection_name, inspections_dir):
@@ -11,25 +9,43 @@ def render_inspection_page(inspection_name, inspections_dir):
 
     inspection_path = os.path.join(inspections_dir, inspection_name)
     info_path = os.path.join(inspection_path, 'expedition_info.json')
+
+    col1, col2 = st.columns([6, 2])
+
     if os.path.exists(info_path):
         with open(info_path, 'r') as f:
             expedition_info = json.load(f)
-            st.markdown("### Informações da Expedição")
-            if expedition_info.get('nome'):
-                st.write(f"**Nome:** {expedition_info['nome']}")
-            if expedition_info.get('localizacao'):
-                st.write(f"**Localização:** {expedition_info['localizacao']}")
-            if expedition_info.get('descricao'):
-                st.write(f"**Descrição:** {expedition_info['descricao']}")
-            if expedition_info.get('data_criacao'):
-                st.write(f"**Criada em:** {expedition_info['data_criacao']}")
-            if expedition_info.get("foto_capa"):
-                img_path = os.path.join(inspection_path, expedition_info["foto_capa"])
-                if os.path.exists(img_path):
-                    st.image(img_path, caption="Foto de Capa", width=300)
+
+            with col1: 
+                st.markdown("### Informações da Expedição")
+                if expedition_info.get('nome'):
+                    st.write(f"**Nome:** {expedition_info['nome']}")
+                if expedition_info.get('localizacao'):
+                    st.write(f"**Localização:** {expedition_info['localizacao']}")
+                if expedition_info.get('descricao'):
+                    st.write(f"**Descrição:** {expedition_info['descricao']}")
+                if expedition_info.get('data_criacao'):
+                    st.write(f"**Criada em:** {expedition_info['data_criacao']}")
+
+            with col2:
+                if expedition_info.get("foto_capa"):
+                    img_path = os.path.join(inspection_path, expedition_info["foto_capa"])
+                    if os.path.exists(img_path):
+                        st.image(img_path, caption="Foto de Capa", width=300)
 
     building_dir = os.path.join(inspection_path, "predios")
     os.makedirs(building_dir, exist_ok=True)
+
+    st.subheader("Prédios Existentes")
+    buildings = sorted(os.listdir(building_dir), reverse=True)
+    if buildings:
+        for b in buildings:
+            display_name = b
+            if st.button(f"Abrir {display_name}"):
+                st.query_params = {"inspection": inspection_name, "building": b}
+                st.rerun()
+    else:
+        st.write("Nenhum prédio encontrado para essa expedição.")
 
     st.subheader("Adicionar Novo Prédio")
     nome_predio = st.text_input("Nome do Prédio")
@@ -69,11 +85,3 @@ def render_inspection_page(inspection_name, inspections_dir):
             st.rerun()
         else:
             st.error("Esse prédio já existe.")
-
-    st.subheader("Prédios Existentes")
-    buildings = sorted(os.listdir(building_dir), reverse=True)
-    for b in buildings:
-        display_name = b
-        if st.button(f"Abrir {display_name}"):
-            st.query_params = {"inspection": inspection_name, "building": b}
-            st.rerun()
