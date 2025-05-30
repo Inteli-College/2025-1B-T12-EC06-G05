@@ -267,6 +267,7 @@ interface Expedition {
   data_criacao: string;
   logoClass?: string;
   icon?: string;
+  nome: string
 }
 
 const Home: React.FC = () => {
@@ -315,6 +316,7 @@ const Home: React.FC = () => {
         expeditionData.date || new Date().toISOString().split("T")[0],
       logoClass: "custom",
       icon: "🏗️",
+      nome: expeditionData.name
     };
     setExpeditions((prev) => [...prev, newExpedition]);
     setIsModalOpen(false);
@@ -391,7 +393,7 @@ const Home: React.FC = () => {
                     )}
                   </ExpeditionLogo>
                   <ExpeditionInfo>
-                    <ExpeditionName>{expedition.descricao}</ExpeditionName>
+                    <ExpeditionName>{expedition.nome}</ExpeditionName>
                     <ExpeditionDate>{expedition.data_criacao}</ExpeditionDate>
                   </ExpeditionInfo>
                 </ExpeditionItem>
