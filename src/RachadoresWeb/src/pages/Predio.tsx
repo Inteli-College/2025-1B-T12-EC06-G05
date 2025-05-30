@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import QuadroPredios from "../components/QuadroPredios";
 import ExpeditionInfo from "../components/ExpeditionInfo";
 import ModalAddPredio from "../components/ModalAddPredio";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 // Interface para os dados do prédio
 interface PredioData {
@@ -22,6 +23,15 @@ interface PredioData {
     noroeste: File[];
     nordeste: File[];
   };
+}
+
+interface PredioAPI {
+  id: number;
+  id_expedicao: number;
+  nome: string;
+  complemento?: string;
+  descricao?: string;
+  foto_fachada: string;
 }
 
 // Interface para prédio exibido
@@ -145,25 +155,40 @@ const PredioCard: React.FC<PredioCardProps> = ({ numero, nome, imagem, alt, onCl
 
 const Predio: React.FC = () => {
   const navigate = useNavigate();
+  const { expeditionId } = useParams<{ expeditionId: string }>(); 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   
   // Estado para armazenar os prédios
-  const [predios, setPredios] = useState<PredioExibido[]>([
-    {
-      id: "5",
-      numero: "5",
-      nome: "",
-      imagem: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop&crop=faces",
-      alt: "Prédio 5 - Espaço de coworking moderno"
-    },
-    {
-      id: "6",
-      numero: "6",
-      nome: "",
-      imagem: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=400&h=300&fit=crop&crop=faces",
-      alt: "Prédio 6 - Área externa com pessoas"
+  const [predios, setPredios] = useState<PredioExibido[]>([]);
+
+  const fetchPredios = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(
+        `http://localhost:5000/building/expedition/${expeditionId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log(response.data.buildings);
+      
+      // Mapear os dados da API para o formato do componente
+      const prediosFormatados = response.data.buildings.map((predio: PredioAPI, index: number) => ({
+        id: predio.id.toString(),
+        nome: predio.nome,
+        complemento: predio.complemento,
+        imagem: predio.foto_fachada || "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop&crop=faces",
+        alt: `${predio.nome} - Prédio ${index + 1}`
+      }));
+      
+      setPredios(prediosFormatados);
+    } catch (error) {
+      console.error("Erro ao buscar prédios:", error);
     }
-  ]);
+  };
 
   const handlePredioClick = (numeroPredio: string) => {
     navigate(`/analise-de-fissuras/${numeroPredio}`);
@@ -172,6 +197,12 @@ const Predio: React.FC = () => {
   const handleAddPredio = () => {
     setIsPopupOpen(true);
   };
+
+  useEffect(() => {
+    if (expeditionId) {
+      fetchPredios();
+    }
+  }, [expeditionId]);
 
   const handleClosePopup = () => {
     setIsPopupOpen(false);
@@ -208,7 +239,7 @@ const Predio: React.FC = () => {
   };
 
   const goToHome = () => {
-    navigate("/");
+    navigate("/home");
   };
 
   return (

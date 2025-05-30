@@ -45,7 +45,7 @@ def delete_building(id_building):
 def get_building_by_id(id_building):
     try:
         building = db.session.get(Building, id_building)
-        if not Building:
+        if not building:
             raise Exception("Prédio não encontrado!")
 
         return jsonify({
@@ -89,4 +89,18 @@ def update_building(data):
 
     except Exception as e:
         db.session.rollback() 
+        return jsonify({"error": str(e)}), 500
+    
+def get_building_by_id_expedition(id_expedition):
+    try:
+        buildings = Building.query.filter_by(id_expedicao=id_expedition).all()
+        if not buildings:
+            raise Exception("Nenhuma prédio encontrada para esta expedição!")
+
+        return jsonify({
+            "message": "Prédios encontradas com sucesso",
+            "buildings": [building.as_dict() for building in buildings]
+        }), 200
+
+    except Exception as e:
         return jsonify({"error": str(e)}), 500

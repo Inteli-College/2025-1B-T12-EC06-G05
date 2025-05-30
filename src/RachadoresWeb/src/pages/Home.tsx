@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { COLORS, BREAKPOINTS } from "../constants/style.ts";
 import Header from "../components/Header.tsx";
 import ExpeditionModal from "../components/ExpeditionModal.tsx";
@@ -270,6 +270,7 @@ interface Expedition {
 }
 
 const Home: React.FC = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [searchDate, setSearchDate] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -321,6 +322,7 @@ const Home: React.FC = () => {
 
   const handleExpeditionClick = (expedition: Expedition) => {
     console.log("Expedição clicada:", expedition);
+    navigate(`/predio/${expedition.id}`);
   };
 
   const clearSearch = () => {
