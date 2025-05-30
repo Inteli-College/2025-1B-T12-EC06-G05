@@ -1,9 +1,9 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 custom_edit_url: null
 ---
 
-# Banco de Dados
+# Arquitetura do Banco de Dados
 
 ## Introdução
 
@@ -18,7 +18,7 @@ custom_edit_url: null
 <p style={{textAlign: 'center'}}>Figura 1 - Banco de Dados</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
-        <img src={require("../../../../static/img/database.png").default} style={{width: 800}} alt="Banco de Dados" />
+        <img src={require("../../../../../static/img/database.png").default} style={{width: 800}} alt="Banco de Dados" />
         <br />
     </div>
 </div>
@@ -47,9 +47,9 @@ custom_edit_url: null
 | ultima_att | Data da última atualização feita no registro da expedição | Date | 
 | id_responsavel | Identificador do usuário responsável pela expedição; referência a `user.id` | Chave estrangeira | 
 | descricao | Texto descritivo detalhando o propósito e atividades da expedição | String | 
-| foto_capa | URL ou caminho do arquivo de imagem utilizado como foto de capa | String | 
+| foto_capa | URL da imagem utilizado como foto de capa | String | 
 
-### Building
+### Building    
 
 | Linhas  | Descrição | Tipo | 
 |------|-----------|------------------| 
@@ -58,21 +58,20 @@ custom_edit_url: null
 | nome | Nome do edifício | String | 
 | complemento | Informação adicional do endereço ou referência complementar | String | 
 | descricao | Descrição detalhada do edifício, como características e finalidade | String | 
-| foto_fachada | URL ou caminho da foto da fachada do edifício | String | 
+| foto_fachada | URL da imagem da fachada do edifício | String | 
 
 ### Image
 
 | Linhas  | Descrição | Tipo | 
 |------|-----------|------------------| 
 | id | Identificador único de cada registro de imagem | Chave primaria | 
-| url | Endereço URL onde a imagem original está armazenada | String |
+| url | URL onde a imagem original está armazenada | String |
 | nome | Nome do arquivo de imagem | String | 
 | hora_coleta | DateTime em que a imagem foi coletada | DateTime | 
 | orientacao | 	Orientação cardeais da fachada do edificio na qual a imagem se no momento da captura | String | 
 | id_predio | Identificador do prédio ao qual a imagem pertence; referência a `building.id` | Chave estrangeira | 
-| img_resultado | Endereço URL da imagem gerada pelo processamento do modelo de visão computacional  | String |
-| anotacao |  Marcação da região da iamgem que se contram as fissuras | String |
-| confiabilidade | Grau de confiança associado à análise da imagem (por exemplo, percentual de acurácia) | String |
+| img_resultado | URL da imagem gerada pelo processamento do modelo de visão computacional  | String |
+| anotacao |  Marcação da região da imagem que se contram as fissuras | String |
 | id_modelo | Identificador do modelo utilizado na análise; referência a `model.id` | Chave estrangeira |
 
 ### Fissure
