@@ -12,7 +12,9 @@ class User(db.Model):
     cargo = db.Column(db.String(), nullable=False)
     
     # Relacionamentos
-    expedicoes = db.relationship('Expedition', backref='user', lazy=True)
+    expedicoes = db.relationship('Expedition', back_populates='responsavel', lazy=True)
+
+    
 
     # Função para transformar em json
     def as_dict(self):
