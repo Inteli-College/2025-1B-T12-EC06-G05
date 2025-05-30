@@ -118,7 +118,7 @@ def render_building_page(building_path):
 
         if st.button("Rodar Modelo"):
             with st.spinner("Executando modelo de detecção de rachaduras..."):
-                model_path = Path("modelo") / "best.pt"
+                model_path = Path("modelo") / "best_new.pt"
                 if model_path.exists():
                     result, crack_counts = run_detection_model(str(model_path), building_path)
                     st.session_state.crack_counts = crack_counts
