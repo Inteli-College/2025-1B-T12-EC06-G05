@@ -22,7 +22,7 @@ def register_building(data):
         
         db.session.add(new_building)
         db.session.commit()
-        return jsonify({"message": "Prédio registrado com sucesso!", "predioInformation": new_building.as_dict()}), 201
+        return jsonify({"message": "Prédio registrado com sucesso!", "predioInformation": new_building.as_dict(), "id": new_building.id}), 201
 
     except Exception as e:
         db.session.rollback()

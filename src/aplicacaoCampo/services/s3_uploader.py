@@ -2,7 +2,7 @@ import glob
 import boto3
 import os
 
-def upload_file(base_folder='imagens/inspecoes', bucket='fissurai'):
+def upload_images_to_s3(base_folder='imagens/inspecoes', bucket='fissurai'):
     s3_client = boto3.client('s3')
     pattern = os.path.join(base_folder, '**', '*.*')
     for filepath in glob.iglob(pattern, recursive=True):

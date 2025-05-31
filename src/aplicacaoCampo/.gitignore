@@ -1,0 +1,10 @@
+/imagens/inspecoes/*/predios/*/*.jpg
+/imagens/inspecoes/*/*.jpg
+/imagens/inspecoes/*/*.png
+/imagens/inspecoes/*/*.json
+/imagens/inspecoes/*/predios/*/*.jpg
+/imagens/inspecoes/*/predios/*/*.png
+/imagens/inspecoes/*/predios/*/*.json
+/imagens/inspecoes/*/predios/*/resultados/*.jpg
+/imagens/inspecoes/*/predios/*/resultados/*.json
+/modelo/*.pt
