@@ -18,7 +18,7 @@ def create_image(data):
         db.session.add(newImage)
         db.session.commit()
 
-        return jsonify({"message": "Imagem registrada com sucesso!"}), 201
+        return jsonify({"message": "Imagem registrada com sucesso!", "id": newImage.id}), 201
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
