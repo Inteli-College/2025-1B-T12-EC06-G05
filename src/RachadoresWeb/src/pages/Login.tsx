@@ -21,7 +21,7 @@ const Button = styled.button`
   cursor: pointer;
   transition: background-color 0.3s ease;
 
-  margin: 5% auto 0 auto; /* Centraliza horizontalmente */
+  margin: 10% 40% 0 auto; /* Centraliza horizontalmente */
 
   &:hover {
     background-color: ${COLORS.hoverLgn}; 
@@ -82,7 +82,7 @@ const SectionBranca = styled.section`
     color: ${COLORS.secondary};
     font-family: ${FONTS.primary};
     margin-top: 30%;
-    margin-left: -20%;
+    margin-left: -10%;
   }
 
   label {
@@ -109,6 +109,7 @@ const SectionBranca = styled.section`
   font-family: ${FONTS.primary}; 
   color: ${COLORS.black}; 
   margin-top: 7%; 
+  margin-right: 10%;
   &:hover {
     strong {
     color: blue;
@@ -172,14 +173,20 @@ const Login: React.FC<{ backgroundColor?: string }> = () => {
 
       const token = response.data.access_token;
       localStorage.setItem("token", token);
+      console.log(token)
 
       // Redireciona para a página principal
-      navigate("/dashboard"); // ajuste conforme sua rota principal
+      navigate("/home"); // ajuste conforme sua rota principal
 
     } catch (err: any) {
       setErro(err?.response?.data?.error || "Erro ao fazer login");
     }
   };
+
+  const handleCadastroClick = () => {
+    navigate("/cadastro");
+  };
+
 
   return (
     <Container>
@@ -212,7 +219,7 @@ const Login: React.FC<{ backgroundColor?: string }> = () => {
           {erro && <p style={{ color: "red" }}>{erro}</p>}
 
           <Button onClick={handleLogin}>Fazer login</Button>
-          <a>Não tem uma conta? Faça cadastro <strong>aqui.</strong></a>
+          <a>Não tem uma conta? Faça cadastro <strong onClick={handleCadastroClick}>aqui.</strong></a>
         </FormWrapper>
       </SectionBranca>
     </Container>

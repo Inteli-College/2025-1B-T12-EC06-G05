@@ -34,3 +34,12 @@ def update_image_route():
 @jwt_required()
 def images_by_predio_route(id_predio):
     return get_images_by_predio(id_predio)
+
+@image_bp.route('/upload', methods=['POST'])
+@jwt_required()
+def upload_img():
+    if 'image' not in request.files:
+        return jsonify({'error': 'No image part'}), 400
+    
+    image = request.files['image']
+    return upload_image(image)

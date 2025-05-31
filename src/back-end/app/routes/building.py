@@ -1,6 +1,6 @@
 from flask import request, Blueprint
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from ..services.building_services import register_building, delete_building, get_building_by_id, get_all_building, update_building
+from ..services.building_services import register_building, delete_building, get_building_by_id, get_all_building, update_building, get_building_by_id_expedition
 
 # Instancia o blueprint
 building_bp = Blueprint('building', __name__, url_prefix='/building')
@@ -32,3 +32,8 @@ def get_all():
 def update():
     data = request.get_json()
     return update_building(data)
+
+@building_bp.route('/expedition/<int:id_expedition>', methods=['GET'])
+@jwt_required()
+def by_expedition(id_expedition):
+    return get_building_by_id_expedition(id_expedition)

@@ -4,7 +4,7 @@ import styled from "styled-components";
 interface FissureData {
   id: string;
   imageUrl: string;
-  expedition: string;
+  // expedition: string;
   building: string;
   facade: string;
   classification: string;
@@ -26,7 +26,7 @@ const FissureModal: React.FC<FissureModalProps> = ({ fissure, onClose }) => {
         <ModalImage src={fissure.imageUrl} alt={`Fissura ${fissure.id}`} />
         <ModalInfo>
           <h2>Fissura {fissure.id}</h2>
-          <p><strong>Expedição:</strong> {fissure.expedition}</p>
+          {/* <p><strong>Expedição:</strong> {fissure.expedition}</p> */}
           <p><strong>Prédio:</strong> {fissure.building}</p>
           <p><strong>Fachada:</strong> {fissure.facade}</p>
           <p><strong>Classificação:</strong> {fissure.classification}</p>
