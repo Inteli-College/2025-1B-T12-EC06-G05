@@ -58,5 +58,6 @@ API_PASSWORD=sua_senha
 
 - O **backend da aplicação** está ativo (a execução está descrita em outra seção).
 - A **AWS está corretamente configurada** para envio das imagens ao S3 (também explicado em outra seção).
+- O **modelo de detecção**, localizado na pasta `modelo`, deve estar como `.pt`. O arquivo `.pt` utilizado pelo YOLO está salvo no formato `.7z` e deve ser extraído antes de executar a aplicação. Certifique-se de que o arquivo `.pt` esteja presente na pasta para que o modelo funcione corretamente.
 
 &emsp;Com todos esses elementos configurados, a aplicação estará pronta para uso completo em ambiente local.
