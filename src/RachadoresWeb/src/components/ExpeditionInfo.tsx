@@ -25,24 +25,23 @@ const expeditionDetailStyle = {
 };
 
 interface ExpeditionInfoProps {
-  nomeExpedicao?: string;
-  dataExpedicao?: string;
-  responsavel?: string;
+  nome: string;
+  data_criacao: string;
+  nome_responsavel: number;
 }
-
 const ExpeditionInfo: React.FC<ExpeditionInfoProps> = ({
-  nomeExpedicao = "Expedição Inteli",
-  dataExpedicao = "12/05/2025",
-  responsavel = "Pedro Silva"
+  nome = "Expedição Inteli",
+  data_criacao = "12/05/2025",
+  nome_responsavel = "Pedro Silva"
 }) => {
   return (
     <div style={expeditionInfoStyle}>
-      <span style={expeditionTitleStyle}><strong>{nomeExpedicao}</strong></span>
+      <span style={expeditionTitleStyle}><strong>{nome}</strong></span>
       <span style={expeditionDetailStyle}>
-        <strong>Data da expedição:</strong> {dataExpedicao}
+        <strong>Data da expedição:</strong> {data_criacao}
       </span>
       <span style={expeditionDetailStyle}>
-        <strong>Responsável:</strong> {responsavel}
+        <strong>Responsável:</strong> {nome_responsavel}
       </span>
     </div>
   );

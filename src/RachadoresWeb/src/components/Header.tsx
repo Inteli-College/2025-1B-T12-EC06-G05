@@ -144,7 +144,7 @@ const Header: React.FC<{ backgroundColor?: string }> = ({
 
   // Consts para navegação (Só pra organizar)
   const handleHomeClick = () => {
-    navigate("/");
+    navigate("/home");
   };
 
   const handlePerfilClick = () => {

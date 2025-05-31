@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { COLORS, BREAKPOINTS } from "../constants/style.ts";
 import Header from "../components/Header.tsx";
 import ExpeditionModal from "../components/ExpeditionModal.tsx";
@@ -267,33 +267,36 @@ interface Expedition {
   data_criacao: string;
   logoClass?: string;
   icon?: string;
+  nome: string
 }
 
 const Home: React.FC = () => {
+  const { id } = useParams();
+  const idExpedicaoAtual = Number(id);
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [searchDate, setSearchDate] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [expeditions, setExpeditions] = useState<Expedition[]>([]);
 
+  const fetchExpeditions = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(
+        "http://localhost:5000/expedition/all",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("API response:", response.data.expeditions);
+      setExpeditions(response.data.expeditions);
+    } catch (error) {
+      console.error("Erro ao buscar expedições:", error);
+    }
+  };
   useEffect(() => {
-    const fetchExpeditions = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get(
-          "http://localhost:5000/expedition/all",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        console.log("API response:", response.data.expeditions);
-        setExpeditions(response.data.expeditions);
-      } catch (error) {
-        console.error("Erro ao buscar expedições:", error);
-      }
-    };
-
     fetchExpeditions();
   }, []);
 
@@ -315,6 +318,7 @@ const Home: React.FC = () => {
         expeditionData.date || new Date().toISOString().split("T")[0],
       logoClass: "custom",
       icon: "🏗️",
+      nome: expeditionData.name
     };
     setExpeditions((prev) => [...prev, newExpedition]);
     setIsModalOpen(false);
@@ -322,6 +326,7 @@ const Home: React.FC = () => {
 
   const handleExpeditionClick = (expedition: Expedition) => {
     console.log("Expedição clicada:", expedition);
+    navigate(`/predio/${expedition.id}`);
   };
 
   const clearSearch = () => {
@@ -390,7 +395,7 @@ const Home: React.FC = () => {
                     )}
                   </ExpeditionLogo>
                   <ExpeditionInfo>
-                    <ExpeditionName>{expedition.descricao}</ExpeditionName>
+                    <ExpeditionName>{expedition.nome}</ExpeditionName>
                     <ExpeditionDate>{expedition.data_criacao}</ExpeditionDate>
                   </ExpeditionInfo>
                 </ExpeditionItem>
@@ -429,7 +434,10 @@ const Home: React.FC = () => {
 
       <ExpeditionModal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={() => {
+          setIsModalOpen(false);
+          fetchExpeditions();
+        }}
         onSubmit={handleAddExpedition}
         responsavelId={"123456"} // Tem que mudar isso aqui! Tô mokando por enquanto
       />

@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { COLORS, BREAKPOINTS } from "../constants/style.ts";
+import { COLORS, BREAKPOINTS, FONTS } from "../constants/style.ts";
 import axios from "axios";
 import Lottie from "lottie-react";
 import prancheta from "../constants/assets/animations/prancheta.json";
-
 
 interface ExpeditionModalProps {
   isOpen: boolean;
@@ -13,6 +12,53 @@ interface ExpeditionModalProps {
   onSubmit: (expeditionData: any) => void;
 }
 
+// Modal de Cadastro concluído com sucesso
+const ModalOverlayM = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+`;
+
+const ModalContentM = styled.div`
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  text-align: center;
+  font-family: ${FONTS.primary};
+  max-width: 400px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  h3 {
+    color: ${COLORS.secondary};
+    margin-bottom: 1rem;
+  }
+
+  button {
+    margin-top: 1.5rem;
+    padding: 0.6rem 1.2rem;
+    background-color: ${COLORS.secondary};
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+
+    &:hover {
+      background-color: #1a0f08;
+    }
+  }
+`;
 
 const ModalOverlay = styled.div<{ isOpen: boolean }>`
   position: fixed;
@@ -291,6 +337,18 @@ const ExpeditionModal: React.FC<ExpeditionModalProps> = ({
 
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
+  const handleOkClick = () => {
+    setShowSuccessModal(false);
+  };
+
+  const formatDateToDDMMYYYY = (dateStr: string) => {
+    const date = new Date(dateStr);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // meses começam em 0
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
+
   const uploadImage = async (file: File): Promise<string | null> => {
     try {
       const formData = new FormData();
@@ -346,7 +404,7 @@ const ExpeditionModal: React.FC<ExpeditionModalProps> = ({
       const jsonToSend = {
         nome: formData.nome,
         descricao: formData.descricao,
-        data_criacao: formData.data_criacao,
+        data_criacao: formatDateToDDMMYYYY(formData.data_criacao),
         localizacao: formData.localizacao,
         id_responsavel: responsavelId,
         foto_capa: imageUrl, // adiciona o link aqui!
@@ -364,7 +422,7 @@ const ExpeditionModal: React.FC<ExpeditionModalProps> = ({
       );
 
       if (response.status === 201) {
-        setShowSuccessModal(true); // mostra o modal
+        setShowSuccessModal(true); 
       }
   
       onSubmit(response.data);
@@ -395,20 +453,21 @@ const ExpeditionModal: React.FC<ExpeditionModalProps> = ({
     formData.localizacao.trim();
 
   return (
-    <>
-          {showSuccessModal && (
-            <ModalOverlay>
-              <ModalContent>
-                <Lottie
-                  animationData={prancheta}
-                  style={{ width: 150, height: 150 }}
-                />
-                <h3>Cadastro realizado com sucesso!</h3>
-                <p>Você já pode fazer login com seu email e senha.</p>
-                <button onClick={() => navigate("/")}>Ir para login</button>
-              </ModalContent>
-            </ModalOverlay>
-          )}
+
+        <>
+      {showSuccessModal && (
+        <ModalOverlayM>
+          <ModalContentM>
+            <Lottie
+              animationData={prancheta}
+              style={{ width: 150, height: 150 }}
+            />
+            <h3>Expedição cadastrada com sucesso!</h3>
+            <p>Você já pode acessar essa expedição</p>
+            <button onClick={handleOkClick}>Ok!</button>
+          </ModalContentM>
+        </ModalOverlayM>
+      )}
     <ModalOverlay isOpen={isOpen} onClick={handleOverlayClick}>
       <ModalContent>
         <ModalHeader>

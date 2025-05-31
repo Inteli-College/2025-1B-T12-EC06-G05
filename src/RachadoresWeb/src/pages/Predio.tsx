@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import QuadroPredios from "../components/QuadroPredios";
 import ExpeditionInfo from "../components/ExpeditionInfo";
 import ModalAddPredio from "../components/ModalAddPredio";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 // Interface para os dados do prédio
 interface PredioData {
@@ -24,6 +25,15 @@ interface PredioData {
   };
 }
 
+interface PredioAPI {
+  id: number;
+  id_expedicao: number;
+  nome: string;
+  complemento?: string;
+  descricao?: string;
+  foto_fachada: string;
+}
+
 // Interface para prédio exibido
 interface PredioExibido {
   id: string;
@@ -33,6 +43,17 @@ interface PredioExibido {
   alt: string;
 }
 
+interface ExpeditionInfoProps {
+  id: number;
+  nome: string;
+  localizacao: string;
+  data_criacao: string;
+  ultima_att: string;
+  id_responsavel: number;
+  descricao: string;
+  foto_capa: string;
+  nome_responsavel: string;
+}
 
 const breadcrumbStyle = {
   padding: "0.5rem 2rem",
@@ -46,7 +67,7 @@ const breadcrumbStyle = {
 const containerStyle = {
   width: "100%",
   maxWidth: "1200px",
-  margin: "3rem auto 2rem auto", 
+  margin: "3rem auto 2rem auto",
   padding: "0 2rem",
 };
 
@@ -68,7 +89,8 @@ const predioOverlayStyle = {
   bottom: 0,
   left: 0,
   right: 0,
-  background: "linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.3), transparent)",
+  background:
+    "linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.3), transparent)",
   padding: "1.5rem 1rem 1rem 1rem",
   color: "white",
 };
@@ -95,7 +117,13 @@ interface PredioCardProps {
   onClick?: (numero: string) => void;
 }
 
-const PredioCard: React.FC<PredioCardProps> = ({ numero, nome, imagem, alt, onClick }) => {
+const PredioCard: React.FC<PredioCardProps> = ({
+  numero,
+  nome,
+  imagem,
+  alt,
+  onClick,
+}) => {
   const handleClick = () => {
     if (onClick) {
       onClick(numero);
@@ -103,7 +131,12 @@ const PredioCard: React.FC<PredioCardProps> = ({ numero, nome, imagem, alt, onCl
     console.log(`Navegando para análise do Prédio ${numero}`);
   };
 
-  const handleHover = (e: React.MouseEvent<HTMLButtonElement>, isHover: boolean) => {
+  const { id } = useParams();
+
+  const handleHover = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    isHover: boolean
+  ) => {
     if (isHover) {
       e.currentTarget.style.transform = "scale(1.02)";
     } else {
@@ -128,50 +161,105 @@ const PredioCard: React.FC<PredioCardProps> = ({ numero, nome, imagem, alt, onCl
         }}
       />
       <div style={predioOverlayStyle}>
-        <h3 style={{
-          margin: 0,
-          fontSize: "1.25rem",
-          fontWeight: 600,
-        }}>
+        <h3
+          style={{
+            margin: 0,
+            fontSize: "1.25rem",
+            fontWeight: 600,
+          }}
+        >
           {nome ? nome : `Prédio ${numero}`}
         </h3>
       </div>
-      <div style={linkIconStyle}>
-        🔗
-      </div>
+      <div style={linkIconStyle}>🔗</div>
     </button>
   );
 };
 
 const Predio: React.FC = () => {
   const navigate = useNavigate();
+  const { expeditionId } = useParams<{ expeditionId: string }>();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  
-  // Estado para armazenar os prédios
-  const [predios, setPredios] = useState<PredioExibido[]>([
-    {
-      id: "5",
-      numero: "5",
-      nome: "",
-      imagem: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop&crop=faces",
-      alt: "Prédio 5 - Espaço de coworking moderno"
-    },
-    {
-      id: "6",
-      numero: "6",
-      nome: "",
-      imagem: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=400&h=300&fit=crop&crop=faces",
-      alt: "Prédio 6 - Área externa com pessoas"
-    }
-  ]);
 
-  const handlePredioClick = (numeroPredio: string) => {
-    navigate(`/analise-de-fissuras/${numeroPredio}`);
+  // Estado para armazenar os prédios
+  const [predios, setPredios] = useState<PredioExibido[]>([]);
+  const [expedition, setExpedition] = useState<ExpeditionInfoProps | null>(
+    null
+  );
+
+  const fetchPredios = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(
+        `http://localhost:5000/building/expedition/${expeditionId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log(response.data.buildings);
+
+      // Mapear os dados da API para o formato do componente
+      const prediosFormatados = response.data.buildings.map(
+        (predio: PredioAPI, index: number) => ({
+          id: predio.id.toString(),
+          nome: predio.nome,
+          complemento: predio.complemento,
+          imagem:
+            predio.foto_fachada ||
+            "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop&crop=faces",
+          alt: `${predio.nome} - Prédio ${index + 1}`,
+        })
+      );
+
+      setPredios(prediosFormatados);
+    } catch (error) {
+      console.error("Erro ao buscar prédios:", error);
+    }
   };
+
+  const fetchExpedition = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(
+        `http://localhost:5000/expedition/${expeditionId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      // Mapear os dados da API para o formato do componente
+      const expedition = response.data.exepedition;
+
+      setExpedition(expedition);
+    } catch (error) {
+      console.error("Erro ao atualizar a expedição:", error);
+    }
+  };
+
+const handlePredioClick = (idPredio: string) => {
+  navigate(`/analise-de-fissuras/${idPredio}`);
+};
+
 
   const handleAddPredio = () => {
     setIsPopupOpen(true);
   };
+
+  useEffect(() => {
+    if (expeditionId) {
+      const fetchData = async () => {
+        await fetchExpedition();
+        fetchPredios();
+      };
+
+      fetchData();
+    }
+  }, [expeditionId]);
 
   const handleClosePopup = () => {
     setIsPopupOpen(false);
@@ -179,60 +267,62 @@ const Predio: React.FC = () => {
 
   const handleSavePredio = (predioData: PredioData) => {
     console.log("Dados do novo prédio:", predioData);
-    
-   
+
     const novoNumero = (predios.length + 1).toString();
-    
-    
-    let imagemUrl = "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop&crop=faces"; // Imagem padrão
-    
+
+    let imagemUrl =
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop&crop=faces"; // Imagem padrão
+
     if (predioData.fotoPrincipal) {
-      
       imagemUrl = URL.createObjectURL(predioData.fotoPrincipal);
     }
-    
+
     // Criar novo prédio
     const novoPredio: PredioExibido = {
       id: `novo-${Date.now()}`,
       numero: novoNumero,
       nome: predioData.nome,
       imagem: imagemUrl,
-      alt: `${predioData.nome} - Prédio ${novoNumero}`
+      alt: `${predioData.nome} - Prédio ${novoNumero}`,
     };
-    
-    
-    setPredios(prev => [...prev, novoPredio]);
-    
-    
+
+    setPredios((prev) => [...prev, novoPredio]);
+
     setIsPopupOpen(false);
   };
 
   const goToHome = () => {
-    navigate("/");
+    navigate("/home");
   };
 
   return (
-    <div style={{
-      minHeight: "100vh",
-      backgroundColor: "#ffffff", 
-    }}>
+    <div
+      style={{
+        minHeight: "100vh",
+        backgroundColor: "#ffffff",
+      }}
+    >
       <Header />
 
-      <div style={{
-        marginTop: "5rem", 
-        marginBottom: "1rem",
-        fontSize: "0.875rem",
-        color: "#1F2937",
-        width: "100%",
-        maxWidth: "1200px",
-        margin: "5rem auto 1rem auto",
-        padding: "0 2rem",
-      }}>
-        <div style={{
+      <div
+        style={{
+          marginTop: "5rem",
+          marginBottom: "1rem",
           fontSize: "0.875rem",
           color: "#1F2937",
-          marginBottom: "1rem",
-        }}>
+          width: "100%",
+          maxWidth: "1200px",
+          margin: "5rem auto 1rem auto",
+          padding: "0 2rem",
+        }}
+      >
+        <div
+          style={{
+            fontSize: "0.875rem",
+            color: "#1F2937",
+            marginBottom: "1rem",
+          }}
+        >
           <span
             onClick={goToHome}
             style={{
@@ -240,31 +330,42 @@ const Predio: React.FC = () => {
               textDecoration: "none",
               color: "#1F2937",
             }}
-            onMouseEnter={(e) => { 
-              e.currentTarget.style.color = "#4B5563"; 
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = "#4B5563";
               e.currentTarget.style.textDecoration = "underline";
             }}
-            onMouseLeave={(e) => { 
-              e.currentTarget.style.color = "#1F2937"; 
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = "#1F2937";
               e.currentTarget.style.textDecoration = "none";
             }}
           >
-            Home 
+            Home
           </span>
         </div>
       </div>
 
       <div style={containerStyle}>
-        <ExpeditionInfo />
+        {!expedition ? (
+          <p>Carregando informações da expedição...</p>
+        ) : (
+          <ExpeditionInfo
+            nome={expedition.nome}
+            data_criacao={expedition.data_criacao}
+            nome_responsavel={expedition.nome_responsavel}
+          />
+        )}
+
         <QuadroPredios onAddClick={handleAddPredio}>
-          <div style={{
-            display: "flex",
-            gap: "40px",
-            flexWrap: "wrap",
-            justifyContent: "flex-start",
-            padding: "40px",
-            paddingBottom: "100px", 
-          }}>
+          <div
+            style={{
+              display: "flex",
+              gap: "40px",
+              flexWrap: "wrap",
+              justifyContent: "flex-start",
+              padding: "40px",
+              paddingBottom: "100px",
+            }}
+          >
             {predios.map((predio) => (
               <PredioCard
                 key={predio.id}
@@ -272,7 +373,7 @@ const Predio: React.FC = () => {
                 nome={predio.nome}
                 imagem={predio.imagem}
                 alt={predio.alt}
-                onClick={handlePredioClick}
+                onClick={() => handlePredioClick(predio.id)}
               />
             ))}
           </div>
@@ -283,6 +384,7 @@ const Predio: React.FC = () => {
         isOpen={isPopupOpen}
         onClose={handleClosePopup}
         onSave={handleSavePredio}
+        idExpedicaoAtual={Number(expeditionId)}
       />
     </div>
   );
