@@ -1,62 +1,86 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import FissureModal from "./FissureModal";
 import upload from "../constants/assets/Upload.svg";
-import { COLORS, FONTS, BREAKPOINTS } from "../constants/style";
-import FissureModal from "./FissureModal"; // ajuste o path conforme seu projeto
+import { FONTS } from "../constants/style";
 
-// Tipagem da fissura
-interface FissureData {
-  id: string;
-  imageUrl: string;
-  expedition: string;
-  building: string;
-  facade: string;
-  classification: string;
-  probableCause: string;
-  uploadDate: string;
+interface Fissure {
+  id: number;
+  categoria: string;
+  confiabilidade: number;
+  id_image: number;
 }
 
-const ACCEPTED_TYPES = ["image/png", "image/jpeg", "image/jpg", "image/webp"];
+interface ImageInfo {
+  id: number;
+  url: string;
+  nome: string;
+  orientacao: string;
+  img_resultado?: string;
+}
+
+interface FissureWithImage {
+  fissure: Fissure;
+  image: ImageInfo;
+}
 
 const FissurePanel = () => {
-  const [thermalCracks, setThermalCracks] = useState<string[]>([]);
-  const [retractionCracks, setRetractionCracks] = useState<string[]>([]);
-  const [selectedFissure, setSelectedFissure] = useState<FissureData | null>(null);
-  const [error, setError] = useState("");
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { numeroPredio } = useParams<{ numeroPredio: string }>();
+  const [termicas, setTermicas] = useState<FissureWithImage[]>([]);
+  const [retracoes, setRetracoes] = useState<FissureWithImage[]>([]);
+  const [modalFissure, setModalFissure] = useState<FissureWithImage | null>(
+    null
+  );
 
-  const handleUploadClick = () => {
-    fileInputRef.current?.click();
-  };
+  useEffect(() => {
+    const fetchFissures = async () => {
+      try {
+        const token = localStorage.getItem("token");
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (!files || files.length === 0) return;
+        const fissRes = await axios.get(
+          `http://localhost:5000/fissure/predio/${numeroPredio}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
 
-    const file = files[0];
+        const allFissures = [
+          ...fissRes.data.fissures.termica,
+          ...fissRes.data.fissures.retracao,
+        ];
 
-    if (!ACCEPTED_TYPES.includes(file.type)) {
-      setError("Formato não suportado. Por favor, envie uma imagem PNG, JPG ou WEBP.");
-      return;
-    }
+        const imageRes = await axios.get(
+          `http://localhost:5000/image/by_predio/${numeroPredio}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const imageUrl = reader.result as string;
+        const imageMap: Record<number, ImageInfo> = {};
+        for (const img of imageRes.data.images) {
+          imageMap[img.id] = img;
+        }
 
-      if (thermalCracks.length <= retractionCracks.length) {
-        setThermalCracks((prev) => [...prev, imageUrl]);
-      } else {
-        setRetractionCracks((prev) => [...prev, imageUrl]);
+        const group = (cat: string) =>
+          allFissures
+            .filter((f: Fissure) => f.categoria === cat)
+            .map((f: Fissure) => ({
+              fissure: f,
+              image: imageMap[f.id_image],
+            }))
+            .filter((f) => f.image); // ignora se imagem não foi encontrada
+
+        setTermicas(group("termica"));
+        setRetracoes(group("retracao"));
+      } catch (error) {
+        console.error("Erro ao buscar fissuras:", error);
       }
     };
-    reader.onerror = () => {
-      setError("Erro ao carregar o arquivo. Tente novamente.");
-    };
-    reader.readAsDataURL(file);
-  };
 
-  const closeError = () => setError("");
+    fetchFissures();
+  }, [numeroPredio]);
 
   return (
     <Container>
@@ -66,27 +90,17 @@ const FissurePanel = () => {
             <Title>Fissuras térmicas</Title>
           </TitleContainer>
           <ImageGrid>
-            {thermalCracks.length === 0 && <Placeholder>Nenhuma imagem enviada ainda.</Placeholder>}
-            {thermalCracks.map((src, i) => (
-              <img
-                src={src}
-                key={i}
-                alt={`Fissura térmica ${i}`}
-                onClick={() =>
-                  setSelectedFissure({
-                    id: `T08310${i}`,
-                    imageUrl: src,
-                    expedition: "Inteli",
-                    building: "6",
-                    facade: "Norte",
-                    classification: "Térmica",
-                    probableCause:
-                      "Fissuras térmicas são normalmente causadas por tensões térmicas em um material devido a variações bruscas de temperatura.",
-                    uploadDate: new Date().toLocaleDateString("pt-BR"),
-                  })
-                }
-              />
-            ))}
+            {termicas.length === 0 ? (
+              <Placeholder>Nenhuma imagem encontrada</Placeholder>
+            ) : (
+              termicas.map((fiss, i) => (
+                <img
+                  src={fiss.image.img_resultado || fiss.image.url}
+                  alt={fiss.image.nome}
+                  onClick={() => setModalFissure(fiss)}
+                />
+              ))
+            )}
           </ImageGrid>
         </Column>
 
@@ -97,49 +111,39 @@ const FissurePanel = () => {
             <Title>Fissuras de retração</Title>
           </TitleContainer>
           <ImageGrid>
-            {retractionCracks.length === 0 && <Placeholder>Nenhuma imagem enviada ainda.</Placeholder>}
-            {retractionCracks.map((src, i) => (
-              <img
-                src={src}
-                key={i}
-                alt={`Fissura de retração ${i}`}
-                onClick={() =>
-                  setSelectedFissure({
-                    id: `R08310${i}`,
-                    imageUrl: src,
-                    expedition: "Inteli",
-                    building: "6",
-                    facade: "Norte",
-                    classification: "Retração",
-                    probableCause:
-                      "Fissuras de retração ocorrem devido à perda de umidade no concreto durante a cura, resultando em contrações e trincas.",
-                    uploadDate: new Date().toLocaleDateString("pt-BR"),
-                  })
-                }
-              />
-            ))}
+            {retracoes.length === 0 ? (
+              <Placeholder>Nenhuma imagem encontrada</Placeholder>
+            ) : (
+              retracoes.map((fiss, i) => (
+                <img
+                  src={fiss.image.img_resultado || fiss.image.url}
+                  alt={fiss.image.nome}
+                  onClick={() => setModalFissure(fiss)}
+                />
+              ))
+            )}
           </ImageGrid>
         </Column>
       </InnerPanel>
 
-      <BottomBar onClick={handleUploadClick}>
-        <UploadIcon src={upload} alt="Ícone de Upload" />
-        <HiddenInput
-          type="file"
-          accept="image/png, image/jpeg, image/jpg, image/webp"
-          onChange={handleFileChange}
-          ref={fileInputRef}
+      {modalFissure && (
+        <FissureModal
+          fissure={{
+            id: String(modalFissure.fissure.id),
+            imageUrl: modalFissure.image.url,
+            // expedition: "Desconhecida",
+            building: numeroPredio ?? "",
+            facade: modalFissure.image.orientacao,
+            classification: modalFissure.fissure.categoria,
+            probableCause:
+              modalFissure.fissure.categoria === "termica"
+                ? "Variações térmicas"
+                : "Retração por secagem",
+            uploadDate: new Date().toLocaleDateString("pt-BR"),
+          }}
+          onClose={() => setModalFissure(null)}
         />
-      </BottomBar>
-
-      {error && (
-        <Toast>
-          <span>⚠️</span> {error}
-          <CloseButton onClick={closeError}>×</CloseButton>
-        </Toast>
       )}
-
-      <FissureModal fissure={selectedFissure} onClose={() => setSelectedFissure(null)} />
     </Container>
   );
 };
@@ -257,4 +261,3 @@ const CloseButton = styled.button`
   margin-left: auto;
   cursor: pointer;
 `;
-

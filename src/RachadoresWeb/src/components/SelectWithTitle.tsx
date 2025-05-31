@@ -1,7 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 
-const SelectWithTitle = () => {
+interface ExpeditionInfoProps {
+  nome: string;
+  data_criacao: string;
+  nome_responsavel: number;
+}
+
+
+const SelectWithTitle: React.FC<ExpeditionInfoProps> = ({
+    nome = "Expedição Inteli",
+    data_criacao = "12/05/2025",
+    nome_responsavel = "Pedro Silva"
+  }) => {
   return (
     <Container>
       <LeftSide>
@@ -13,7 +24,7 @@ const SelectWithTitle = () => {
           <option>Fachada oeste</option>
         </Select>
         <Responsavel>
-          <strong>Responsável:</strong> LilFer777
+          <strong>Responsável:</strong> {nome_responsavel}
         </Responsavel>
       </LeftSide>
 

@@ -16,7 +16,8 @@ class Expedition(db.Model):
     
     # Relacionamentos
     predios = db.relationship('Building', backref='expedition', lazy=True)
-    
+    responsavel = db.relationship('User', back_populates='expedicoes')
+
     
     # Função para transformar em json
     def as_dict(self):
@@ -27,6 +28,7 @@ class Expedition(db.Model):
             'data_criacao': self.data_criacao,   
             'ultima_att': self.ultima_att,
             'id_responsavel': self.id_responsavel,
+            'nome_responsavel': self.responsavel.nome_completo,
             'descricao': self.descricao,
             'foto_capa': self.foto_capa
         }

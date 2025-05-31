@@ -22,7 +22,7 @@ class Building(db.Model):
             'id': self.id,
             'id_expedicao': self.id_expedicao,
             'nome': self.nome,
-            'complemento': self.complemento,
-            'descricao': self.descricao,
-            'foto_fachada': self.foto_fachada
+            'complemento': self.complemento or "",
+            'descricao': self.descricao or "",
+            'foto_fachada': self.foto_fachada or ""
             }
