@@ -9,7 +9,7 @@ def load_detection_model(model_path):
 
 def run_detection_model(model_path, image_folder):
     model = load_detection_model(model_path)
-    images = sorted(glob.glob(f"{image_folder}/*_*_*_*.[jp][pn]g"), reverse=True)
+    images = sorted(glob.glob(f"{image_folder}/*.[jp][pn]g"), reverse=True)
     if not images:
         return "Nenhuma imagem encontrada para rodar o modelo.", {}
 

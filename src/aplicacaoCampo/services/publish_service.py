@@ -30,19 +30,23 @@ def publish_building(api, path, expedition_id, bucket_name="fissurai"):
 
 
 def publish_image(api, path, filename, building_id, bucket_name="fissurai"):
-    sentido = filename.split("_")[0]
     parts = filename.split("_")
-    if len(parts) < 3:
+    if len(parts) < 2:
         return None
-    timestamp_str = parts[2].split(".")[0]
+
+    timestamp_str = parts[-1].split(".")[0]
     try:
         timestamp = int(timestamp_str)
     except ValueError:
         return None
 
+    sentido = parts[0]
     local_path = os.path.join(path, filename)
     result_filename = f"detect_{filename}"
     result_path = os.path.join(path, "resultados", result_filename)
+
+    if not os.path.exists(local_path):
+        return None
 
     s3_key = local_path.replace(os.path.sep, '_')
     result_s3_key = result_path.replace(os.path.sep, '_')
@@ -61,16 +65,20 @@ def publish_image(api, path, filename, building_id, bucket_name="fissurai"):
         "id_modelo": None
     }
 
-    image_response = api.post("/image/add", payload)
-
+    try:
+        image_response = api.post("/image/add", payload)
+    except Exception as e:
+        print(f"❌ Exceção ao fazer POST: {e}")
+        return None
+    
     fissures_json_path = os.path.join(path, "resultados", "fissures_per_image.json")
-
     if image_response and image_response.status_code == 201:
         image_id = image_response.json().get("id")
         if image_id:
             publish_fissures(api, image_id, filename, fissures_json_path)
 
     return image_response
+
 
 
 def publish_fissures(api, image_id, image_name, fissures_json_path):
@@ -137,7 +145,7 @@ def publish_full_inspection(api, inspections_dir="imagens/inspecoes"):
                     parts = fname.split("_")
                     if len(parts) >= 3:
                         try:
-                            int(parts[2].split(".")[0])
+                            int(parts[-1].split(".")[0])
                         except ValueError:
                             continue
                         img_res = publish_image(api, bpath, fname, building_id)

@@ -131,17 +131,5 @@ def render_building_page(building_path):
                     st.rerun()
                 else:
                     st.error(f"Modelo não encontrado em '{model_path}'")
-                    
-        resultados_path = os.path.join(building_path, "resultados", "crack_info.json")
-        if os.path.exists(resultados_path):
-            if st.button("📊 Ver Resultados do Modelo"):
-                st.session_state.crack_counts = get_images_with_cracks(building_path)
-                st.session_state.building_path = building_path
-                st.query_params = {
-                    "inspection": Path(building_path).parents[1].name,
-                    "building": Path(building_path).name,
-                    "modelo": "ok"
-                }
-                st.rerun()
 
 
