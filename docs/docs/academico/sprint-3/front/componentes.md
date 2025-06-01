@@ -179,7 +179,28 @@ import MetricsBar from "../components/MetricsBar";
 <MetricsBar />
 ```
 
----
+## ExpeditionsModal
+
+O ExpeditionModal é um componente modal responsável pela criação de novas expedições. Apresenta um formulário completo com validação de campos obrigatórios e interface intuitiva para entrada de dados da expedição.
+
+<p style={{textAlign: 'center'}}>Modal de criação de expedição</p>
+<div style={{margin: 25}}>
+    <div style={{textAlign: 'center'}}>
+        <img src={require("../../../../static/img/expedition-modal.png").default} style={{width: 600, border: '1px solid #ccc'}} alt="Modal de Expedição" />
+        <br/>
+    </div>
+</div>
+<p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
+
+# Funcionalidades:
+
+Formulário com campos para nome, descrição, data e endereço
+Upload de foto da expedição
+Validação de campos obrigatórios (todos os campos são requeridos)
+Botões de ação (Cancelar e Criar Expedição)
+Fechamento automático após criação bem-sucedida
+Overlay com blur para foco no conteúdo do modal
+Conversão automática de data para formato brasileiro (DD/MM/YYYY)
 
 ## FissureModal
 

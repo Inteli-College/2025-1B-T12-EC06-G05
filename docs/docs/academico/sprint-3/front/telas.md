@@ -53,7 +53,39 @@ custom_edit_url: null
 | `axios`                             | `axios`                          | Realiza a requisição POST para login na API `/user/login`                                 |
 
 
----
+## Tela de Home (`Home.tsx`)
+
+A tela de Home serve como painel central após o login, onde os usuários podem visualizar, pesquisar e gerenciar expedições. É o ponto de partida para acessar análises específicas de prédios e criar novas expedições através de um modal interativo.
+<p style={{textAlign: 'center'}}>Tela de Home com listagem de expedições</p>
+<div style={{margin: 25}}>
+    <div style={{textAlign: 'center'}}>
+        <img src={require("../../../../static/img/home.png").default} style={{width: 800}} alt="Tela de Home" />
+        <br/>
+    </div>
+</div>
+<p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
+
+# Funcionalidades principais:
+
+Listagem de expedições com informações básicas (nome, data, ícone)
+Sistema de busca por nome da expedição
+Filtro por data (formato DD/MM/AAAA)
+Botão flutuante para adicionar novas expedições
+Estados visuais para lista vazia e resultados não encontrados
+Navegação para análise específica ao clicar em uma expedição
+
+# Integrações com o back-end:
+
+Futuramente integrará com endpoints para listar expedições existentes
+Suporte para criação de novas expedições via modal
+
+# Outros destaques:
+
+Design responsivo com breakpoints para mobile e tablet
+Animações sutis nos itens da lista (hover effects)
+Acessibilidade com suporte a navegação por teclado
+Estados visuais diferenciados (vazio, sem resultados, carregado)
+Layout em grid adaptativo para os campos de busca
 
 ## Tela de Visão Geral do Prédio (`AnaliseFissuras.tsx`)
 
