@@ -232,7 +232,16 @@ import FissureModal from "../components/FissureModal";
 
 ## ExpeditionInfo
 
-Componente que exibe informações gerais da expedição na tela de Predios, como nome da expedição, a data e o nome do responsável. Ele é utilizado como um cabeçalho informativo na tela de prédios garantindo a exibição das informações principais.
+Componente que exibe informações gerais da expedição na tela de Predios, como o nome da expedição, a data e o responsável. Ele é utilizado como um cabeçalho informativo na tela de prédios garantindo a exibição das informações principais.
+
+<p style={{textAlign: 'center'}}>ExpeditionInfo</p>
+<div style={{margin: 25}}>
+  <div style={{textAlign: 'center'}}>
+    <img src={require("../../../../static/img/ExpeditionInfo.jpeg").default} style={{width: 800, border: '1px solid #ccc'}} alt="ExpeditionInfo" />
+  </div>
+</div>
+<p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
+
 
 **Importação:**
 
@@ -264,6 +273,24 @@ import ExpeditionInfo from "../components/ExpeditionInfo";
 
 é um modal interativo utilizado para adicionar novos prédios a uma expedição existente. Ele oferece campos para preenchimento de informações básicas como nome, complemento, data e horário da coleta, descrição, foto da fachada e upload de imagens por zona (Norte, Sul, Leste, Oeste, Sudeste, Sudoeste, Nordeste, Noroeste). Exibe um modal de sucesso com animação após o cadastro.
 
+<p style={{textAlign: 'center'}}>ModalAddPredio</p>
+<div style={{margin: 25}}>
+  <div style={{textAlign: 'center'}}>
+    <img src={require("../../../../static/img/ModalAddPredio.png").default} style={{width: 800, border: '1px solid #ccc'}} alt="ModalAddPredio" />
+  </div>
+</div>
+<p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
+
+**Funcionalidades:**
+
+- Cadastro de Informações do Prédio: Permite inserir nome, complemento, descrição, data e hora de início e fim da coleta.
+- Uploads de fotos:
+  - Foto Principal (Fachada): Um campo específico para upload da imagem principal do prédio.
+  - Fotos por Zona: Campos dedicados para upload de imagens de diferentes orientações (Norte, Sul, Leste, Oeste, Nordeste, Noroeste, Sudeste, Sudoeste).
+- Validação e Persistência: Envia os dados e imagens para a API de backend, persistindo as informações no sistema.
+- Feedback Visual: Exibe um modal de sucesso após o cadastro bem-sucedido.
+- Fechamento do Modal: Pode ser fechado clicando fora da área do conteúdo ou no botão "✕".
+
 **Importação:**
 
 ```tsx
@@ -281,21 +308,28 @@ import ModalAddPredio from "../components/ModalAddPredio";
  />
 ```
 
-**Funcionalidades:**
-
-- Cadastro de Informações do Prédio: Permite inserir nome, complemento, descrição, data e hora de início e fim da coleta.
-- Uploads de fotos:
-  - Foto Principal (Fachada): Um campo específico para upload da imagem principal do prédio.
-  - Fotos por Zona: Campos dedicados para upload de imagens de diferentes orientações (Norte, Sul, Leste, Oeste, Nordeste, Noroeste, Sudeste, Sudoeste).
-- Validação e Persistência: Envia os dados e imagens para a API de backend, persistindo as informações no sistema.
-- Feedback Visual: Exibe um modal de sucesso após o cadastro bem-sucedido.
-- Fechamento do Modal: Pode ser fechado clicando fora da área do conteúdo ou no botão "✕".
-
 ---
 
 ## QuadroPredios
 
 O componente QuadroPredios serve como um contêiner visual para exibir uma lista de prédios registrados. Ele apresenta um cabeçalho, uma área de conteúdo onde os cards dos prédios são renderizados, e um botão flutuante de adição que permite iniciar o processo de cadastro de um novo prédio.
+
+<p style={{textAlign: 'center'}}>QuadroPredios</p>
+<div style={{margin: 25}}>
+  <div style={{textAlign: 'center'}}>
+    <img src={require("../../../../static/img/QuadroPredios.jpeg").default} style={{width: 800, border: '1px solid #ccc'}} alt="QuadroPredios" />
+  </div>
+</div>
+<p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
+
+**Funcionalidades:**
+
+- Contêiner para Prédios: Proporciona uma estrutura visual organizada para apresentar múltiplos cards de prédios.
+- Cabeçalho Fixo: Exibe o título "Prédios" na parte superior do quadro.
+- Botão de Adição Flutuante: Inclui um botão "+" posicionado no canto inferior direito, que aciona a funcionalidade de adicionar um novo prédio.
+- Responsividade de Conteúdo: A área de conteúdo (children) possui overflowY: 'auto' para permitir a rolagem se houver muitos prédios.
+- Efeitos Visuais: O botão de adição possui efeitos de hover para uma melhor experiência do usuário.
+
 
 **Importação:**
 
@@ -306,39 +340,31 @@ import QuadroPredios from "../components/QuadroPredios";
 **Utilização:**
 
 ```tsx
-    <QuadroPredios onAddClick={handleAddPredio}>
-          <div
-            style={{
-              display: "flex",
-              gap: "40px",
-              flexWrap: "wrap",
-              justifyContent: "flex-start",
-              padding: "40px",
-              paddingBottom: "100px",
-            }}
-          >
-            {predios.map((predio) => (
-              <PredioCard
-                key={predio.id}
-                numero={predio.numero}
-                nome={predio.nome}
-                imagem={predio.imagem}
-                alt={predio.alt}
-                onClick={() => handlePredioClick(predio.id)}
-              />
-            ))}
-          </div>
-        </QuadroPredios>
+<QuadroPredios onAddClick={handleAddPredio}>
+  <div
+    style={{
+      display: "flex",
+      gap: "40px",
+      flexWrap: "wrap",
+      justifyContent: "flex-start",
+      padding: "40px",
+      paddingBottom: "100px",
+    }}
+  >
+    {predios.map((predio) => (
+      <PredioCard
+        key={predio.id}
+        numero={predio.numero}
+        nome={predio.nome}
+        imagem={predio.imagem}
+        alt={predio.alt}
+        onClick={() => handlePredioClick(predio.id)}
+      />
+    ))}
+  </div>
+</QuadroPredios>
 
 ```
-
-**Funcionalidades:**
-
-- Contêiner para Prédios: Proporciona uma estrutura visual organizada para apresentar múltiplos cards de prédios.
-- Cabeçalho Fixo: Exibe o título "Prédios" na parte superior do quadro.
-- Botão de Adição Flutuante: Inclui um botão "+" posicionado no canto inferior direito, que aciona a funcionalidade de adicionar um novo prédio.
-- Responsividade de Conteúdo: A área de conteúdo (children) possui overflowY: 'auto' para permitir a rolagem se houver muitos prédios.
-- Efeitos Visuais: O botão de adição possui efeitos de hover para uma melhor experiência do usuário.
 
 ---
 

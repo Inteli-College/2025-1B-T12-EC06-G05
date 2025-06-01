@@ -110,7 +110,7 @@ custom_edit_url: null
 <p style={{textAlign: 'center'}}>Tela de Prédios</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
-        <img src={require("../../../../static/img/analise-de-fissuras.png").default} style={{width: 800}} alt="WTela de Prédios" />
+        <img src={require("../../../../static/img/quadroPredios.jpeg").default} style={{width: 800}} alt="Tela de Prédios" />
         <br/>
     </div>
 </div>
@@ -166,7 +166,7 @@ custom_edit_url: null
 
 ---
 
-
+x   
 ## Tela de Visão Geral do Prédio (`AnaliseFissuras.tsx`)
 
 &emsp;Essa é a principal tela de análise após o login. Nela, o usuário pode visualizar fissuras detectadas, consultar imagens da fachada por orientação e acessar os dados da expedição vinculada ao prédio selecionado.
