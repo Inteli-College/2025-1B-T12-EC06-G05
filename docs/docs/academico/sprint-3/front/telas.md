@@ -102,8 +102,69 @@ custom_edit_url: null
 
 ---
 
+## Tela de Predios
+
+&emsp;Essa tela é responsável por exibir e cadastrar prédios pertencentes a uma determinada expedição. Ela é acessada a partir da tela de expedição do sistema, e fornece um painel visual com todos os prédios registrados, além de um botão para adicionar novos prédios por meio de um formulário em popup.
 
 
+<p style={{textAlign: 'center'}}>Tela de Prédios</p>
+<div style={{margin: 25}}>
+    <div style={{textAlign: 'center'}}>
+        <img src={require("../../../../static/img/analise-de-fissuras.png").default} style={{width: 800}} alt="WTela de Prédios" />
+        <br/>
+    </div>
+</div>
+<p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
+
+
+**Funcionalidades principais:**
+
+- Exibição dos prédios cadastrados de uma expedição em formato de galeria
+- Cadastro de novos prédios através de um modal com formulário
+- Redirecionamento para análise de fissuras do prédio selecionado
+- Carregamento dinâmico dos dados da expedição vinculada
+
+**Campos no cadastro do prédio**
+
+- Nome do prédio
+- Complemento (opcional)
+- Descrição (opcional)
+- Data da coleta
+- Hora de início e hora de fim da coleta
+- Foto principal (fachada do prédio)
+- Upload de imagens de fissuras por zona:
+  - Norte
+  - Sul
+  - Leste
+  - Oeste
+  - Sudeste
+  - Sudoeste
+  - Nordeste
+  - Noroeste
+
+**Integrações com o back-end:**
+- `GET /building/expedition/:id` — para obter todos os prédios vinculados à expedição
+- `GET /expedition/:id` — para obter os dados da expedição
+- `POST /building` — para cadastrar um novo prédio com imagens associadas
+
+**Outros destaques:**
+- Usa componentes reutilizáveis como `Header`, `ExpeditionInfo`, `QuadroPredios` e `ModalAddPredio`
+- Trabalha com `useParams` para extrair o `id` da expedição diretamente da URL
+- Utiliza `URL.createObjectURL` para pré-visualizar imagens locais antes do upload
+
+
+| Importado de                    | O que está sendo importado     | Para que serve                                                                                      |
+| ------------------------------- | ------------------------------ | --------------------------------------------------------------------------------------------------- |
+| `react`                         | `useEffect`, `useState`        | Lida com o carregamento e atualização dinâmica da lista de prédios e do modal                       |
+| `react-router-dom`              | `useParams`, `useNavigate`     | Captura o parâmetro `id` da URL e realiza redirecionamentos após seleção de prédio                  |
+| `axios`                         | `axios`                        | Realiza requisições autenticadas à API para buscar e cadastrar dados                               |
+| `../components/Header`          | `Header`                       | Cabeçalho com título da página e navegação                                                          |
+| `../components/ExpeditionInfo`  | `ExpeditionInfo`               | Exibe as informações básicas da expedição                                                           |
+| `../components/QuadroPredios`   | `QuadroPredios`                | Componente que exibe os prédios cadastrados e inclui o botão para adicionar novo prédio            |
+| `../components/ModalAddPredio`  | `ModalAddPredio`               | Modal com formulário para preenchimento dos dados do prédio                                        |
+
+
+---
 
 
 ## Tela de Visão Geral do Prédio (`AnaliseFissuras.tsx`)
