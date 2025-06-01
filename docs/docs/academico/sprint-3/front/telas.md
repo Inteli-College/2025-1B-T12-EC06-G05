@@ -55,9 +55,60 @@ custom_edit_url: null
 
 ---
 
+## Tela de Cadastro (Cadastro.tsx)
+
+&emsp;Caso o usuário não tenha uma conta na plataforma, ele é direcionado para a tela de cadastro. Nessa tela, é possível preencher os dados básicos de autenticação e criar uma nova conta. Após o envio do formulário, um **modal de sucesso** confirma o cadastro, redirecionando o usuário para a tela de login.
+
+<p style={{textAlign: 'center'}}>Tela de cadastro</p>
+<div style={{margin: 25}}>
+    <div style={{textAlign: 'center'}}>
+        <img src={require("../../../../static/img/telaCadastro.png").default} style={{width: 800}} alt="Tela de Cadastro" />
+        <br/>
+    </div>
+</div>
+<p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
+
+**Funcionalidades principais:**
+- Campos de entrada para:
+  - Nome completo
+  - E-mail institucional
+  - Senha
+  - Cargo (com opções dinâmicas ou padrão)
+- Validação de campos obrigatórios
+- Exibição de modal animado confirmando sucesso do cadastro
+- Redirecionamento automático para a tela de login após cadastro bem-sucedido   
+
+**Integração com o back-end:**
+- `POST /user/cadastro` para autenticar
+- Armazena o `access_token` retornado localmente
+
+**Outros destaques:**
+- Responsiva: oculta o fundo ilustrado em telas pequenas
+- Animação sutil no SVG da lupa
+- Layout flexível com Styled Components
+
+| Importado de                         | O que está sendo importado                | Para que serve                                                                                          |
+| ---------------------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `react`                                  | `useState`                       | Gerenciar estados internos como inputs, erros e modal                                               |
+| `react-router-dom`                       | `useNavigate`                    | Redirecionar o usuário após cadastro                                                                |
+| `styled-components`                      | `styled`, `keyframes`            | Estilizar componentes com CSS-in-JS e criar animações                                               |
+| `../constants/style`                     | `COLORS`, `FONTS`, `BREAKPOINTS` | Utilizar padrões globais de cor, fonte e responsividade                                             |
+| `../constants/assets/lupa.svg`           | `lupa`                           | Imagem vetorial usada como ilustração flutuante na seção da esquerda                                                                           |
+| `../constants/assets/cadastro_bkg.svg`   | `cadastroBG`                     | Imagem de fundo na seção lateral                                                                    |
+| `axios`                                  | `axios`                          | Enviar requisição `POST` para registrar o usuário                                                   |
+| `lottie-react`                           | `Lottie`                         | Exibir animação JSON do modal de sucesso                                                            |
+| `../constants/assets/animations/certo.json` | `correto`                    | Animação de check (certo) exibida no modal após cadastro bem-sucedido                              |
+
+
+---
+
+
+
+
+
 ## Tela de Visão Geral do Prédio (`AnaliseFissuras.tsx`)
 
-Essa é a principal tela de análise após o login. Nela, o usuário pode visualizar fissuras detectadas, consultar imagens da fachada por orientação e acessar os dados da expedição vinculada ao prédio selecionado.
+&emsp;Essa é a principal tela de análise após o login. Nela, o usuário pode visualizar fissuras detectadas, consultar imagens da fachada por orientação e acessar os dados da expedição vinculada ao prédio selecionado.
 
 <p style={{textAlign: 'center'}}>Tela de análise de fissuras</p>
 <div style={{margin: 25}}>
