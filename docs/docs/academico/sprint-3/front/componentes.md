@@ -150,7 +150,7 @@ O `MetricsBar` é um componente visual que exibe um conjunto compacto de métric
 <p style={{textAlign: 'center'}}>MetricsBar</p>
 <div style={{margin: 25}}>
   <div style={{textAlign: 'center'}}>
-    <img src={require("../../../../static/img/metrics.png").default} style={{width: 800, border: '1px solid #ccc'}} alt="MetricsBar" />
+    <img src={require("../../../../static/img/Metrics.png").default} style={{width: 800, border: '1px solid #ccc'}} alt="MetricsBar" />
   </div>
 </div>
 <p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
