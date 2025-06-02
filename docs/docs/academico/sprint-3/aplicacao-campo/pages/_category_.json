@@ -1,0 +1,8 @@
+{
+  "label": "pages",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Documentação das páginas da aplicação de campo, explicando o papel de cada uma e como estão organizadas dentro da pasta pages."
+  }
+}

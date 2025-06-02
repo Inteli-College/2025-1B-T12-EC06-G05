@@ -7,12 +7,13 @@ custom_edit_url: null
 
 ## Introdução
 
-&nbsp;&nbsp;&nbsp;&nbsp;Após o pré-processamento das imagens, passamos para a etapa de construção do modelo de visão computacional. Treinar um modelo pode parecer complicado à primeira vista, mas hoje existem ferramentas que facilitam bastante esse processo. Um exemplo é o YOLO (You Only Look Once), uma biblioteca em Python que permite treinar modelos com poucas linhas de código.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;Após o pré-processamento das imagens, utilizamos o conjunto de dados resultante — já com as melhorias de contraste, remoção de ruído e realce das fissuras — como base para o treinamento do nosso modelo de visão computacional. Essa integração entre pré-processamento e treinamento é fundamental, pois as melhorias aplicadas nas imagens visam justamente facilitar a detecção e a classificação das fissuras pelo modelo.    
+&nbsp;&nbsp;&nbsp;&nbsp;Treinar um modelo pode parecer complicado à primeira vista, mas hoje existem ferramentas que facilitam bastante esse processo. Um exemplo é o YOLO (You Only Look Once), uma biblioteca em Python que permite treinar modelos com poucas linhas de código.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;A documentação oficial do YOLO é outro ponto forte da biblioteca, pois ela oferece suporte detalhado para diferentes configurações e aplicações. Trabalhando com o modelo, descobrimos que existem muitas variáveis que influenciam diretamente o desempenho do modelo após o treinamento, e você pode se aprofundar nelas através da [Documentação do Yolo](https://docs.ultralytics.com/pt/modes/train/#train-settings). 
 
 ## Qual o objetivo?
 
-&nbsp;&nbsp;&nbsp;&nbsp;Nosso objetivo é utilizar o dataset já processado para treinar um modelo YOLO capaz de detectar e classificar fissuras com precisão. Essa é uma etapa que exige muita atenção, pois envolve diversas variáveis que influenciam diretamente o desempenho final.  Modelos de detecção, como o nosso, não apenas localizam objetos (neste caso, fissuras), mas também os classificam corretamente. Queremos que o modelo seja capaz de identificar a presença de fissuras de forma precisa e, principalmente, de classificá-las corretamente conforme suas características.
+&nbsp;&nbsp;&nbsp;&nbsp;Nosso objetivo é utilizar o dataset já pré-processado para treinar um modelo YOLO capaz de detectar e classificar fissuras com precisão. Essa é uma etapa que exige muita atenção, pois envolve diversas variáveis que influenciam diretamente o desempenho final. Modelos de detecção, como o nosso, não apenas localizam objetos (neste caso, fissuras), mas também os classificam corretamente. Queremos que o modelo seja capaz de identificar a presença de fissuras de forma precisa e, principalmente, de classificá-las corretamente conforme suas características.
 
 ## Treinamento 
 &nbsp;&nbsp;&nbsp;&nbsp;Para atingirmos um modelo capaz de identificá-las e classificá-las de maneira satisfatória, precisamos antes treiná-lo. Treinar um modelo com YOLO pode ser simples assim:

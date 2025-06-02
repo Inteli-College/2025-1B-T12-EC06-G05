@@ -1,9 +1,2 @@
-/venv
-/imagens/fotos/*.png
-/imagens/videos/*.avi
-/imagens/inspecoes/*/*.jpg
-/imagens/inspecoes/*/*.png
-/imagens/inspecoes/*/predios/*/*.jpg
-/imagens/inspecoes/*/predios/*/resultados/*.jpg
-/imagens/inspecoes/*/resultados/*.png
-/imagens/inspecoes/*/resultados/*.jpg
+__pycache__
+venv
