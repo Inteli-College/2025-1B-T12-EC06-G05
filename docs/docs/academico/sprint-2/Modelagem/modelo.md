@@ -13,7 +13,7 @@ custom_edit_url: null
 
 ## Qual o objetivo?
 
-&nbsp;&nbsp;&nbsp;&nbspNosso objetivo é utilizar o dataset já pré-processado para treinar um modelo YOLO capaz de detectar e classificar fissuras com precisão. Essa é uma etapa que exige muita atenção, pois envolve diversas variáveis que influenciam diretamente o desempenho final. Modelos de detecção, como o nosso, não apenas localizam objetos (neste caso, fissuras), mas também os classificam corretamente. Queremos que o modelo seja capaz de identificar a presença de fissuras de forma precisa e, principalmente, de classificá-las corretamente conforme suas características.
+&nbsp;&nbsp;&nbsp;&nbsp;Nosso objetivo é utilizar o dataset já pré-processado para treinar um modelo YOLO capaz de detectar e classificar fissuras com precisão. Essa é uma etapa que exige muita atenção, pois envolve diversas variáveis que influenciam diretamente o desempenho final. Modelos de detecção, como o nosso, não apenas localizam objetos (neste caso, fissuras), mas também os classificam corretamente. Queremos que o modelo seja capaz de identificar a presença de fissuras de forma precisa e, principalmente, de classificá-las corretamente conforme suas características.
 
 ## Treinamento 
 &nbsp;&nbsp;&nbsp;&nbsp;Para atingirmos um modelo capaz de identificá-las e classificá-las de maneira satisfatória, precisamos antes treiná-lo. Treinar um modelo com YOLO pode ser simples assim:
