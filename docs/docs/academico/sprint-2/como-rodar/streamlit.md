@@ -22,6 +22,7 @@ cd src
 python -m venv venv
 # Para Windows
 venv\Scripts\activate
+
 # Para Mac/Linux
 source venv/bin/activate
 ```
@@ -39,7 +40,7 @@ pip install -r requirements.txt
 ### 5. Execute a aplicação com Streamlit
 
 ```bash
-streamlit run app.py
+streamlit run interface.py
 ```
 
 &emsp;Agora você já conseguirá visualizar e utilizar a aplicação localmente através do navegador.
