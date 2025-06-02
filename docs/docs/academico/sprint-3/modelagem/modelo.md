@@ -69,7 +69,7 @@ model.train(
 </div>
 <p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
 
-  Ao observar atentamente os vídeos, é possível notar que ainda existem diversas dificuldades na identificação de fissuras nos cenários apresentados. Por isso, optamos por ampliar nosso dataset com novas imagens. A documentação de [casos de teste](caso_de_teste.md) aborda esse processo em maior detalhe.
+  Ao observar atentamente os vídeos, é possível notar que ainda existem diversas dificuldades na identificação de fissuras nos cenários apresentados. Por isso, optamos por ampliar nosso dataset com novas imagens.
 
 ## Conclusão
 
