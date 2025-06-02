@@ -16,7 +16,13 @@ Os principais pontos trabalhdos nessa sprint foram:
 
 - **Treinamento de Modelos:** Diversos modelos de classificação de fissuras foram treinados e avaliados, incluindo etapas de pré-processamento e análise de resultados, com o objetivo de identificar a abordagem mais eficaz atualmente.
 
-- **Aplicação de Campo:** Foi desenvolvida uma versão inicial da interface para uso do operador diretamente no local da operação (utilizando Streamlit). Essa interface já permite realizar funções essenciais como capturar imagens do drone, listar expedições locais e executar o modelo de análise em campo.
+- **Aplicação de Campo:** Foi desenvolvida uma versão inicial da interface para uso do operador diretamente no local da operação (utilizando Streamlit). Essa interface offline já permite realizar funções essenciais como:
+  - Criar e gerenciar expedições e prédios;
+  - Capturar imagens com o drone nas direções Norte, Sul, Leste e Oeste;
+  - Conectar-se com o drone em tempo real, exibindo sua filmagem ao vivo diretamente na interface;
+  - Capturar imagens diretamente da filmagem por meio de um botão;
+  - Executar o modelo de visão computacional para identificar e classificar fissuras nas imagens capturadas.
+
 
 
 &emsp;Essas entregas representam um passo importante na construção da solução, preparando o terreno para funcionalidades mais avançadas e testes integrados nas próximas fases do projeto. Cada um desses tópicos será detalhado em seções específicas desta documentação, assim como um tutorial de como rodar a interface da tela de bordo e o modelo.

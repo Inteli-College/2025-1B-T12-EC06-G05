@@ -29,11 +29,55 @@ custom_edit_url: null
 
 ***Login***: O usuário insere seu ID para iniciar a operação do sistema.
 
+<p style={{textAlign: 'center'}}>Figura 2 -Login</p>
+<div style={{margin: 25}}>
+    <div style={{textAlign: 'center'}}>
+        <img src={require("../../../../../static/img/Login-bordo.png").default} style={{width: 800}} alt="Login" />
+        <br/>
+    </div>
+</div>
+<p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
+
+---
+
 ***Home***:Após o *login*, pode-se criar uma nova expedição informando nome e prédio, ou selecionar uma expedição existente para continuar o trabalho.
+
+<p style={{textAlign: 'center'}}>Figura 3 - Home</p>
+<div style={{margin: 25}}>
+    <div style={{textAlign: 'center'}}>
+        <img src={require("../../../../../static/img/Home-bordo.png").default} style={{width: 800}} alt="Home" />
+        <br/>
+    </div>
+</div>
+<p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
+
+---
 
 **Captura de Drone**:O sistema permite selecionar a face do prédio e iniciar a captura de imagens via drone. As fotos são exibidas em miniaturas e podem ser salvas.
 
+<p style={{textAlign: 'center'}}>Figura 4 -Captura de Drone</p>
+<div style={{margin: 25}}>
+    <div style={{textAlign: 'center'}}>
+        <img src={require("../../../../../static/img/Captura-drone-bordo.png").default} style={{width: 800}} alt="Captura de drone" />
+        <br/>
+    </div>
+</div>
+<p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
+
+---
+
 **Expedição**:Exibe todas as fissuras capturadas e organizadas por tipo ou localização. O usuário pode revisar, classificar ou capturar mais fissuras.
+
+<p style={{textAlign: 'center'}}>Figura 2 -Expedição </p>
+<div style={{margin: 25}}>
+    <div style={{textAlign: 'center'}}>
+        <img src={require("../../../../../static/img/expedicao-bordo.png").default} style={{width: 800}} alt="Expedição" />
+        <br/>
+    </div>
+</div>
+<p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
+
+---
 
 ## Conclusão
 &emsp; O *wireframe* do sistema de campo apresenta a estrutura necessária para a operação com drones em ambientes práticos. Ele orienta o uso do sistema desde o *login* até a organização das fissuras registradas. Dessa forma, o fluxo proposto serve como base para o desenvolvimento do protótipo de alta fidelidade.
