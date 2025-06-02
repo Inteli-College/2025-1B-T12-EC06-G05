@@ -1,15 +1,10 @@
 ---
+title: "Geração de Imagens"
+sidebar_label: "Geração de Imagens"
 sidebar_position: 1
-custom_edit_url: null
 ---
 
----
-title: "Casos de Teste Adicionados na Sprint"
-sidebar_label: "Casos de Teste"
-sidebar_position: 6
----
-
-# Casos de Teste Adicionados nesta Sprint
+# Geração de Imagens
 
 ## Contextualização do foco da sprint
 
@@ -31,7 +26,21 @@ sidebar_position: 6
 
 **Fissura de retração:** *Prompt: Gere uma imagem realista de uma fachada externa de concreto, com acabamento claro ou levemente desgastado, apresentando fissuras de retração iniciando nas quinas superiores e descendo em traçado vertical ou oblíquo. As fissuras devem seguir o padrão típico da retração: curtas, paralelas ou levemente ramificadas. Inclua manchas sutis de sujeira e descolamento do reboco em pequenas áreas próximas às quinas. A iluminação deve evidenciar o relevo da fissura sem gerar sombra intensa.*
 
+<p style={{textAlign: 'center'}}>Figura 1 - Figura térmica em perspectiva</p>
+<div style={{margin: 25}}>
+    <div style={{textAlign: 'center'}}>
+        <img src={require("../../../../static/img/termica-1.png").default}style={{width: 400}} alt="US06 Pesquisador" />
+    </div>
+</div>
+<p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
 
+<p style={{textAlign: 'center'}}>Figura 2 - Figura de retração em perspectiva</p>
+<div style={{margin: 25}}>
+    <div style={{textAlign: 'center'}}>
+        <img src={require("../../../../static/img/retracao-1.png").default}style={{width: 400}} alt="US06 Pesquisador" />
+    </div>
+</div>
+<p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
 
 ## Segundo caso: Imagens com objetos adicionais
 
@@ -41,7 +50,23 @@ sidebar_position: 6
 
 **Fissuras térmicas:** *Prompt: Gere uma imagem realista de uma fachada de concreto claro com textura de reboco liso, apresentando uma fissura térmica horizontal com ramificações secundárias finas. A parede deve conter também interferências visuais comuns a ambientes urbanos, como canos externos, ar-condicionado, fios elétricos ou vegetação parcial. A fissura deve continuar claramente visível mesmo com esses elementos no entorno. Iluminação natural em dia parcialmente nublado.*
 
-**Fissuras de retração:** *Prompt: Gere uma imagem realista de uma parede de concreto liso externa com acabamento em reboco de concreto claro, sem juntas aparentes, exibindo manchas sutis de sujeira e alguns pontos com leve descolamento do revestimento. A superfície apresenta fissuras de retração visíveis, com traçado predominantemente vertical e oblíquo, de curta extensão e espessura fina porém discernível a olho nu — evitando que sejam hiperfinas ou quase invisíveis no concreto. As fissuras surgem em áreas amplas e espaçadas, com distribuição aleatória, e seguem padrões típicos da retração do material, como linhas paralelas ou com leves ramificações. A iluminação natural suave destaca o relevo superficial das fissuras e pequenas imperfeições no reboco, sem gerar sombras duras.*
+<p style={{textAlign: 'center'}}>Figura 3 - Figura térmica com objetos adicionais</p>
+<div style={{margin: 25}}>
+    <div style={{textAlign: 'center'}}>
+        <img src={require("../../../../static/img/termica-2.png").default}style={{width: 400}} alt="US06 Pesquisador" />
+    </div>
+</div>
+<p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
+
+**Fissuras de retração:** *Prompt: Gere uma imagem realista de uma parede externa de concreto liso com acabamento em reboco de concreto claro, sem juntas aparentes, exibindo manchas sutis de sujeira e alguns pontos com leve descolamento do revestimento. A superfície da parede apresenta fissuras de retração visíveis, com traçado predominantemente vertical e oblíquo, de curta extensão e espessura fina porém discernível a olho nu — evitando que sejam hiperfinas ou quase invisíveis no concreto. As fissuras surgem em áreas amplas e espaçadas, com distribuição aleatória, e seguem padrões típicos da retração do material, como linhas paralelas ou com leves ramificações. A parede deve ser acompanhada de objetos comuns como fios expostos, canos ou caixas de elétrica que estão próximos ou atravessam as fissuras, destacando a interação entre as fissuras e os objetos ao redor. A iluminação natural suave deve destacar o relevo superficial das fissuras, as imperfeições no reboco, e a presença dos objetos, sem gerar sombras duras, permitindo que a fissura e o ambiente ao redor sejam bem visíveis.*
+
+<p style={{textAlign: 'center'}}>Figura 4 - Figura de retração com objetos adicionais</p>
+<div style={{margin: 25}}>
+    <div style={{textAlign: 'center'}}>
+        <img src={require("../../../../static/img/retracao-2.png").default}style={{width: 400}} alt="US06 Pesquisador" />
+    </div>
+</div>
+<p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
 
 ## Terceiro caso: Fissuras em superfícies diferentes do concreto simples
 
@@ -53,7 +78,23 @@ sidebar_position: 6
 
 **Fissuras térmicas:** *Prompt: Gere uma imagem realista da fachada de um prédio externo pintado em cor pastel (como bege, azul claro ou verde-claro), com leve desgaste de tinta em algumas regiões. A parede apresenta uma fissura térmica horizontal contínua e ramificações suaves, com abertura de até 0,5 mm. As rachaduras devem ser visíveis sobre a superfície pintada e o contraste deve ser suficiente para a observação. A iluminação natural deve ressaltar o relevo da fissura, sem tornar a imagem artificial. A fissura não deve ocupar o centro absoluto da imagem, mas estar claramente legível.*
 
+<p style={{textAlign: 'center'}}>Figura 5 - Figura térmica em superfícies diferentes do concreto simples</p>
+<div style={{margin: 25}}>
+    <div style={{textAlign: 'center'}}>
+        <img src={require("../../../../static/img/termica-3.png").default}style={{width: 400}} alt="US06 Pesquisador" />
+    </div>
+</div>
+<p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
+
 **Fissuras de retração:** *Prompt: Gere uma imagem realista da parede externa de um prédio residencial com pintura colorida (amarelo-claro, azul claro, salmão ou verde pálido). A superfície deve apresentar fissuras de retração curtas, visíveis a olho nu, com traçado vertical ou oblíquo. As fissuras devem ser discretamente destacadas sobre a tinta, com áreas desgastadas ou descascadas ao redor de algumas rachaduras, revelando o reboco abaixo. Iluminação suave e natural, que ajude a mostrar o contraste entre fissura e fundo pintado.*
+
+<p style={{textAlign: 'center'}}>Figura 6 - Figura de retração em superfícies diferentes do concreto simples</p>
+<div style={{margin: 25}}>
+    <div style={{textAlign: 'center'}}>
+        <img src={require("../../../../static/img/retracao-3.png").default}style={{width: 400}} alt="US06 Pesquisador" />
+    </div>
+</div>
+<p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
 
 ## Quarto caso: Interferência de umidade e sombras intensas
 
@@ -63,8 +104,23 @@ sidebar_position: 6
 
 **Fissura térmica:** *Prompt: Gere uma imagem realista de uma parede externa de concreto com acabamento em reboco claro, apresentando uma fissura térmica horizontal longa e levemente ondulada, com ramificações finas. A superfície deve apresentar sinais visíveis de umidade, como manchas escuras irregulares, especialmente nas regiões inferiores da parede, e áreas com escorrimento. A iluminação deve ser intensa, com sombras marcadas projetadas por elementos próximos como grades, árvores ou marquises, parcialmente encobrindo a fissura. Ainda assim, a fissura principal e suas ramificações devem permanecer visíveis. A textura da parede deve ter leve desgaste e pontos de descolamento do reboco.*
 
+<p style={{textAlign: 'center'}}>Figura 7 - Figura térmica com interferência de umidade e sombras intensas</p>
+<div style={{margin: 25}}>
+    <div style={{textAlign: 'center'}}>
+        <img src={require("../../../../static/img/termica-4.png").default}style={{width: 400}} alt="US06 Pesquisador" />
+    </div>
+</div>
+<p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
+
 **Fissura de retração:** *Prompt: Gere uma imagem realista de uma parede externa de concreto com reboco claro, exibindo fissuras de retração visíveis, curtas, predominantemente verticais ou oblíquas, distribuídas de forma aleatória. A superfície deve apresentar manchas de umidade em diferentes níveis da parede, com áreas escurecidas por infiltração ou escorrimento de água. Elementos arquitetônicos ou vegetação próxima devem projetar sombras intensas que cruzam parte das fissuras. A iluminação solar direta deve gerar contraste forte entre luz e sombra, dificultando parcialmente a leitura da superfície. Apesar disso, as fissuras devem permanecer discerníveis para análise visual.*
 
+<p style={{textAlign: 'center'}}>Figura 8 - Figura térmica com interferência de umidade e sombras intensas</p>
+<div style={{margin: 25}}>
+    <div style={{textAlign: 'center'}}>
+        <img src={require("../../../../static/img/retracao-4.png").default}style={{width: 400}} alt="US06 Pesquisador" />
+    </div>
+</div>
+<p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
 
 ## Conclusão
 

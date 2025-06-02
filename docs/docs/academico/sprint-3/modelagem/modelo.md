@@ -1,6 +1,7 @@
 ---
-sidebar_position: 1
+sidebar_position: 3
 title: "Treinamento de Modelo"
+sidebar_label: "Treinamento de Modelo"
 ---
 
 ## Atualizações
