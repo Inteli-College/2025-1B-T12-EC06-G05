@@ -1,5 +1,6 @@
 ---
 sidebar_position: 1
+
 custom_edit_url: null
 title: "Streamlit"
 ---
@@ -14,6 +15,7 @@ title: "Streamlit"
 
 ```bash
 cd src
+cd src/aplicacaoCampo
 ```
 
 ### 2. Crie e ative um ambiente virtual
@@ -36,6 +38,7 @@ pip install -r requirements.txt
 ### 4. Extraia o modelo 
 - O modelo YOLO está compactado como best.7z. Extraia esse arquivo para obter o modelo no formato .pt.
 - Após a extração, verifique se o arquivo best.pt está na pasta correta (src/modelo).
+
 
 ### 5. Execute a aplicação com Streamlit
 
