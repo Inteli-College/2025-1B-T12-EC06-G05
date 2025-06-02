@@ -59,7 +59,7 @@ A tela de Home serve como painel central após o login, onde os usuários podem 
 <p style={{textAlign: 'center'}}>Tela de Home com listagem de expedições</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
-        <img src={require("../../../../static/img/home.png").default} style={{width: 800}} alt="Tela de Home" />
+        <img src={require("../../../../static/img/homeApp.png").default} style={{width: 800}} alt="Tela de Home" />
         <br/>
     </div>
 </div>
