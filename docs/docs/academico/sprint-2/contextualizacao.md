@@ -19,4 +19,4 @@ Os principais pontos trabalhdos nessa sprint foram:
 - **Aplicação de Campo:** Foi desenvolvida uma versão inicial da interface para uso do operador diretamente no local da operação (utilizando Streamlit). Essa interface já permite realizar funções essenciais como capturar imagens do drone, listar expedições locais e executar o modelo de análise em campo.
 
 
-&emsp;Essas entregas representam um passo importante na construção da solução, preparando o terreno para funcionalidades mais avançadas e testes integrados nas próximas fases do projeto. Cada um desses tópicos será detalhado em seções específicas desta documentação.
+&emsp;Essas entregas representam um passo importante na construção da solução, preparando o terreno para funcionalidades mais avançadas e testes integrados nas próximas fases do projeto. Cada um desses tópicos será detalhado em seções específicas desta documentação, assim como um tutorial de como rodar a interface da tela de bordo e o modelo.
