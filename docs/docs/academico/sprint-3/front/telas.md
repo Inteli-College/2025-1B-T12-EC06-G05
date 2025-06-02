@@ -55,9 +55,121 @@ custom_edit_url: null
 
 ---
 
+## Tela de Cadastro (Cadastro.tsx)
+
+&emsp;Caso o usuário não tenha uma conta na plataforma, ele é direcionado para a tela de cadastro. Nessa tela, é possível preencher os dados básicos de autenticação e criar uma nova conta. Após o envio do formulário, um **modal de sucesso** confirma o cadastro, redirecionando o usuário para a tela de login.
+
+<p style={{textAlign: 'center'}}>Tela de cadastro</p>
+<div style={{margin: 25}}>
+    <div style={{textAlign: 'center'}}>
+        <img src={require("../../../../static/img/telaCadastro.png").default} style={{width: 800}} alt="Tela de Cadastro" />
+        <br/>
+    </div>
+</div>
+<p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
+
+**Funcionalidades principais:**
+- Campos de entrada para:
+  - Nome completo
+  - E-mail institucional
+  - Senha
+  - Cargo (com opções dinâmicas ou padrão)
+- Validação de campos obrigatórios
+- Exibição de modal animado confirmando sucesso do cadastro
+- Redirecionamento automático para a tela de login após cadastro bem-sucedido   
+
+**Integração com o back-end:**
+- `POST /user/cadastro` para autenticar
+- Armazena o `access_token` retornado localmente
+
+**Outros destaques:**
+- Responsiva: oculta o fundo ilustrado em telas pequenas
+- Animação sutil no SVG da lupa
+- Layout flexível com Styled Components
+
+| Importado de                         | O que está sendo importado                | Para que serve                                                                                          |
+| ---------------------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `react`                                  | `useState`                       | Gerenciar estados internos como inputs, erros e modal                                               |
+| `react-router-dom`                       | `useNavigate`                    | Redirecionar o usuário após cadastro                                                                |
+| `styled-components`                      | `styled`, `keyframes`            | Estilizar componentes com CSS-in-JS e criar animações                                               |
+| `../constants/style`                     | `COLORS`, `FONTS`, `BREAKPOINTS` | Utilizar padrões globais de cor, fonte e responsividade                                             |
+| `../constants/assets/lupa.svg`           | `lupa`                           | Imagem vetorial usada como ilustração flutuante na seção da esquerda                                                                           |
+| `../constants/assets/cadastro_bkg.svg`   | `cadastroBG`                     | Imagem de fundo na seção lateral                                                                    |
+| `axios`                                  | `axios`                          | Enviar requisição `POST` para registrar o usuário                                                   |
+| `lottie-react`                           | `Lottie`                         | Exibir animação JSON do modal de sucesso                                                            |
+| `../constants/assets/animations/certo.json` | `correto`                    | Animação de check (certo) exibida no modal após cadastro bem-sucedido                              |
+
+
+---
+
+## Tela de Predios
+
+&emsp;Essa tela é responsável por exibir e cadastrar prédios pertencentes a uma determinada expedição. Ela é acessada a partir da tela de expedição do sistema, e fornece um painel visual com todos os prédios registrados, além de um botão para adicionar novos prédios por meio de um formulário em popup.
+
+
+<p style={{textAlign: 'center'}}>Tela de Prédios</p>
+<div style={{margin: 25}}>
+    <div style={{textAlign: 'center'}}>
+        <img src={require("../../../../static/img/quadroPredios.jpeg").default} style={{width: 800}} alt="Tela de Prédios" />
+        <br/>
+    </div>
+</div>
+<p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
+
+
+**Funcionalidades principais:**
+
+- Exibição dos prédios cadastrados de uma expedição em formato de galeria
+- Cadastro de novos prédios através de um modal com formulário
+- Redirecionamento para análise de fissuras do prédio selecionado
+- Carregamento dinâmico dos dados da expedição vinculada
+
+**Campos no cadastro do prédio**
+
+- Nome do prédio
+- Complemento (opcional)
+- Descrição (opcional)
+- Data da coleta
+- Hora de início e hora de fim da coleta
+- Foto principal (fachada do prédio)
+- Upload de imagens de fissuras por zona:
+  - Norte
+  - Sul
+  - Leste
+  - Oeste
+  - Sudeste
+  - Sudoeste
+  - Nordeste
+  - Noroeste
+
+**Integrações com o back-end:**
+- `GET /building/expedition/:id` — para obter todos os prédios vinculados à expedição
+- `GET /expedition/:id` — para obter os dados da expedição
+- `POST /building` — para cadastrar um novo prédio com imagens associadas
+
+**Outros destaques:**
+- Usa componentes reutilizáveis como `Header`, `ExpeditionInfo`, `QuadroPredios` e `ModalAddPredio`
+- Trabalha com `useParams` para extrair o `id` da expedição diretamente da URL
+- Utiliza `URL.createObjectURL` para pré-visualizar imagens locais antes do upload
+
+
+| Importado de                    | O que está sendo importado     | Para que serve                                                                                      |
+| ------------------------------- | ------------------------------ | --------------------------------------------------------------------------------------------------- |
+| `react`                         | `useEffect`, `useState`        | Lida com o carregamento e atualização dinâmica da lista de prédios e do modal                       |
+| `react-router-dom`              | `useParams`, `useNavigate`     | Captura o parâmetro `id` da URL e realiza redirecionamentos após seleção de prédio                  |
+| `axios`                         | `axios`                        | Realiza requisições autenticadas à API para buscar e cadastrar dados                               |
+| `../components/Header`          | `Header`                       | Cabeçalho com título da página e navegação                                                          |
+| `../components/ExpeditionInfo`  | `ExpeditionInfo`               | Exibe as informações básicas da expedição                                                           |
+| `../components/QuadroPredios`   | `QuadroPredios`                | Componente que exibe os prédios cadastrados e inclui o botão para adicionar novo prédio            |
+| `../components/ModalAddPredio`  | `ModalAddPredio`               | Modal com formulário para preenchimento dos dados do prédio                                        |
+
+
+---
+
+x   
 ## Tela de Visão Geral do Prédio (`AnaliseFissuras.tsx`)
 
-Essa é a principal tela de análise após o login. Nela, o usuário pode visualizar fissuras detectadas, consultar imagens da fachada por orientação e acessar os dados da expedição vinculada ao prédio selecionado.
+&emsp;Essa é a principal tela de análise após o login. Nela, o usuário pode visualizar fissuras detectadas, consultar imagens da fachada por orientação e acessar os dados da expedição vinculada ao prédio selecionado.
 
 <p style={{textAlign: 'center'}}>Tela de análise de fissuras</p>
 <div style={{margin: 25}}>
