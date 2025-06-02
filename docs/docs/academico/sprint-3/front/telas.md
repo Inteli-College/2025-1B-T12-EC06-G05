@@ -59,7 +59,7 @@ A tela de Home serve como painel central após o login, onde os usuários podem 
 <p style={{textAlign: 'center'}}>Tela de Home com listagem de expedições</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
-        <img src={require("../../../../static/img/homeApp.png").default} style={{width: 800}} alt="Tela de Home" />
+        <img src={require("../../../../static/img/HomeApp.png").default} style={{width: 800}} alt="Tela de Home" />
         <br/>
     </div>
 </div>
@@ -138,11 +138,10 @@ Layout em grid adaptativo para os campos de busca
 
 &emsp;Essa tela é responsável por exibir e cadastrar prédios pertencentes a uma determinada expedição. Ela é acessada a partir da tela de expedição do sistema, e fornece um painel visual com todos os prédios registrados, além de um botão para adicionar novos prédios por meio de um formulário em popup.
 
-
 <p style={{textAlign: 'center'}}>Tela de Prédios</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
-        <img src={require("../../../../static/img/quadroPredios.jpeg").default} style={{width: 800}} alt="Tela de Prédios" />
+        <img src={require("../../../../static/img/quadropredios.png").default} style={{width: 800}} alt="Tela de Prédios" />
         <br/>
     </div>
 </div>

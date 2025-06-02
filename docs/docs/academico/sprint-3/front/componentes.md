@@ -338,7 +338,7 @@ O componente QuadroPredios serve como um contêiner visual para exibir uma lista
 <p style={{textAlign: 'center'}}>QuadroPredios</p>
 <div style={{margin: 25}}>
   <div style={{textAlign: 'center'}}>
-    <img src={require("../../../../static/img/QuadroPredios.jpeg").default} style={{width: 800, border: '1px solid #ccc'}} alt="QuadroPredios" />
+    <img src={require("../../../../static/img/quadropredios.png").default} style={{width: 800, border: '1px solid #ccc'}} alt="QuadroPredios" />
   </div>
 </div>
 <p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
