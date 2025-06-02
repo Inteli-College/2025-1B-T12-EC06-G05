@@ -114,7 +114,7 @@ sidebar_position: 1
 
 **Fissura de retração:** *Prompt: Gere uma imagem realista de uma parede externa de concreto com reboco claro, exibindo fissuras de retração visíveis, curtas, predominantemente verticais ou oblíquas, distribuídas de forma aleatória. A superfície deve apresentar manchas de umidade em diferentes níveis da parede, com áreas escurecidas por infiltração ou escorrimento de água. Elementos arquitetônicos ou vegetação próxima devem projetar sombras intensas que cruzam parte das fissuras. A iluminação solar direta deve gerar contraste forte entre luz e sombra, dificultando parcialmente a leitura da superfície. Apesar disso, as fissuras devem permanecer discerníveis para análise visual.*
 
-<p style={{textAlign: 'center'}}>Figura 8 - Figura térmica com interferência de umidade e sombras intensas</p>
+<p style={{textAlign: 'center'}}>Figura 8 - Figura de retração com interferência de umidade e sombras intensas</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
         <img src={require("../../../../static/img/retracao-4.png").default}style={{width: 400}} alt="US06 Pesquisador" />
