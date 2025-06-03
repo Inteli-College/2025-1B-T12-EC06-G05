@@ -81,7 +81,6 @@ def update_image(data):
         image.hora_coleta = data.get('hora_coleta', image.hora_coleta)
         image.orientacao = data.get('orientacao', image.orientacao)
         image.id_predio = data.get('id_predio', image.id_predio)
-        image.confiabilidade = data.get('confiabilidade', image.confiabilidade)
         image.id_modelo = data.get('id_modelo', image.id_modelo)
 
         db.session.commit()
