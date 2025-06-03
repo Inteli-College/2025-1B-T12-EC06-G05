@@ -9,7 +9,8 @@ def create_fissure(data):
         newFissure = Fissure(
             confiabilidade = data['confiabilidade'],
             categoria = data['categoria'].lower(),
-            id_image = data['id_image']
+            id_image = data['id_image'],
+            url_fissura = data['url_fissura']
         )
 
         db.session.add(newFissure)
@@ -71,6 +72,7 @@ def update_fissure(data):
         fissure.confiabilidade = data.get('confiabilidade', fissure.confiabilidade)
         fissure.categoria = data.get('categoria', fissure.categoria)
         fissure.id_image = data.get('id_image', fissure.id_image)
+        fissure.url_fissura= data.get('url_fissura', fissure.url_fissura)
         
         db.session.commit()
 
