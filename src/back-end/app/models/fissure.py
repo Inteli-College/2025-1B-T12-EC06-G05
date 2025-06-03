@@ -9,6 +9,7 @@ class Fissure(db.Model):
     confiabilidade = db.Column(db.Integer, nullable=False)
     categoria = db.Column(db.String(200), nullable=False)
     id_image = db.Column(db.Integer, db.ForeignKey('image.id'), nullable=False)
+    url_fissura = db.Column(db.String(), nullable=False)
 
     image = db.relationship('Image', back_populates='fissuras')
 
@@ -18,5 +19,6 @@ class Fissure(db.Model):
             'id': self.id,
             'confiabilidade': self.confiabilidade,
             'categoria': self.categoria,
-            'id_image': self.id_image
+            'id_image': self.id_image,
+            'url_fissura': self.url_fissura
             }

@@ -1,8 +1,8 @@
-"""user e expedition
+"""alteração na tabela de fissura e image
 
-Revision ID: c76fcbb1d675
-Revises: 831b38518ebc
-Create Date: 2025-05-29 23:26:50.907738
+Revision ID: 3809b5a5dbdf
+Revises: babed6af6deb
+Create Date: 2025-06-03 17:40:47.463597
 
 """
 from typing import Sequence, Union
@@ -12,8 +12,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = 'c76fcbb1d675'
-down_revision: Union[str, None] = '831b38518ebc'
+revision: str = '3809b5a5dbdf'
+down_revision: Union[str, None] = 'babed6af6deb'
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
