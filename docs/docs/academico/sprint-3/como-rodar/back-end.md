@@ -28,7 +28,7 @@ Ademais, caso você queira fazer baixar nosso repositório via terminal é preci
 - **Via site do github baixando:**
 
 &emsp;Acesse o nosso repositório no github no seguinte link:
-[Link do Repositório no GitHub](https://github.com/Inteli-College/2025-1A-T12-EC05-G03/)
+[Link do Repositório no GitHub](https://github.com/Inteli-College/2025-2A-T12-EC06-G05/)
 
 
 &emsp;Clique no botão verde escrito **Code** e vá em **download ZIP**.
