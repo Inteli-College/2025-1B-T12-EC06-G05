@@ -69,12 +69,13 @@ def get_user_by_id(id_user, email_user):
     try:
         u = User.query.filter_by(email=email_user).first()
         user = db.session.get(User, id_user)
-        if u.id != id_user:
-            if u.cargo.lower() != "admin":
-                raise Exception("Você não possui permissão para acessar outros usuários")
-        
         if not user:
             raise Exception("Usuário não encontrado!")
+        
+        if u.id != id_user:
+            if u.cargo.lower() != "admin":
+                raise Exception(f"Você não possui permissão para acessar outros usuários, seu id é {u.id} e o id que vc pediu é {id_user}")
+        
 
         return jsonify({
             "message": "Usuário encontrado com sucesso",
@@ -125,23 +126,30 @@ def update_user(email_user, data):
             if u.cargo.lower() != "admin":
                 raise Exception("Você não possui permissão para alterar outros usuários")
 
-        
+        # Atualiza campos normais
         user_update.email = data.get('email', user_update.email)
         user_update.nome_completo = data.get('nome_completo', user_update.nome_completo)
         user_update.cargo = data.get('cargo', user_update.cargo)
 
-        if data['senha_nova']: 
-            if bcrypt.check_password_hash(user_update.senha, data['senha_antiga']):
-                nova_senha = bcrypt.generate_password_hash(data['nova_senha']).decode('utf-8')
-                user_update.senha = nova_senha
-            raise Exception("Senha anterior incorreta")
+        # Atualiza senha, se fornecida
+        senha_nova = data.get('senha_nova')
+        senha_antiga = data.get('senha_antiga')
 
+        if senha_nova:
+            if not senha_antiga:
+                raise Exception("Senha antiga é obrigatória para alterar a senha.")
+
+            if bcrypt.check_password_hash(user_update.senha, senha_antiga):
+                nova_senha = bcrypt.generate_password_hash(senha_nova).decode('utf-8')
+                user_update.senha = nova_senha
+            else:
+                raise Exception("Senha anterior incorreta.")
 
         db.session.commit()
         return jsonify({
             "message": "Usuário atualizado com sucesso!",
-            "model": user_update.as_dict()
-            }), 200
+            "user": user_update.as_dict()
+        }), 200
 
     except Exception as e:
         db.session.rollback() 

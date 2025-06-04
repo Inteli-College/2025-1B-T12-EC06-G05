@@ -23,7 +23,7 @@ def delete(id_user):
     email_admin = get_jwt_identity()
     return delete_user(id_user, email_admin)
 
-@user_bp.route('<id_user>', methods=['GET'])
+@user_bp.route('<int:id_user>', methods=['GET'])
 @jwt_required()
 def get_user(id_user):
     email_user = get_jwt_identity()
