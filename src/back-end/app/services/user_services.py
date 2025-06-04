@@ -65,9 +65,14 @@ def delete_user(id_user, email_admin):
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-def get_user_by_id(id_user):
+def get_user_by_id(id_user, email_user):
     try:
+        u = User.query.filter_by(email=email_user).first()
         user = db.session.get(User, id_user)
+        if u.id != id_user:
+            if u.cargo.lower() != "admin":
+                raise Exception("Você não possui permissão para acessar outros usuários")
+        
         if not user:
             raise Exception("Usuário não encontrado!")
 
