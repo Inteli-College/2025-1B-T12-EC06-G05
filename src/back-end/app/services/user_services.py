@@ -114,18 +114,28 @@ def get_all_users():
         return jsonify({"error": str(e)}), 500
 
 def update_user(email_user, data):
+    from ...main import bcrypt  # Importa o bcrypt do main
     try:
-        user = User.query.filter_by(email=email_user).first()
-        if (user.cargo.lower() != "admin") and data['id'] != user.id:
-            raise Exception("Você não possui permissão para atualizar outros usuários")
-
+        u = User.query.filter_by(email=email_user).first()
         user_update = db.session.get(User, data["id"])
-        if not user:
+        if not user_update:
             raise Exception("Usuário não encontrado!")
+        
+        if u.id != data['id']:
+            if u.cargo.lower() != "admin":
+                raise Exception("Você não possui permissão para alterar outros usuários")
+
         
         user_update.email = data.get('email', user_update.email)
         user_update.nome_completo = data.get('nome_completo', user_update.nome_completo)
         user_update.cargo = data.get('cargo', user_update.cargo)
+
+        if data['senha_nova']: 
+            if bcrypt.check_password_hash(user_update.senha, data['senha_antiga']):
+                nova_senha = bcrypt.generate_password_hash(data['nova_senha']).decode('utf-8')
+                user_update.senha = nova_senha
+            raise Exception("Senha anterior incorreta")
+
 
         db.session.commit()
         return jsonify({
