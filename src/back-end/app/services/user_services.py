@@ -74,7 +74,7 @@ def get_user_by_id(id_user, email_user):
         
         if u.id != id_user:
             if u.cargo.lower() != "admin":
-                raise Exception(f"Você não possui permissão para acessar outros usuários, seu id é {u.id} e o id que vc pediu é {id_user}")
+                raise Exception(f"Você não possui permissão para acessar outros usuários")
         
 
         return jsonify({
@@ -126,12 +126,10 @@ def update_user(email_user, data):
             if u.cargo.lower() != "admin":
                 raise Exception("Você não possui permissão para alterar outros usuários")
 
-        # Atualiza campos normais
         user_update.email = data.get('email', user_update.email)
         user_update.nome_completo = data.get('nome_completo', user_update.nome_completo)
         user_update.cargo = data.get('cargo', user_update.cargo)
 
-        # Atualiza senha, se fornecida
         senha_nova = data.get('senha_nova')
         senha_antiga = data.get('senha_antiga')
 
