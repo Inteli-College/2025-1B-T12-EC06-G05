@@ -6,6 +6,8 @@ import FissureModal from "./FissureModal";
 import upload from "../constants/assets/Upload.svg";
 import { FONTS } from "../constants/style";
 
+import { DndContext, useDraggable, useDroppable } from "@dnd-kit/core";
+
 interface Fissure {
   id: number;
   categoria: string;
@@ -82,69 +84,149 @@ const FissurePanel = () => {
     fetchFissures();
   }, [numeroPredio]);
 
+const handleDragEnd = async (event: any) => {
+  const { active, over } = event;
+  if (!over || active.id === over.id) return;
+
+  const draggedId = Number(active.id);
+
+  const draggedFrom = termicas.find((f) => f.fissure.id === draggedId)
+    ? "termica"
+    : "retracao";
+
+  const draggedFiss =
+    draggedFrom === "termica"
+      ? termicas.find((f) => f.fissure.id === draggedId)
+      : retracoes.find((f) => f.fissure.id === draggedId);
+
+  const newCategory = over.id;
+
+  if (!draggedFiss || draggedFiss.fissure.categoria === newCategory) return;
+
+  try {
+    const token = localStorage.getItem("token");
+    await axios.patch(
+      `http://localhost:5000/fissure/update`,
+      {
+        id: draggedFiss.fissure.id,
+        categoria: newCategory,
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+
+    if (newCategory === "termica") {
+      setTermicas([
+        ...termicas,
+        {
+          ...draggedFiss,
+          fissure: { ...draggedFiss.fissure, categoria: "termica" },
+        },
+      ]);
+      setRetracoes(retracoes.filter((f) => f.fissure.id !== draggedId));
+    } else {
+      setRetracoes([
+        ...retracoes,
+        {
+          ...draggedFiss,
+          fissure: { ...draggedFiss.fissure, categoria: "retracao" },
+        },
+      ]);
+      setTermicas(termicas.filter((f) => f.fissure.id !== draggedId));
+    }
+
+    console.log("Categoria atualizada com sucesso!");
+  } catch (error) {
+    console.error("Erro ao atualizar categoria:", error);
+    alert("Erro ao atualizar categoria. Tente novamente.");
+  }
+};
+
+  const DraggableImage = ({ fissure }: { fissure: FissureWithImage }) => {
+    const { attributes, listeners, setNodeRef } = useDraggable({
+      id: fissure.fissure.id,
+    });
+
+    return (
+      <img
+        ref={setNodeRef}
+        {...listeners}
+        {...attributes}
+        src={fissure.image.url}
+        alt={fissure.image.nome}
+        onClick={() => setModalFissure(fissure)}
+      />
+    );
+  };
+
+  const DroppableColumn = ({
+    id,
+    title,
+    fissures,
+  }: {
+    id: string;
+    title: string;
+    fissures: FissureWithImage[];
+  }) => {
+    const { setNodeRef } = useDroppable({
+      id,
+    });
+
+    return (
+      <Column ref={setNodeRef}>
+        <TitleContainer>
+          <Title>{title}</Title>
+        </TitleContainer>
+        <ImageGrid>
+          {fissures.length === 0 ? (
+            <Placeholder>Nenhuma imagem</Placeholder>
+          ) : (
+            fissures.map((fiss) => (
+              <DraggableImage key={fiss.fissure.id} fissure={fiss} />
+            ))
+          )}
+        </ImageGrid>
+      </Column>
+    );
+  };
+
   return (
-    <Container>
-      <InnerPanel>
-        <Column>
-          <TitleContainer>
-            <Title>Fissuras térmicas</Title>
-          </TitleContainer>
-          <ImageGrid>
-            {termicas.length === 0 ? (
-              <Placeholder>Nenhuma imagem encontrada</Placeholder>
-            ) : (
-              termicas.map((fiss, i) => (
-                <img
-                  src={fiss.image.img_resultado || fiss.image.url}
-                  alt={fiss.image.nome}
-                  onClick={() => setModalFissure(fiss)}
-                />
-              ))
-            )}
-          </ImageGrid>
-        </Column>
+    <DndContext onDragEnd={handleDragEnd}>
+      <Container>
+        <InnerPanel>
+          <DroppableColumn
+            id="termica"
+            title="Fissuras térmicas"
+            fissures={termicas}
+          />
+          <VerticalDivider />
+          <DroppableColumn
+            id="retracao"
+            title="Fissuras de retração"
+            fissures={retracoes}
+          />
+        </InnerPanel>
 
-        <VerticalDivider />
-
-        <Column>
-          <TitleContainer>
-            <Title>Fissuras de retração</Title>
-          </TitleContainer>
-          <ImageGrid>
-            {retracoes.length === 0 ? (
-              <Placeholder>Nenhuma imagem encontrada</Placeholder>
-            ) : (
-              retracoes.map((fiss, i) => (
-                <img
-                  src={fiss.image.img_resultado || fiss.image.url}
-                  alt={fiss.image.nome}
-                  onClick={() => setModalFissure(fiss)}
-                />
-              ))
-            )}
-          </ImageGrid>
-        </Column>
-      </InnerPanel>
-
-      {modalFissure && (
-        <FissureModal
-          fissure={{
-            id: String(modalFissure.fissure.id),
-            imageUrl: modalFissure.image.url,
-            // expedition: "Desconhecida",
-            building: numeroPredio ?? "",
-            facade: modalFissure.image.orientacao,
-            classification: modalFissure.fissure.categoria,
-            probableCause:
-              modalFissure.fissure.categoria === "termica"
-                ? "Variações térmicas"
-                : "Retração por secagem",
-            uploadDate: new Date().toLocaleDateString("pt-BR"),
-          }}
-          onClose={() => setModalFissure(null)}
-        />
-      )}
-    </Container>
+        {modalFissure && (
+          <FissureModal
+            fissure={{
+              id: String(modalFissure.fissure.id),
+              imageUrl: modalFissure.image.url,
+              building: numeroPredio ?? "",
+              facade: modalFissure.image.orientacao,
+              classification: modalFissure.fissure.categoria,
+              probableCause:
+                modalFissure.fissure.categoria === "termica"
+                  ? "Variações térmicas"
+                  : "Retração por secagem",
+              uploadDate: new Date().toLocaleDateString("pt-BR"),
+            }}
+            onClose={() => setModalFissure(null)}
+          />
+        )}
+      </Container>
+    </DndContext>
   );
 };
 
