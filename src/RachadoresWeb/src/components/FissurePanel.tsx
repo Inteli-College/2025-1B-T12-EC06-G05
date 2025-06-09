@@ -72,7 +72,7 @@ const FissurePanel = () => {
               fissure: f,
               image: imageMap[f.id_image],
             }))
-            .filter((f) => f.image); // ignora se imagem não foi encontrada
+            .filter((f) => f.image);
 
         setTermicas(group("termica"));
         setRetracoes(group("retracao"));
@@ -136,9 +136,7 @@ const handleDragEnd = async (event: any) => {
       setTermicas(termicas.filter((f) => f.fissure.id !== draggedId));
     }
 
-    console.log("Categoria atualizada com sucesso!");
   } catch (error) {
-    console.error("Erro ao atualizar categoria:", error);
     alert("Erro ao atualizar categoria. Tente novamente.");
   }
 };
