@@ -6,7 +6,7 @@ import FissureModal from "./FissureModal";
 import upload from "../constants/assets/Upload.svg";
 import { FONTS } from "../constants/style";
 
-import { DndContext, useDraggable, useDroppable } from "@dnd-kit/core";
+import { DndContext, useDraggable, useDroppable, DragOverlay } from "@dnd-kit/core";
 
 interface Fissure {
   id: number;
@@ -35,6 +35,8 @@ const FissurePanel = () => {
   const [modalFissure, setModalFissure] = useState<FissureWithImage | null>(
     null
   );
+  const [activeId, setActiveId] = useState<number | null>(null);
+  const [draggedFissure, setDraggedFissure] = useState<FissureWithImage | null>(null);
 
   useEffect(() => {
     const fetchFissures = async () => {
@@ -84,8 +86,21 @@ const FissurePanel = () => {
     fetchFissures();
   }, [numeroPredio]);
 
+const handleDragStart = (event: any) => {
+  const draggedId = Number(event.active.id);
+  setActiveId(draggedId);
+  
+  const dragged = termicas.find((f) => f.fissure.id === draggedId) || 
+                  retracoes.find((f) => f.fissure.id === draggedId);
+  
+  setDraggedFissure(dragged || null);
+};
+
 const handleDragEnd = async (event: any) => {
   const { active, over } = event;
+  setActiveId(null);
+  setDraggedFissure(null);
+  
   if (!over || active.id === over.id) return;
 
   const draggedId = Number(active.id);
@@ -142,19 +157,29 @@ const handleDragEnd = async (event: any) => {
 };
 
   const DraggableImage = ({ fissure }: { fissure: FissureWithImage }) => {
-    const { attributes, listeners, setNodeRef } = useDraggable({
+    const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
       id: fissure.fissure.id,
     });
 
+    const handleImageClick = (e: React.MouseEvent) => {
+      if (!isDragging) {
+        setModalFissure(fissure);
+      }
+    };
+
     return (
-      <img
-        ref={setNodeRef}
-        {...listeners}
-        {...attributes}
-        src={fissure.image.url}
-        alt={fissure.image.nome}
-        onClick={() => setModalFissure(fissure)}
-      />
+      <ImageContainer ref={setNodeRef}>
+        <DragHandle {...listeners} {...attributes}>
+          ⋮⋮
+        </DragHandle>
+        
+        <StyledImage
+          src={fissure.image.url}
+          alt={fissure.image.nome}
+          onClick={handleImageClick}
+          isDragging={isDragging}
+        />
+      </ImageContainer>
     );
   };
 
@@ -167,17 +192,28 @@ const handleDragEnd = async (event: any) => {
     title: string;
     fissures: FissureWithImage[];
   }) => {
-    const { setNodeRef } = useDroppable({
+    const { setNodeRef, isOver } = useDroppable({
       id,
     });
 
+    const isDragging = activeId !== null;
+    const canDrop = isDragging && 
+      (!draggedFissure || draggedFissure.fissure.categoria !== id);
+
     return (
-      <Column ref={setNodeRef}>
+      <Column ref={setNodeRef} isDragging={isDragging} isOver={isOver && canDrop}>
         <TitleContainer>
           <Title>{title}</Title>
         </TitleContainer>
         <ImageGrid>
-          {fissures.length === 0 ? (
+          {isDragging && canDrop && (
+            <DropIndicator isOver={isOver}>
+              <DropIcon>📁</DropIcon>
+              <DropText>Solte aqui para mover para {id === 'termica' ? 'térmicas' : 'retração'}</DropText>
+            </DropIndicator>
+          )}
+          
+          {fissures.length === 0 && !isDragging ? (
             <Placeholder>Nenhuma imagem</Placeholder>
           ) : (
             fissures.map((fiss) => (
@@ -190,7 +226,10 @@ const handleDragEnd = async (event: any) => {
   };
 
   return (
-    <DndContext onDragEnd={handleDragEnd}>
+    <DndContext 
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+    >
       <Container>
         <InnerPanel>
           <DroppableColumn
@@ -205,6 +244,15 @@ const handleDragEnd = async (event: any) => {
             fissures={retracoes}
           />
         </InnerPanel>
+
+        <DragOverlay>
+          {activeId && draggedFissure ? (
+            <DragPreview
+              src={draggedFissure.image.url}
+              alt={draggedFissure.image.nome}
+            />
+          ) : null}
+        </DragOverlay>
 
         {modalFissure && (
           <FissureModal
@@ -247,10 +295,22 @@ const InnerPanel = styled.div`
   min-height: 50vh;
 `;
 
-const Column = styled.div`
+const Column = styled.div<{ isDragging?: boolean; isOver?: boolean }>`
   flex: 1;
   display: flex;
   flex-direction: column;
+  transition: all 0.3s ease;
+  
+  ${props => props.isDragging && `
+    filter: ${props.isOver ? 'none' : 'blur(2px)'};
+    opacity: ${props.isOver ? 1 : 0.7};
+  `}
+  
+  ${props => props.isOver && `
+    background: rgba(88, 69, 61, 0.1);
+    border: 2px dashed #58453d;
+    border-radius: 8px;
+  `}
 `;
 
 const TitleContainer = styled.div`
@@ -280,11 +340,98 @@ const ImageGrid = styled.div`
   justify-items: center;
   align-items: start;
   min-height: 20vh;
+  position: relative;
+`;
 
-  img {
-    width: 100%;
-    border-radius: 4px;
-    object-fit: cover;
+const DropIndicator = styled.div<{ isOver?: boolean }>`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: ${props => props.isOver ? 'rgba(88, 69, 61, 0.9)' : 'rgba(88, 69, 61, 0.7)'};
+  color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  border: 2px dashed white;
+  z-index: 100;
+  animation: ${props => props.isOver ? 'pulse 0.5s ease-in-out infinite alternate' : 'none'};
+  
+  @keyframes pulse {
+    from { transform: translate(-50%, -50%) scale(1); }
+    to { transform: translate(-50%, -50%) scale(1.05); }
+  }
+`;
+
+const DropIcon = styled.div`
+  font-size: 3rem;
+  margin-bottom: 1rem;
+`;
+
+const DropText = styled.div`
+  font-family: ${FONTS.primary};
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 500;
+`;
+
+const DragPreview = styled.img`
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  opacity: 0.9;
+  transform: rotate(5deg);
+`;
+
+const ImageContainer = styled.div`
+  position: relative;
+  width: 100%;
+  
+  &:hover {
+    .drag-handle {
+      opacity: 1;
+    }
+  }
+`;
+
+const DragHandle = styled.div.attrs({ className: 'drag-handle' })`
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  cursor: grab;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 10;
+  
+  &:active {
+    cursor: grabbing;
+  }
+`;
+
+const StyledImage = styled.img<{ isDragging?: boolean }>`
+  width: 100%;
+  border-radius: 4px;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+  opacity: ${props => props.isDragging ? 0.5 : 1};
+  
+  &:hover {
+    transform: scale(1.02);
   }
 `;
 
