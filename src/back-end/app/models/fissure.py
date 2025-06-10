@@ -12,6 +12,7 @@ class Fissure(db.Model):
     url_fissura = db.Column(db.String(), nullable=False)
 
     image = db.relationship('Image', back_populates='fissuras')
+    audits = db.relationship('Audit', back_populates='fissura', lazy=True)
 
     # Função para transformar em json
     def as_dict(self):
