@@ -16,7 +16,8 @@ from .app.models.model      import Model
 from .app.models.building   import Building
 from .app.models.image      import Image
 from .app.models.fissure    import Fissure
-
+from .app.models.audit    import Audit
+from .app.models.log import Log
 
 # importa seus blueprints
 from .app.routes.users import user_bp
@@ -25,6 +26,7 @@ from .app.routes.models import model_bp
 from .app.routes.fissures import fissure_bp
 from .app.routes.images import image_bp
 from .app.routes.building import building_bp
+
 
 # Load environment variables from .env
 load_dotenv()

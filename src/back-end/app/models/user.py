@@ -13,8 +13,8 @@ class User(db.Model):
     
     # Relacionamentos
     expedicoes = db.relationship('Expedition', back_populates='responsavel', lazy=True)
-
-    
+    audits = db.relationship('Audit', back_populates='responsavel', lazy=True)
+    logs = db.relationship('Log', back_populates='responsavel', lazy=True)
 
     # Função para transformar em json
     def as_dict(self):
