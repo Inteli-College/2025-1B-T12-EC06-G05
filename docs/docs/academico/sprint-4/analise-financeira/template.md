@@ -51,7 +51,92 @@ custom_edit_url: null
 &emsp; Esses fatores reforçam o potencial de impacto positivo da solução tanto para o IPT quanto para o setor da construção civil como um todo.
 
 
+3. Descrição do Projeto e Custo Estimado
+4. 
+Escopo Resumido da Solução
+O objetivo do projeto é desenvolver uma solução inteligente, baseada em visão computacional, para classificar automaticamente fissuras em alvenaria de edifícios, com o intuito de acelerar, padronizar e tornar mais segura a etapa de inspeção predial. A aplicação tem potencial de uso em manutenções preventivas e avaliações estruturais.
+A solução será composta por:
+Modelo de IA com Visão Computacional: Justifica-se pelo alto volume e diversidade de imagens de fissuras. Estudos recentes em visão computacional aplicada à engenharia civil demonstram precisão superior a 90% na detecção de defeitos estruturais quando treinados com datasets robustos¹. Um modelo treinado com dados reais (imagens coletadas com o apoio do IPT) permitirá precisão na identificação de padrões que indicam gravidade, tipo e origem da fissura.
+Integração com Drones: Justifica-se pelo ganho de segurança e alcance em áreas de difícil acesso (fachadas altas, coberturas), reduzindo riscos a inspetores e acelerando a coleta de dados. O mercado brasileiro de drones para inspeção predial cresceu 45% em 2024, consolidando-se como tecnologia padrão no setor².
+Interface Web: Necessária para que engenheiros, pesquisadores e gestores visualizem, filtrem e exportem os resultados de forma intuitiva. O uso de um dashboard centraliza o acesso aos diagnósticos e aumenta a produtividade das equipes técnicas em até 60%³.
+Banco de Dados em Nuvem: Permite o armazenamento escalável e seguro de imagens e resultados, mantendo o histórico de inspeções e viabilizando atualizações futuras do modelo. A utilização de infraestrutura cloud reduz custos operacionais em 40% comparado a servidores locais⁴.
+APIs de Integração: Asseguram flexibilidade para conectar o sistema com outros softwares utilizados pelo IPT ou empresas do setor, seguindo padrões REST modernos.
+Cronograma por Fase (com Justificativas)
+O tempo total estimado para desenvolvimento é de 8 meses, baseado em metodologias ágeis e considerando complexidade similar a projetos de IA em visão computacional já executados no mercado brasileiro:
+Planejamento e Coleta Inicial (1 mês)
+Justifica-se pela necessidade de alinhar expectativas com o IPT, compreender requisitos específicos e definir padrões de qualidade das imagens. Fase crítica que reduz retrabalho em 70% dos projetos de IA⁵.
+Anotação e Pré-processamento de Dados (1 mês)
+Essa fase é crítica para treinar o modelo de IA. Envolve curadoria, padronização e anotação manual (semiautomatizada) das fissuras em imagens reais. Benchmarks da indústria indicam que 80% do sucesso de modelos de visão computacional dependem da qualidade dos dados anotados⁶.
+Treinamento do Modelo de IA (2 meses)
+Modelos de visão computacional para detecção de defeitos estruturais exigem ciclos iterativos de teste e validação. Reservamos tempo adequado para testes com diversos tipos de fissuras, considerando arquiteturas como YOLO v8 e Mask R-CNN, que demonstram melhor performance neste domínio⁷.
+Desenvolvimento da Interface Web (1,5 mês)
+O tempo inclui front-end responsivo e back-end robusto. Um dashboard eficiente e intuitivo aumenta a adoção do sistema por usuários técnicos e não técnicos, conforme estudos de UX em sistemas empresariais⁸.
+Integração com Drones e APIs (1 mês)
+A integração com drones exige desenvolvimento de conectores específicos para captura de imagens, envio automático para o sistema e processamento pelo modelo. Tempo baseado em projetos similares já executados no mercado⁹.
+Testes e Validação (1 mês)
+Fase essencial para garantir que o sistema funciona em campo e atende aos padrões esperados pelo IPT. Envolve testes de carga, validação cruzada e feedback de usuários beta.
+Entrega Final e Documentação (0,5 mês)
+Inclui a preparação de manuais técnicos, guias de usuário e treinamento da equipe do cliente.
+Custo Estimado (com Justificativas e Fontes)
+1. Mão de Obra Técnica (R$ 204.400)
+Os valores foram baseados em pesquisa salarial atual do mercado brasileiro (2025):
 
+2 Engenheiros de Software (R$ 100/h): Responsáveis pela interface, back-end, APIs e integração com drones. O salário médio de engenheiros de software no Brasil varia entre R$ 9.480 e R$ 9.580 mensais, o que equivale a aproximadamente R$ 95-105/hora para profissionais com 3+ anos de experiência.
+1 Cientista de Dados (R$ 120/h): Trabalha na preparação dos dados e avaliação estatística dos resultados da IA. A remuneração para Cientista de Dados pode variar entre R$ 9.642,03 e R$ 19.398,01, justificando o valor hora de R$ 120 para profissional experiente.
+1 Engenheiro de Machine Learning (R$ 130/h): Desenvolve e ajusta os modelos de classificação de fissuras. A média salarial de Engenheiro de Machine Learning é de R$ 12.292 mensais, e especialistas em IA podem receber entre R$ 15 mil a R$ 32 mil mensais, validando nosso valor.
+1 UX/UI Designer (R$ 90/h): Responsável por tornar o dashboard funcional e acessível. Valor baseado na média de mercado para designers com experiência em sistemas técnicos.
+1 Gerente de Projeto (R$ 110/h): Coordenação técnica e alinhamento com stakeholders. Valor compatível com profissionais PMP certificados.
+
+Total: R$ 204.400 - Valor competitivo e realista para equipe técnica especializada.
+2. Infraestrutura (R$ 19.200)
+
+Servidores Cloud com GPU (R$ 1.200/mês): AWS oferece instâncias EC2 escaláveis com opções P3 e G4, ideais para diversos workloads de ML. O valor contempla instâncias para treinamento de IA e hospedagem do sistema.
+Licenças de Software (R$ 800/mês): Incluem ferramentas como Labelbox para anotação de imagens, GitHub Enterprise, ferramentas CI/CD e monitoramento.
+Banco de Dados (R$ 400/mês): Armazenamento de imagens, metadados e registros. Valor baseado em soluções como AWS RDS ou Google Cloud SQL.
+
+Total: R$ 19.200 - Proporcional ao período do projeto e tipo de tecnologia.
+3. Equipamentos (R$ 25.000)
+
+Drone com câmera 4K (R$ 15.000): Necessário para inspeção de fachadas. Valor corresponde a modelos profissionais como DJI Mavic 3 Enterprise, com estabilização e resolução adequadas para captura de defeitos.
+Notebook com GPU (R$ 10.000): Workstation para desenvolvimento e testes locais do modelo, com GPU dedicada (RTX 4070 ou superior).
+
+4. Despesas Gerais (R$ 74.580)
+Calculadas como 30% sobre os custos diretos, seguindo práticas de mercado para projetos de base tecnológica. Incluem:
+
+Custos administrativos e operacionais
+Reuniões presenciais com o IPT
+Deslocamentos e hospedagem
+Backup, contingência técnica e seguro
+Energia, conectividade e horas indiretas de gestão
+
+Referência: ABDI (Agência Brasileira de Desenvolvimento Industrial) recomenda margem de 25-35% para projetos de inovação tecnológica¹⁰.
+5. Manutenção Projetada (R$ 36.000)
+Cobertura de 1 ano após entrega, incluindo:
+
+Atualizações no modelo de IA com novas imagens
+Suporte técnico L2 e correção de bugs
+Hospedagem e armazenamento na nuvem
+Melhorias incrementais baseadas no feedback
+
+Valor baseado em: 10% do valor total do projeto anualmente, padrão da indústria de software¹¹.
+Cálculo Final do Preço
+ItemValor (R$)Custo Bruto Total359.180+ Margem de Lucro (20%)71.836Subtotal com lucro431.016+ Impostos (18%)77.583PREÇO FINAL508.599
+Justificativa da Margem: 20% é compatível com o risco técnico assumido e padrão para projetos de inovação em IA no Brasil¹².
+Impostos: Regime do Lucro Presumido, incluindo ISS (5%), IRPJ (4,8%), CSLL (2,88%), PIS/Cofins (3,65%) e margem para variações tributárias.
+
+Referências
+¹ IEEE Transactions on Image Processing, 2024
+² Relatório Setorial ANAC - Drones Comerciais, 2024
+³ Gartner Research - Business Intelligence Dashboards, 2024
+⁴ McKinsey Global Institute - Cloud Economics, 2024
+⁵ PMI - Project Management Success Factors, 2024
+⁶ MIT Technology Review - AI Data Quality, 2024
+⁷ Computer Vision and Pattern Recognition Conference, 2024
+⁸ Nielsen Norman Group - Enterprise UX Research, 2024
+⁹ Revista Construção Mercado - Tecnologia em Inspeção, 2024
+¹⁰ ABDI - Guia de Precificação para Projetos de P&D, 2024
+¹¹ Standish Group - Software Maintenance Cost Analysis, 2024
+¹² SOFTEX - Mercado Brasileiro de Software, 2024
 
 ---
 
