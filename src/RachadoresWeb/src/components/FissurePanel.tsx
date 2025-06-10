@@ -37,6 +37,7 @@ const FissurePanel = () => {
   );
   const [activeId, setActiveId] = useState<number | null>(null);
   const [draggedFissure, setDraggedFissure] = useState<FissureWithImage | null>(null);
+  const [draggedFromCategory, setDraggedFromCategory] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchFissures = async () => {
@@ -93,13 +94,20 @@ const handleDragStart = (event: any) => {
   const dragged = termicas.find((f) => f.fissure.id === draggedId) || 
                   retracoes.find((f) => f.fissure.id === draggedId);
   
+  // Determinar de qual categoria a imagem está sendo arrastada
+  const fromCategory = termicas.find((f) => f.fissure.id === draggedId) 
+    ? "termica" 
+    : "retracao";
+  
   setDraggedFissure(dragged || null);
+  setDraggedFromCategory(fromCategory);
 };
 
 const handleDragEnd = async (event: any) => {
   const { active, over } = event;
   setActiveId(null);
   setDraggedFissure(null);
+  setDraggedFromCategory(null);
   
   if (!over || active.id === over.id) return;
 
@@ -200,8 +208,15 @@ const handleDragEnd = async (event: any) => {
     const canDrop = isDragging && 
       (!draggedFissure || draggedFissure.fissure.categoria !== id);
 
+    const shouldBlur = isDragging && draggedFromCategory === id;
+
     return (
-      <Column ref={setNodeRef} isDragging={isDragging} isOver={isOver && canDrop}>
+      <Column 
+        ref={setNodeRef} 
+        isDragging={isDragging} 
+        isOver={isOver && canDrop}
+        shouldBlur={shouldBlur}
+      >
         <TitleContainer>
           <Title>{title}</Title>
         </TitleContainer>
@@ -242,8 +257,12 @@ const handleDragEnd = async (event: any) => {
             id="retracao"
             title="Fissuras de retração"
             fissures={retracoes}
-          />
-        </InnerPanel>
+            />
+            
+        </InnerPanel> 
+        <UploadButton>
+            <Upload src={upload} alt="Botão de upload"/>
+        </UploadButton>
 
         <DragOverlay>
           {activeId && draggedFissure ? (
@@ -295,15 +314,15 @@ const InnerPanel = styled.div`
   min-height: 50vh;
 `;
 
-const Column = styled.div<{ isDragging?: boolean; isOver?: boolean }>`
+const Column = styled.div<{ isDragging?: boolean; isOver?: boolean; shouldBlur?: boolean }>`
   flex: 1;
   display: flex;
   flex-direction: column;
   transition: all 0.3s ease;
   
-  ${props => props.isDragging && `
-    filter: ${props.isOver ? 'none' : 'blur(2px)'};
-    opacity: ${props.isOver ? 1 : 0.7};
+  ${props => props.shouldBlur && `
+    filter: blur(2px);
+    opacity: 0.7;
   `}
   
   ${props => props.isOver && `
@@ -313,6 +332,27 @@ const Column = styled.div<{ isDragging?: boolean; isOver?: boolean }>`
   `}
 `;
 
+const UploadButton = styled.div`
+  background: #58453d;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background: #7d5e54;
+  }
+  
+  &:active {
+    background: #59443b;
+  }
+
+`;
 const TitleContainer = styled.div`
   background: #58453d;
   padding: 0.75rem;
@@ -354,7 +394,7 @@ const DropIndicator = styled.div<{ isOver?: boolean }>`
   justify-content: center;
   background: ${props => props.isOver ? 'rgba(88, 69, 61, 0.9)' : 'rgba(88, 69, 61, 0.7)'};
   color: white;
-  padding: 2rem;
+  padding: 1rem;
   border-radius: 12px;
   border: 2px dashed white;
   z-index: 100;
@@ -387,6 +427,10 @@ const DragPreview = styled.img`
   opacity: 0.9;
   transform: rotate(5deg);
 `;
+
+const Upload = styled.img`
+  height: 20px;
+`
 
 const ImageContainer = styled.div`
   position: relative;
