@@ -29,27 +29,27 @@ Diante desse contexto, o projeto em questão alinha-se à missão e às competê
 
 ## Resultados Esperados com o Desenvolvimento da Solução
 
-### 1. Automatização e Eficiência na Inspeção de Fachadas
+**1. Automatização e Eficiência na Inspeção de Fachadas**
 
 A implementação da solução permitirá a automatização do processo de inspeção de fachadas, reduzindo significativamente o tempo e os recursos necessários em comparação com métodos tradicionais, inspeção manual. Isso resultará em uma maior eficiência operacional, os pesquisadores anteriormente encarregados de classificar as imagens, poderão usar o tempo para a realização de tarefas mais importantes e relevantes, pode ser que essa automatização gere inspeções mais frequentes e abrangentes.
 
-### 2. Monitoramento Contínuo e Previsão de Evolução de Fissuras
+**2. Monitoramento Contínuo e Previsão de Evolução de Fissuras**
 
 A solução proposta permitirá o monitoramento contínuo das fissuras identificadas, possibilitando auditorias nas quais, caso um pesquisador identifique que uma fissura foi classificada de forma errônea, ele poderá corrigir a classificação. Esse processo de revisão contínua garante a precisão dos dados e contribui para a manutenção preventiva eficaz. Essa abordagem proativa é interessante, pois permite a detecção precoce de possíveis problemas e a tomada de medidas corretivas antes que ocorram danos significativos.
 
-### 3. Geração de Relatórios Detalhados
+**3. Geração de Relatórios Detalhados**
 
 A solução proposta incluirá funcionalidades para a geração automática de relatórios detalhados sobre as fissuras detectadas. Essa automação facilitará o trabalho dos profissionais envolvidos no projeto, permitindo que as informações sobre as fissuras sejam estruturadas e identificadas de forma eficiente. Essa funcionalidade foi destacada como altamente relevante pelos parceiros, pois contribuirá significativamente para o desenvolvimento de relatórios completos e precisos do projeto.
 
-### 4. Integração com Tecnologias de Captura de Imagens
+**4. Integração com Tecnologias de Captura de Imagens**
 
 A compatibilidade da solução com drones e câmeras de alta resolução permitirá a coleta eficiente de dados visuais das fachadas. Essa integração ampliará a abrangência e a qualidade das inspeções realizadas, possibilitando a identificação precisa de fissuras e outras anomalias em áreas de difícil acesso. O uso de drones equipados com sensores avançados, como câmeras termográficas, também pode auxiliar na detecção de problemas ocultos, como infiltrações e vazamentos de calor.
 
-### 5. Contribuição para a Inovação no Setor da Construção Civil
+**5. Contribuição para a Inovação no Setor da Construção Civil**
 
 O desenvolvimento e a implementação da solução representarão um avanço tecnológico significativo no setor da construção civil. Ao promover a adoção de práticas mais modernas e eficazes na manutenção de edificações, a solução contribuirá para a transformação digital do setor, alinhando-se às tendências de inovação e sustentabilidade. A utilização de tecnologias como inteligência artificial, drones e automação de processos reforça o compromisso com a eficiência e a qualidade nas construções.
 
-### 6. Centralização e Segurança dos Dados com Interface Intuitiva
+**6. Centralização e Segurança dos Dados com Interface Intuitiva**
 
 A aplicação garantirá que os dados coletados durante as inspeções sejam centralizados e protegidos, assegurando a integridade e a confidencialidade das informações. Além disso, a interface do usuário será projetada para proporcionar fácil acesso e uma experiência intuitiva, permitindo que os profissionais naveguem pelas funcionalidades da aplicação de forma eficiente. Essa abordagem facilitará a gestão dos dados e a tomada de decisões informadas com base nas informações coletadas.
 
@@ -85,7 +85,7 @@ A solução será composta por:
 
 - **APIs de Integração:** Asseguram flexibilidade para conectar o sistema com outros softwares utilizados pelo IPT ou empresas do setor, seguindo padrões REST modernos.
 
-### Cronograma por Fase (com Justificativas)
+### Cronograma por Fase
 
 O tempo total estimado para desenvolvimento é de 8 meses, baseado em metodologias ágeis e considerando complexidade similar a projetos de IA em visão computacional já executados no mercado brasileiro:
 
