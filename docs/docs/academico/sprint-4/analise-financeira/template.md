@@ -1,205 +1,108 @@
----
-sidebar_position: 1
-custom_edit_url: null
----
+# Viabilidade do Projeto
 
-# Análise Financeira
+## Composição do Preço
 
-## Contextualização do Parceiro 
+| Item | Descrição | Valor (R$) |
+|------|-----------|------------|
+| **CUSTOS DIRETOS** | | |
+| Mão de Obra Técnica | 6 profissionais especializados (8 meses) | 204.400 |
+| - Engenheiros de Software (2) | R$ 100/h cada | |
+| - Cientista de Dados (1) | R$ 120/h | |
+| - Engenheiro de ML (1) | R$ 130/h | |
+| - UX/UI Designer (1) | R$ 90/h | |
+| - Gerente de Projeto (1) | R$ 110/h | |
+| Infraestrutura | Servidores cloud, licenças, banco de dados | 19.200 |
+| Equipamentos | Estrutura com GPU | 10.000 |
+| **Subtotal Custos Diretos** | | **248.600** |
+| **CUSTOS INDIRETOS** | | |
+| Despesas Gerais | Administrativo, deslocamentos, contingência | 74.580 |
+| Manutenção (1 ano) | Suporte técnico e atualizações | 36.000 |
+| **Subtotal Custos Indiretos** | | **110.580** |
+| **CUSTO TOTAL** | | **359.180** |
+| **COMPOSIÇÃO FINAL** | | |
+| Margem de Lucro (20%) | | 71.836 |
+| Subtotal com Lucro | | 431.016 |
+| Impostos (18%) | ISS, IRPJ, CSLL, PIS/Cofins | 77.583 |
+| **PREÇO FINAL** | | **R$ 508.599** |
 
-O Instituto de Pesquisas Tecnológicas (IPT) é uma instituição pública vinculada ao Governo do Estado de São Paulo, com mais de 120 anos de atuação no desenvolvimento e aplicação de soluções tecnológicas voltadas para os setores produtivo, governamental e social. Fundado em 1899, o IPT destaca-se como um dos principais centros de pesquisa científica e tecnológica do Brasil, contribuindo significativamente para o avanço da inovação e da competitividade nacional.
+**Estimativa de prazo de entrega:** 8 meses
 
-### Missão, Visão e Valores
+&emsp; A previsão de 8 meses para a entrega do sistema considera experiências consolidadas e boas práticas em projetos de machine learning, especialmente em escala. Segundo publicação da Data Science Central, a maioria dos projetos de ML demanda entre 6 e 8 meses para atingir produção, abrangendo as etapas de planejamento, desenvolvimento, integração, testes e implantação. Para soluções mais complexas envolvendo visão computacional com captura de imagens por drones, são necessárias fases adicionais, como coleta aérea estruturada, anotação de dados, treinamento de modelos e integração com APIs, o que reforça a necessidade de cronograma robusto. 
 
-A missão do IPT é superar os desafios da sociedade por meio da ciência, tecnologia e inovação aplicadas nas políticas públicas e setores produtivos. Sua visão é ser referência global em inovação e criação de valor para a sociedade, desenvolvendo colaborativamente soluções tecnológicas para um futuro sustentável. Os valores que norteiam a instituição incluem conexões, diversidade, ética, excelência, impacto, inovação, pessoas e sustentabilidade.
+&emsp; Organizações geralmente dedicam de 3 a 6 meses apenas à preparação de dados, como limpeza, rotulagem e construção de variáveis, antes mesmo de iniciar o desenvolvimento efetivo dos modelos. Já frameworks de MLOps aplicados especificamente a projetos de visão computacional com drones recomendam ciclos estruturados e integrados para garantir escalabilidade e confiabilidade.
 
-### Estrutura e Atuação 
+&emsp; Assim, considerando uma equipe especializada, opções de paralelismo entre tarefas como o treinamento de modelos, desenvolvimento do front-end e integração, além de infraestrutura adequada e espaço para testes de qualidade, o prazo de 8 meses é realista e consistente com o nível de maturidade necessário para uma implantação em larga escala.
 
-O IPT possui uma infraestrutura laboratorial de ponta, com mais de 150 mil m² de laboratórios, e conta com uma equipe multidisciplinar composta por aproximadamente 1.000 colaboradores. Suas áreas de atuação abrangem pesquisa, desenvolvimento e inovação; serviços tecnológicos; serviços metrológicos; e educação em tecnologia. Entre as atividades desenvolvidas, destacam-se ensaios, análises, calibrações, certificações, monitoramento, inspeção, consultoria e desenvolvimento de produtos e processos.
+## Justificativas dos Valores
 
-### Desempenho Operacional
+### Mão de Obra Técnica - R$ 204.400 (8 meses)
 
-Em 2024, o IPT atendeu 2.814 clientes, abriu 107 novos projetos e gerou 730 novas propostas, das quais 237 foram aprovadas, resultando em uma taxa de conversão de 41%. Foram emitidos 12.762 orçamentos, com 6.531 aprovações, alcançando uma taxa de conversão de 30%. Esses números refletem a eficiência do Instituto em gerar soluções tecnológicas inovadoras e impulsionar a pesquisa científica.
+**2 Engenheiros de Software (R$ 100/h):** A média salarial de engenheiro de software sênior no Brasil é de R$ 16 800/mês, o que corresponde a aproximadamente R$ 100 por hora, considerando 168h mensais. Em São Paulo, o piso para esse cargo gira em torno de R$ 15 284 mensais. Portanto, a taxa de R$ 100/h é competitiva e justa para profissionais sêniores.
 
-### Iniciativas de Inovação
+**1 Cientista de Dados (R$ 120/h):** Segundo Glassdoor, a média salarial para Cientista de Dados é de R$ 11 417/mês. Esses valores equivalem a R$ 70–75/h. A tarifa de R$ 120/h reflete a especialização em visão computacional e consultoria freelance de alto valor agregado.
 
-O programa de inovação aberta, IPT Open, continua a se consolidar de maneira significativa. Atualmente, o Instituto conta com 14 empresas instaladas ou em processo de instalação de seus Centros de Inovação no campus. Destas, 6 já estão em operação, 3 estão executando obras de infraestrutura para iniciar suas atividades, e 5 estão em fase de avaliação de projeto de infraestrutura e/ou construção de projeto básico. Essas empresas desenvolvem projetos integrados com as unidades de negócio do IPT, fortalecendo o ecossistema de inovação no Brasil.
+**1 Engenheiro de Machine Learning (R$ 130/h):** Dados da indústria mostram que engenheiros de ML seniores ganham salários superiores a R$ 13 000/mês, com frequentes faixas entre R$ 14 000 e R$ 20 000. A cobrança de R$ 130/h é condizente com o nível de habilidades exigidas para projetar e treinar redes profundas em um projeto crítico como este.
 
-Diante desse contexto, o projeto em questão alinha-se à missão e às competências do IPT, visando desenvolver uma solução tecnológica inovadora que atenda às necessidades do setor e contribua para o avanço da ciência e tecnologia no Brasil.
+**1 UX/UI Designer (R$ 90/h):** Em São Paulo, profissionais de UI/UX recebem em média R$ 5 150–6 317/mês. Para garantir entrega de dashboards e interfaces especializadas em engenharia, o valor de R$ 90/h é proporcional à senioridade requerida.
 
-## Resultados Esperados com o Desenvolvimento da Solução
+**1 Gerente de Projeto (R$ 110/h):** A média salarial para gerente de TI/projetos no Brasil varia entre R$ 13 083/mês (Glassdoor). A taxa de R$ 110/h reflete adequadamente o escopo de liderança técnica e coordenação de IA.
 
-**1. Automatização e Eficiência na Inspeção de Fachadas**
+### Infraestrutura Cloud – R$ 19.200 (8 meses)
 
-A implementação da solução permitirá a automatização do processo de inspeção de fachadas, reduzindo significativamente o tempo e os recursos necessários em comparação com métodos tradicionais, inspeção manual. Isso resultará em uma maior eficiência operacional, os pesquisadores anteriormente encarregados de classificar as imagens, poderão usar o tempo para a realização de tarefas mais importantes e relevantes, pode ser que essa automatização gere inspeções mais frequentes e abrangentes.
+#### Instâncias GPU AWS – R$ 1.200/mês  
+Para treinar modelos, utilizam-se instâncias GPU da AWS:  
+- **p3.2xlarge**: US$ 3,06/h (~R$ 17/h)
+- **G4dn.xlarge**: faixa similar disponível por provedor (estimado R$ 3/h) 
 
-**2. Monitoramento Contínuo e Previsão de Evolução de Fissuras**
+Estimando 8 h/dia de uso ativo, o custo mensal varia entre **R$ 800 e R$ 1.500**, em média **R$ 1.200/mês** .
 
-A solução proposta permitirá o monitoramento contínuo das fissuras identificadas, possibilitando auditorias nas quais, caso um pesquisador identifique que uma fissura foi classificada de forma errônea, ele poderá corrigir a classificação. Esse processo de revisão contínua garante a precisão dos dados e contribui para a manutenção preventiva eficaz. Essa abordagem proativa é interessante, pois permite a detecção precoce de possíveis problemas e a tomada de medidas corretivas antes que ocorram danos significativos.
+#### Licenças de Software – R$ 800/mês  
+- **GitHub Enterprise**: US$ 21/usuário/mês (~R$ 110) 
+- **Ferramentas de CI/CD e monitoramento**: ~US$ 100/mês (~R$ 500)  
 
-**3. Geração de Relatórios Detalhados**
+Total estimado: **US$ 1.000/mês (~R$ 800/mês)**.
 
-A solução proposta incluirá funcionalidades para a geração automática de relatórios detalhados sobre as fissuras detectadas. Essa automação facilitará o trabalho dos profissionais envolvidos no projeto, permitindo que as informações sobre as fissuras sejam estruturadas e identificadas de forma eficiente. Essa funcionalidade foi destacada como altamente relevante pelos parceiros, pois contribuirá significativamente para o desenvolvimento de relatórios completos e precisos do projeto.
 
-**4. Integração com Tecnologias de Captura de Imagens**
+#### Banco de Dados e Armazenamento – R$ 400/mês  
+- **Amazon S3 Standard**: US$ 0,023/GB/mês (~R$ 0,12/GB), para 50–200 GB gera entre R$ 75 e R$ 240/mês   
+- **Plano Supabase Pro**: US$ 25/mês (~R$ 135) inclui:
+  - Banco PostgreSQL com até 8 GB de disco
+  - Armazenamento de arquivos até 100 GB
+  - 250 GB de banda
+  - Backups diários e retenção de logs por 7 dias
 
-A compatibilidade da solução com drones e câmeras de alta resolução permitirá a coleta eficiente de dados visuais das fachadas. Essa integração ampliará a abrangência e a qualidade das inspeções realizadas, possibilitando a identificação precisa de fissuras e outras anomalias em áreas de difícil acesso. O uso de drones equipados com sensores avançados, como câmeras termográficas, também pode auxiliar na detecção de problemas ocultos, como infiltrações e vazamentos de calor.
+Considerando armazenamento com backup automático, o custo mensal estimado é de **R$ 400/mês**.
 
-**5. Contribuição para a Inovação no Setor da Construção Civil**
 
-O desenvolvimento e a implementação da solução representarão um avanço tecnológico significativo no setor da construção civil. Ao promover a adoção de práticas mais modernas e eficazes na manutenção de edificações, a solução contribuirá para a transformação digital do setor, alinhando-se às tendências de inovação e sustentabilidade. A utilização de tecnologias como inteligência artificial, drones e automação de processos reforça o compromisso com a eficiência e a qualidade nas construções.
+### Equipamentos – R$ 10.000
 
-**6. Centralização e Segurança dos Dados com Interface Intuitiva**
+- **Workstation com GPU RTX 4070+ (R$ 10.000)**: viabiliza desenvolvimento local e testes rápidos, reduzindo dependência da nuvem.
 
-A aplicação garantirá que os dados coletados durante as inspeções sejam centralizados e protegidos, assegurando a integridade e a confidencialidade das informações. Além disso, a interface do usuário será projetada para proporcionar fácil acesso e uma experiência intuitiva, permitindo que os profissionais naveguem pelas funcionalidades da aplicação de forma eficiente. Essa abordagem facilitará a gestão dos dados e a tomada de decisões informadas com base nas informações coletadas.
+## Conclusão
 
-## Potencial de Mercado e Retorno sobre o Investimento
-
-A adoção de inteligência artificial (IA) e visão computacional na construção civil está em franca expansão. Estima-se que o mercado de IA na construção atinja US$ 3,99 bilhões em 2024, com uma taxa de crescimento anual composta (CAGR) de 24,31%, alcançando US$ 11,85 bilhões até 2029 (Mordor Intelligence, 2024). Além disso, estudos da Accenture projetam que a IA pode aumentar os lucros da indústria da construção civil em até 71% até 2035.
-
-### Benefícios Econômicos Diretos
-
-- **Redução de Custos Operacionais:** A automação das inspeções e a detecção precoce de falhas reduzem os gastos com manutenção corretiva e retrabalho.
-
-- **Aumento da Eficiência:** A análise automatizada de imagens torna as inspeções mais rápidas e frequentes, otimizando o uso de recursos humanos e materiais.
-
-- **Melhoria na Qualidade e Segurança:** A identificação precisa de fissuras e outras anomalias contribui para maior integridade estrutural e segurança das edificações, fortalecendo a confiança dos stakeholders e reduzindo riscos operacionais.
-
-Esses fatores reforçam o potencial de impacto positivo da solução tanto para o IPT quanto para o setor da construção civil como um todo.
-
-## Descrição do Projeto e Custo Estimado
-
-### Escopo Resumido da Solução
-
-O objetivo do projeto é desenvolver uma solução inteligente, baseada em visão computacional, para classificar automaticamente fissuras em alvenaria de edifícios, com o intuito de acelerar, padronizar e tornar mais segura a etapa de inspeção predial. A aplicação tem potencial de uso em manutenções preventivas e avaliações estruturais.
-
-A solução será composta por:
-
-- **Modelo de IA com Visão Computacional:** Justifica-se pelo alto volume e diversidade de imagens de fissuras. Estudos recentes em visão computacional aplicada à engenharia civil demonstram precisão superior a 90% na detecção de defeitos estruturais quando treinados com datasets robustos¹. Um modelo treinado com dados reais (imagens coletadas com o apoio do IPT) permitirá precisão na identificação de padrões que indicam gravidade, tipo e origem da fissura.
-
-- **Integração com Drones:** Justifica-se pelo ganho de segurança e alcance em áreas de difícil acesso (fachadas altas, coberturas), reduzindo riscos a inspetores e acelerando a coleta de dados. O mercado brasileiro de drones para inspeção predial cresceu 45% em 2024, consolidando-se como tecnologia padrão no setor².
-
-- **Interface Web:** Necessária para que engenheiros, pesquisadores e gestores visualizem, filtrem e exportem os resultados de forma intuitiva. O uso de um dashboard centraliza o acesso aos diagnósticos e aumenta a produtividade das equipes técnicas em até 60%³.
-
-- **Banco de Dados em Nuvem:** Permite o armazenamento escalável e seguro de imagens e resultados, mantendo o histórico de inspeções e viabilizando atualizações futuras do modelo. A utilização de infraestrutura cloud reduz custos operacionais em 40% comparado a servidores locais⁴.
-
-- **APIs de Integração:** Asseguram flexibilidade para conectar o sistema com outros softwares utilizados pelo IPT ou empresas do setor, seguindo padrões REST modernos.
-
-### Cronograma por Fase
-
-O tempo total estimado para desenvolvimento é de 8 meses, baseado em metodologias ágeis e considerando complexidade similar a projetos de IA em visão computacional já executados no mercado brasileiro:
-
-#### Planejamento e Coleta Inicial (1 mês)
-Justifica-se pela necessidade de alinhar expectativas com o IPT, compreender requisitos específicos e definir padrões de qualidade das imagens. Fase crítica que reduz retrabalho em 70% dos projetos de IA⁵.
-
-#### Anotação e Pré-processamento de Dados (1 mês)
-Essa fase é crítica para treinar o modelo de IA. Envolve curadoria, padronização e anotação manual (semiautomatizada) das fissuras em imagens reais. Benchmarks da indústria indicam que 80% do sucesso de modelos de visão computacional dependem da qualidade dos dados anotados⁶.
-
-#### Treinamento do Modelo de IA (2 meses)
-Modelos de visão computacional para detecção de defeitos estruturais exigem ciclos iterativos de teste e validação. Reservamos tempo adequado para testes com diversos tipos de fissuras, considerando arquiteturas como YOLO v8 e Mask R-CNN, que demonstram melhor performance neste domínio⁷.
-
-#### Desenvolvimento da Interface Web (1,5 mês)
-O tempo inclui front-end responsivo e back-end robusto. Um dashboard eficiente e intuitivo aumenta a adoção do sistema por usuários técnicos e não técnicos, conforme estudos de UX em sistemas empresariais⁸.
-
-#### Integração com Drones e APIs (1 mês)
-A integração com drones exige desenvolvimento de conectores específicos para captura de imagens, envio automático para o sistema e processamento pelo modelo. Tempo baseado em projetos similares já executados no mercado⁹.
-
-#### Testes e Validação (1 mês)
-Fase essencial para garantir que o sistema funciona em campo e atende aos padrões esperados pelo IPT. Envolve testes de carga, validação cruzada e feedback de usuários beta.
-
-#### Entrega Final e Documentação (0,5 mês)
-Inclui a preparação de manuais técnicos, guias de usuário e treinamento da equipe do cliente.
-
-### Custo Estimado 
-
-#### 1. Mão de Obra Técnica (R$ 204.400)
-
-Os valores foram baseados em pesquisa salarial atual do mercado brasileiro (2025):
-
-- **2 Engenheiros de Software (R$ 100/h):** Responsáveis pela interface, back-end, APIs e integração com drones. O salário médio de engenheiros de software no Brasil varia entre R$ 9.480 e R$ 9.580 mensais, o que equivale a aproximadamente R$ 95-105/hora para profissionais com 3+ anos de experiência.
-
-- **1 Cientista de Dados (R$ 120/h):** Trabalha na preparação dos dados e avaliação estatística dos resultados da IA. A remuneração para Cientista de Dados pode variar entre R$ 9.642,03 e R$ 19.398,01, justificando o valor hora de R$ 120 para profissional experiente.
-
-- **1 Engenheiro de Machine Learning (R$ 130/h):** Desenvolve e ajusta os modelos de classificação de fissuras. A média salarial de Engenheiro de Machine Learning é de R$ 12.292 mensais, e especialistas em IA podem receber entre R$ 15 mil a R$ 32 mil mensais, validando nosso valor.
-
-- **1 UX/UI Designer (R$ 90/h):** Responsável por tornar o dashboard funcional e acessível. Valor baseado na média de mercado para designers com experiência em sistemas técnicos.
-
-- **1 Gerente de Projeto (R$ 110/h):** Coordenação técnica e alinhamento com stakeholders. Valor compatível com profissionais PMP certificados.
-
-**Total: R$ 204.400** - Valor competitivo e realista para equipe técnica especializada.
-
-#### 2. Infraestrutura (R$ 19.200)
-
-- **Servidores Cloud com GPU (R$ 1.200/mês):** AWS oferece instâncias EC2 escaláveis com opções P3 e G4, ideais para diversos workloads de ML. O valor contempla instâncias para treinamento de IA e hospedagem do sistema.
-
-- **Licenças de Software (R$ 800/mês):** Incluem ferramentas como Labelbox para anotação de imagens, GitHub Enterprise, ferramentas CI/CD e monitoramento.
-
-- **Banco de Dados (R$ 400/mês):** Armazenamento de imagens, metadados e registros. Valor baseado em soluções como AWS RDS ou Google Cloud SQL.
-
-**Total: R$ 19.200** - Proporcional ao período do projeto e tipo de tecnologia.
-
-#### 3. Equipamentos (R$ 25.000)
-
-- **Drone com câmera 4K (R$ 15.000):** Necessário para inspeção de fachadas. Valor corresponde a modelos profissionais como DJI Mavic 3 Enterprise, com estabilização e resolução adequadas para captura de defeitos.
-
-- **Notebook com GPU (R$ 10.000):** Workstation para desenvolvimento e testes locais do modelo, com GPU dedicada (RTX 4070 ou superior).
-
-#### 4. Despesas Gerais (R$ 74.580)
-
-Calculadas como 30% sobre os custos diretos, seguindo práticas de mercado para projetos de base tecnológica. Incluem:
-
-- Custos administrativos e operacionais
-- Reuniões presenciais com o IPT
-- Deslocamentos e hospedagem
-- Backup, contingência técnica e seguro
-- Energia, conectividade e horas indiretas de gestão
-
-**Referência:** ABDI (Agência Brasileira de Desenvolvimento Industrial) recomenda margem de 25-35% para projetos de inovação tecnológica¹⁰.
-
-#### 5. Manutenção Projetada (R$ 36.000)
-
-Cobertura de 1 ano após entrega, incluindo:
-
-- Atualizações no modelo de IA com novas imagens
-- Suporte técnico L2 e correção de bugs
-- Hospedagem e armazenamento na nuvem
-- Melhorias incrementais baseadas no feedback
-
-**Valor baseado em:** 10% do valor total do projeto anualmente, padrão da indústria de software¹¹.
-
-### Cálculo Final do Preço
-
-| Item | Valor (R$) |
-|------|------------|
-| **Custo Bruto Total** | 359.180 |
-| **+ Margem de Lucro (20%)** | 71.836 |
-| **Subtotal com lucro** | 431.016 |
-| **+ Impostos (18%)** | 77.583 |
-| **PREÇO FINAL** | **508.599** |
-
-**Justificativa da Margem:** 20% é compatível com o risco técnico assumido e padrão para projetos de inovação em IA no Brasil¹².
-
-**Impostos:** Regime do Lucro Presumido, incluindo ISS (5%), IRPJ (4,8%), CSLL (2,88%), PIS/Cofins (3,65%) e margem para variações tributárias.
+A proposta de R$ 508.599 inclui todos os custos, como mão de obra, infraestrutura, equipamentos, manutenção e despesas indiretas, com prazo de entrega de 8 meses. Esse prazo é considerado adequado para um projeto de visão computacional e machine learning em larga escala. Os valores são respaldados por referências de mercado atualizadas. Estamos preparados para avançar com cronograma, definição de entregas e possíveis ajustes conforme sua necessidade.
 
 ---
+
 
 ## Referências
 
-¹ IEEE Transactions on Image Processing, 2024  
-² Relatório Setorial ANAC - Drones Comerciais, 2024  
-³ Gartner Research - Business Intelligence Dashboards, 2024  
-⁴ McKinsey Global Institute - Cloud Economics, 2024  
-⁵ PMI - Project Management Success Factors, 2024  
-⁶ MIT Technology Review - AI Data Quality, 2024  
-⁷ Computer Vision and Pattern Recognition Conference, 2024  
-⁸ Nielsen Norman Group - Enterprise UX Research, 2024  
-⁹ Revista Construção Mercado - Tecnologia em Inspeção, 2024  
-¹⁰ ABDI - Guia de Precificação para Projetos de P&D, 2024  
-¹¹ Standish Group - Software Maintenance Cost Analysis, 2024  
-¹² SOFTEX - Mercado Brasileiro de Software, 2024
+https://www.datasciencecentral.com/seven-rules-for-delivering-machine-learning-projects-on-time, 2021.
 
-IPT. Quem somos. Disponível em: https://ipt.br/quem-somos/. Acesso em: 03 jun. 2025.
+https://www.labellerr.com/blog/end-to-end-ml-pipeline, 2024.
 
-IPT. Governança Corporativa. Disponível em: https://ipt.br/governanca-corporativa/. Acesso em: 03 jun. 2025.
+https://www.techradar.com/pro/breaking-silos-unifying-devops-and-mlops-into-a-unified-software-supply-chain, 2025.
 
-Mordor Intelligence. Global AI In Construction Market Source. https://www.mordorintelligence.com/industry-reports/artificial-intelligence-in-construction-market
+https://www.glassdoor.com.br/Sal%C3%A1rios/engenheiro-de-software-senior-sal%C3%A1rio-SRCH_KO0%2C29.htm, 2025.
+
+https://www.salario.com.br/profissao/engenheiro-de-software-computacional-basico-cbo-212215/sao-paulo-sp/, 2025.
+
+https://www.glassdoor.com.br/Salaries/sao-paulo-brazil-ui-ux-designer-salary-SRCH_IL.0%2C16_IM1009_KO17%2C31.htm, 2025.
+
+https://www.glassdoor.com.br/Sal%C3%A1rios/data-scientist-sal%C3%A1rio-SRCH_KO0%2C14.htm, 2025.
+
+https://www.salario.com.br/profissao/gerente-de-projetos-de-tecnologia-da-informacao-cbo-142520/sao-paulo-sp/, 2025.
+
+https://costcalc.cloudoptimo.com/aws-pricing-calculator/ec2/g4dn.xlarge, 2025.
+
+https://supabase.com/pricing, 2025.
