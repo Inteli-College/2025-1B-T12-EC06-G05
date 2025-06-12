@@ -45,7 +45,7 @@ def create_app():
 
     # Construct the SQLAlchemy connection string
     DATABASE_URL = f"postgresql+psycopg2://{USER}:{PASSWORD}@{HOST}:{PORT}/{DBNAME}?sslmode=require"
-        
+
     # Create the SQLAlchemy engine
     engine = create_engine(DATABASE_URL)
 
