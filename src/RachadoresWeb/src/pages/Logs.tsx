@@ -8,7 +8,7 @@ import axios from "axios";
 interface Log {
   id: number;
   descricao: string;
-  tipo: string;
+  responsavel: string;
   status: string;
   data: string;
 }
@@ -96,21 +96,21 @@ const Logs = () => {
     {
       id: 1,
       descricao: "Pedro fez login na plataforma FissurAI",
-      tipo: "Login",
+      responsavel: "Pedro",
       status: "Efetivado",
       data: "12/05/2025"
     },
     {
       id: 2,
       descricao: "Pedro fez login na plataforma FissurAI",
-      tipo: "Login",
+      responsavel: "Pedro",
       status: "Efetivado",
       data: "12/05/2025"
     },
     {
       id: 3,
       descricao: "Pedro fez login na plataforma FissurAI",
-      tipo: "Login",
+      responsavel: "Pedro",
       status: "Efetivado",
       data: "12/05/2025"
     }
@@ -146,7 +146,7 @@ const Logs = () => {
             <TableHead>
               <tr>
                 <Th>Descrição</Th>
-                <Th>Tipo</Th>
+                <Th>Responsável</Th>
                 <Th>Status</Th>
                 <Th>Data</Th>
               </tr>
@@ -156,7 +156,7 @@ const Logs = () => {
                 logs.map((log) => (
                   <tr key={log.id}>
                     <Td>{log.descricao}</Td>
-                    <Td>{log.tipo}</Td>
+                    <Td>{log.responsavel}</Td>
                     <Td>{log.status}</Td>
                     <Td>{log.data}</Td>
                   </tr>
