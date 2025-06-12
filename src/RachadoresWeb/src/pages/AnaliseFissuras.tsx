@@ -69,9 +69,9 @@ interface ImageInfo {
 
 const VisaoGeral = () => {
   const { numeroPredio } = useParams<{ numeroPredio: string }>();
-  console.log(numeroPredio)
   const [expeditionData, setExpeditionData] = useState<ExpeditionInfoProps | null>(null);
   const [imagens, setImagens] = useState<ImageInfo[]>([]);
+  const [metricas, setMetricas] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -102,6 +102,13 @@ const VisaoGeral = () => {
         });
 
         setImagens(imagensRes.data.images || []);
+
+         // Busca das as métricas por prédio
+         const metricasRes = await axios.get(`http://localhost:5000/fissure/predio/${predio.id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        setMetricas(metricasRes.data.metricas || {});
       } catch (error) {
         console.error("Erro ao buscar dados da visão geral:", error);
       }
@@ -120,6 +127,7 @@ const VisaoGeral = () => {
               nome={expeditionData.nome}
               data_criacao={expeditionData.data_criacao}
               nome_responsavel={expeditionData.nome_responsavel}
+              total_fissuras = {metricas.total_fissuras}
             />
           ) : (
             <p>Carregando dados da expedição...</p>

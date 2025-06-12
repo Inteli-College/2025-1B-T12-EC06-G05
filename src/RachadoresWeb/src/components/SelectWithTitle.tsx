@@ -4,14 +4,16 @@ import styled from "styled-components";
 interface ExpeditionInfoProps {
   nome: string;
   data_criacao: string;
-  nome_responsavel: number;
+  nome_responsavel: string;
+  total_fissuras: number;
 }
 
 
 const SelectWithTitle: React.FC<ExpeditionInfoProps> = ({
     nome = "Expedição Inteli",
     data_criacao = "12/05/2025",
-    nome_responsavel = "Pedro Silva"
+    nome_responsavel = "Pedro Silva",
+    total_fissuras = 0
   }) => {
   return (
     <Container>
@@ -30,20 +32,8 @@ const SelectWithTitle: React.FC<ExpeditionInfoProps> = ({
 
       <RightSide>
         <Metric>
-          <BigNumber>9</BigNumber>
-          <Label>Imagens<br />Processadas</Label>
-        </Metric>
-        <Metric>
-          <BigNumber>0%</BigNumber>
-          <Label>Taxa de Imagens<br />com Erro</Label>
-        </Metric>
-        <Metric>
-          <BigNumber>1%</BigNumber>
-          <Label>Taxa de Revisão<br />Manual</Label>
-        </Metric>
-        <Metric>
-          <BigNumber>99%</BigNumber>
-          <Label>Taxa de Detecção<br />Automática</Label>
+          <BigNumber>{total_fissuras}</BigNumber>
+          <Label>Total de<br />Fissuras</Label>
         </Metric>
       </RightSide>
     </Container>
