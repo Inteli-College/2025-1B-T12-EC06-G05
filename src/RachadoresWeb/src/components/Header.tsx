@@ -9,6 +9,16 @@ import perfil from "../constants/assets/Perfil.svg";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import hoverSoundFile from '../constants/assets/sounds/galho.mp3';
 
+const HeaderContent = styled.div`
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 const HeaderContainer = styled.header<{
   backgroundColor: string;
   top?: string;
@@ -158,14 +168,16 @@ const Header: React.FC<{ backgroundColor?: string }> = ({
 
   return (
     <HeaderContainer backgroundColor={backgroundColor}>
-      <Home src={home} alt="Ícone de Casa" onClick={handleHomeClick} />
-      <Logo src={logo} alt="Logo dos Rachadores" onClick={playSound}/>
-      <Perfil src={perfil} alt="Ícone de Perfil" onClick={handlePerfilClick} />
-      <Nav></Nav>
-      <HamburgerIcon onClick={toggleMenu}>
-        {isOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
-      </HamburgerIcon>
-      <MobileMenu isOpen={isOpen}></MobileMenu>
+      <HeaderContent>
+        <Home src={home} alt="Ícone de Casa" onClick={handleHomeClick} />
+        <Logo src={logo} alt="Logo dos Rachadores" onClick={playSound}/>
+        <Perfil src={perfil} alt="Ícone de Perfil" onClick={handlePerfilClick} />
+        <Nav></Nav>
+        <HamburgerIcon onClick={toggleMenu}>
+          {isOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
+        </HamburgerIcon>
+        <MobileMenu isOpen={isOpen}></MobileMenu>
+      </HeaderContent>
     </HeaderContainer>
   );
 };

@@ -49,6 +49,7 @@ const Table = styled.table`
 const TableHead = styled.thead`
   background-color: #4a362c;
   color: white;
+  height: 48px;
 `;
 
 const Th = styled.th`
