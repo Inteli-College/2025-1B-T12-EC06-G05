@@ -28,9 +28,9 @@ from .app.routes.models import model_bp
 from .app.routes.fissures import fissure_bp
 from .app.routes.images import image_bp
 from .app.routes.building import building_bp
+from .app.routes.reports import report_bp
 from .app.routes.logs import log_bp
 from .app.routes.audits import audit_bp
-
 
 # Load environment variables from .env
 load_dotenv()
@@ -86,6 +86,7 @@ def create_app():
     app.register_blueprint(fissure_bp)
     app.register_blueprint(image_bp)
     app.register_blueprint(building_bp)
+    app.register_blueprint(report_bp)
     app.register_blueprint(log_bp)
     app.register_blueprint(audit_bp)
 

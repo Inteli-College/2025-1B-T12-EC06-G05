@@ -64,7 +64,6 @@ def get_expedition_by_id(id_expedition):
         return jsonify({
             "message": "Expedição encontrada com sucesso",
             "expedition": expedition.as_dict(),
-            "exepedition": expedition.as_dict()
         }), 200
 
     except Exception as e:
