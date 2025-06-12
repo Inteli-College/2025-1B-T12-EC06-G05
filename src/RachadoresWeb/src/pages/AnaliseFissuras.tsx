@@ -67,11 +67,31 @@ interface ImageInfo {
   orientacao: string;
 }
 
+interface Metricas {
+  total_fissuras: number;
+  quantidade_retracao: number;
+  quantidade_termicas: number;
+  quantidade_por_orientacao: {
+    [key: string]: {
+      retracao: number;
+      termicas: number;
+      total: number;
+    };
+  };
+}
+
+const defaultMetricas: Metricas = {
+  total_fissuras: 0,
+  quantidade_retracao: 0,
+  quantidade_termicas: 0,
+  quantidade_por_orientacao: {}
+};
+
 const VisaoGeral = () => {
   const { numeroPredio } = useParams<{ numeroPredio: string }>();
   const [expeditionData, setExpeditionData] = useState<ExpeditionInfoProps | null>(null);
   const [imagens, setImagens] = useState<ImageInfo[]>([]);
-  const [metricas, setMetricas] = useState({});
+  const [metricas, setMetricas] = useState<Metricas>(defaultMetricas);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -136,7 +156,11 @@ const VisaoGeral = () => {
 
         <MainContent>
           <FissurePanel />
-          <FissureCharts />
+          <FissureCharts 
+            por_orientacao={metricas.quantidade_por_orientacao}
+            quantidade_termicas={metricas.quantidade_termicas}
+            quantidade_retracao={metricas.quantidade_retracao}
+          />
         </MainContent>
       </Wrapper>
     </div>
