@@ -92,11 +92,14 @@ const VisaoGeral = () => {
   const [expeditionData, setExpeditionData] = useState<ExpeditionInfoProps | null>(null);
   const [imagens, setImagens] = useState<ImageInfo[]>([]);
   const [metricas, setMetricas] = useState<Metricas>(defaultMetricas);
+  const [id_predio, setIdPredio] = useState<number>(0)
+  const [tokenJWT, setToken] = useState<string>("")
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem("token");
+        setToken(token || "")
         const predioRes = await axios.get(`http://localhost:5000/building/${numeroPredio}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -104,6 +107,7 @@ const VisaoGeral = () => {
 
         const predio = predioRes.data.building;
         const idExpedicao = predio.id_expedicao;
+        setIdPredio(predio.id)
 
         // Busca da expedição
         const expedicaoRes = await axios.get(`http://localhost:5000/expedition/${idExpedicao}`, {
@@ -160,6 +164,8 @@ const VisaoGeral = () => {
             por_orientacao={metricas.quantidade_por_orientacao}
             quantidade_termicas={metricas.quantidade_termicas}
             quantidade_retracao={metricas.quantidade_retracao}
+            id_predio = {id_predio}
+            token={tokenJWT}
           />
         </MainContent>
       </Wrapper>
