@@ -26,13 +26,6 @@ const Content = styled.div`
   padding: 24px;
 `;
 
-const Title = styled.h2`
-  font-size: 1.8rem;
-  color: ${COLORS.secondary};
-  margin-bottom: 24px;
-  text-align: left;
-`;
-
 const TableWrapper = styled.div`
   background-color: white;
   border-radius: 20px;
@@ -44,12 +37,24 @@ const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
   font-size: 16px;
+
+  caption {
+    background-color: #4a362c;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    padding: 20px;
+    
+  }
 `;
 
+
 const TableHead = styled.thead`
-  background-color: #4a362c;
-  color: white;
+  background-color: #D9D9D9;
+  color: #4a362c;
   height: 48px;
+  border-bottom: 1px solid #261001;
 `;
 
 const Th = styled.th`
@@ -135,9 +140,9 @@ const Logs = () => {
     <Container>
       <Header />
       <Content>
-        <Title>Logs</Title>
         <TableWrapper>
           <Table>
+            <caption>Logs</caption>
             <TableHead>
               <tr>
                 <Th>Descrição</Th>
