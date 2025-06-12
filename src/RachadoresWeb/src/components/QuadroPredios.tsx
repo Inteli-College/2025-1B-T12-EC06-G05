@@ -80,7 +80,7 @@
         <div style={contentStyle}>
           {children}
         </div>
-        <div style={addButtonStyle}
+        <div style={addButtonStyle}>
           <button
             style={addButtonIconStyle}
             onClick={onAddClick}
