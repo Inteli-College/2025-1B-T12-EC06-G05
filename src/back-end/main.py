@@ -4,6 +4,8 @@ from flask import Flask, render_template
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_bcrypt import Bcrypt
+from datetime import timedelta
+
 
 # importa a instância do SQLAlchemy
 from .config.database import db
@@ -64,6 +66,8 @@ def create_app():
 
     # Chave secreta do JWT
     app.config['JWT_SECRET_KEY'] = 'Rachadores' 
+    app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=7)
+
 
     jwt.init_app(app)
     bcrypt.init_app(app) 
