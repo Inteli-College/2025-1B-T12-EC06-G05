@@ -115,9 +115,9 @@ const VisaoGeral = () => {
         });
 
         setExpeditionData({
-          nome: expedicaoRes.data.exepedition.nome,
-          data_criacao: expedicaoRes.data.exepedition.data_criacao,
-          nome_responsavel: expedicaoRes.data.exepedition.nome_responsavel,
+          nome: expedicaoRes.data.expedition.nome,
+          data_criacao: expedicaoRes.data.expedition.data_criacao,
+          nome_responsavel: expedicaoRes.data.expedition.nome_responsavel,
         });
 
         // Busca das imagens por prédio
