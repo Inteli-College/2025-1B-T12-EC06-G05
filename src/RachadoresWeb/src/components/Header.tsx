@@ -10,7 +10,7 @@ import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import hoverSoundFile from '../constants/assets/sounds/galho.mp3';
 
 const HeaderContent = styled.div`
-  width: 100%;
+  width: 90%;
   max-width: 1240px;
   margin: 0 auto;
 

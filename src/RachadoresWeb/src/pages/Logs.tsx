@@ -18,6 +18,8 @@ const Container = styled.div`
   min-height: 100vh;
   padding-top: 110px;
   font-family: ${FONTS.primary};
+  max-width: 90%;
+  margin: 0 auto;
 `;
 
 const Content = styled.div`
