@@ -148,3 +148,18 @@ def update_expedition(data):
     except Exception as e:
         db.session.rollback() 
         return jsonify({"error": str(e)}), 500
+    
+
+def get_expedition_by_responsible(id_user):
+    try:
+        expeditions = Expedition.query.filter_by(id_responsavel=id_user).all()
+        if not expeditions:
+            raise Exception("Nenhuma expedição encontrada para esse usuário!")
+
+        return jsonify({
+            "message": "Expedições encontradas com sucesso",
+            "expeditions": [expedition.as_dict() for expedition in expeditions]
+        }), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
