@@ -20,5 +20,6 @@ class Fissure(db.Model):
             'confiabilidade': self.confiabilidade,
             'categoria': self.categoria,
             'id_image': self.id_image,
-            'url_fissura': self.url_fissura
+            'url_fissura': self.url_fissura,
+            'orientacao': self.image.orientacao
             }

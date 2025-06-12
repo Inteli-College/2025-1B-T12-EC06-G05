@@ -3,6 +3,7 @@ from ..models.building import Building
 from ..models.image import Image
 from ...config.database import db
 from flask import jsonify
+from collections import defaultdict
 
 def create_fissure(data):
     try:
@@ -106,10 +107,38 @@ def get_fissures_by_predio(id_predio):
             else:
                 sem_class.append(fissure.as_dict())
 
+        total_fissuras = len(resultado["termica"]) + len(resultado["retracao"])
+
+        distribuicao_completa = defaultdict(lambda: {"termicas": 0, "retracao": 0, "total": 0})
+
+        for fissura in resultado["termica"]:
+            ori = fissura.get("orientacao")
+            if ori:
+                distribuicao_completa[ori.lower()]["termicas"] += 1
+
+        for fissura in resultado["retracao"]:
+            ori = fissura.get("orientacao")
+            if ori:
+                distribuicao_completa[ori.lower()]["retracao"] += 1
+
+
+        for ori, valores in distribuicao_completa.items():
+            valores["total"] = valores["termicas"] + valores["retracao"]
+
+        distribuicao_orientacao_completa = dict(distribuicao_completa)
+
+        metricas = {
+            "total_fissuras": total_fissuras,
+            "quantidade_termicas": len(resultado["termica"]),
+            "quantidade_retracao": len(resultado["retracao"]),
+            "quantidade_por_orientacao": distribuicao_orientacao_completa
+        }        
+
         return jsonify({
             "message": "Fissuras encontradas com sucesso",
             "fissures": resultado,
-            "sem-classificacao": sem_class
+            "sem-classificacao": sem_class,
+            "metricas": metricas
         }), 200
 
     except Exception as e:
