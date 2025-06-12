@@ -7,7 +7,7 @@ import axios from "axios";
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-  width: 100%;
+  width: 90%;
   max-width: 1240px;
   margin: 0 auto;
   height: 100vh;
@@ -29,6 +29,37 @@ const SectionRight = styled.section`
   padding-left: 2rem;
   overflow-y: auto;
 `;
+
+const GridExpedicoes = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  background-color: white;
+  border: 2px solid #4a362c;
+  border-radius: 24px;
+  overflow: hidden;
+  margin-top: 85px;
+`;
+
+const GridHeader = styled.div`
+  background-color: #4a362c;
+  color: white;
+  padding: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+`;
+
+const GridItem = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  border-top: 1px solid #e5e7eb;
+
+  &:first-of-type {
+    border-top: none;
+  }
+`;
+
 
 const Title = styled.h2`
   font-size: 1.5rem;
@@ -160,19 +191,32 @@ const Perfil = () => {
   };
 
   useEffect(() => {
-    const fetchExpeditions = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:5000/expedition/all", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setExpedicoes(response.data.expeditions || []);
-      } catch (error) {
-        console.error("Erro ao buscar expedições:", error);
-      }
-    };
-    fetchExpeditions();
-  }, []);
+  const mockExpeditions = [
+    {
+      id: 1,
+      nome: "Inteli Smart Infra",
+      data_criacao: "2024-05-18",
+      logoClass: "inteli",
+      icon: "🏙️",
+    },
+    {
+      id: 2,
+      nome: "IPT – Fissuras",
+      data_criacao: "2024-06-02",
+      logoClass: "ipt",
+      icon: "🧱",
+    },
+    {
+      id: 3,
+      nome: "Rota SP Sustentável",
+      data_criacao: "2024-04-10",
+      logoClass: "custom",
+      icon: "🌱",
+    },
+  ];
+
+  setExpedicoes(mockExpeditions);
+}, []);
 
   return (
     <Container>
@@ -194,10 +238,11 @@ const Perfil = () => {
       </SectionLeft>
 
       <SectionRight>
-        <Title>Expedições lideradas</Title>
-        {expedicoes.length > 0 ? (
+        <GridExpedicoes>
+          <GridHeader>Expedições lideradas:</GridHeader>
+          {expedicoes.length > 0 ? (
           expedicoes.map((expedicao) => (
-            <ExpeditionItem key={expedicao.id}>
+            <GridItem key={expedicao.id}>
               <ExpeditionLogo className={expedicao.logoClass || "custom"}>
                 {expedicao.icon || "📍"}
               </ExpeditionLogo>
@@ -205,11 +250,12 @@ const Perfil = () => {
                 <ExpeditionName>{expedicao.nome}</ExpeditionName>
                 <ExpeditionDate>{expedicao.data_criacao}</ExpeditionDate>
               </ExpeditionInfo>
-            </ExpeditionItem>
-          ))
-        ) : (
-          <p style={{ color: "#888" }}>Nenhuma expedição liderada encontrada.</p>
-        )}
+            </GridItem>
+            ))
+          ) : (
+            <p style={{ padding: "20px", color: "#888" }}>Nenhuma expedição liderada encontrada.</p>
+          )}
+        </GridExpedicoes>
       </SectionRight>
     </Container>
   );
