@@ -7,13 +7,16 @@ import axios from "axios";
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-  width: 100vw;
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
   height: 100vh;
-  padding: 2rem;
+  padding: 2rem 0;
   box-sizing: border-box;
   background-color: #fff;
   font-family: ${FONTS.primary};
 `;
+
 
 const SectionLeft = styled.section`
   flex: 1;
@@ -41,17 +44,29 @@ const Label = styled.label`
   font-weight: bold;
   margin-bottom: 0.5rem;
   display: block;
+  text-align: left;
   color: #333;
 `;
 
 const Input = styled.input`
-  width: 100%;
-  padding: 0.6rem;
-  border-radius: 8px;
+  padding: 0.8rem 1.25rem;
   border: none;
+  border-radius: 15px;
   background-color: #e5e5e5;
+  font-family: ${FONTS.primary};
   font-size: 1rem;
   color: #333;
+  width: 100%;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+    background-color: #d0d0d0;
+  }
+
+  &::placeholder {
+    color: #888;
+  }
 `;
 
 const Button = styled.button`
@@ -64,6 +79,7 @@ const Button = styled.button`
   font-weight: 600;
   cursor: pointer;
   margin-top: 1rem;
+  margin: 0 auto;
 
   &:hover {
     background-color: #1a0f08;
