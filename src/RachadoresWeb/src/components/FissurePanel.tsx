@@ -210,7 +210,7 @@ const FissurePanel = () => {
     setDraggedFromCategory(fromCategory);
   };
 
-  const handleDragEnd = async (event: any) => {
+const handleDragEnd = async (event: any) => {
     const { active, over } = event;
     setActiveId(null);
     setDraggedFissure(null);
@@ -231,8 +231,9 @@ const FissurePanel = () => {
 
     const newCategory = over.id;
 
-
     if (!draggedFiss || draggedFiss.fissure.categoria_atual === newCategory) return;
+
+    const categoryChanged = draggedFiss.fissure.categoria !== newCategory;
 
     try {
       const token = localStorage.getItem("token");
@@ -247,6 +248,25 @@ const FissurePanel = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
+
+      try {
+        await axios.post(
+          `http://localhost:5000/audit/register`,
+          {
+            id_fissura: draggedFiss.fissure.id,
+            modified: categoryChanged ? 1 : 0
+          },
+          {
+            headers: { 
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            },
+          }
+        );
+        console.log("Auditoria registrada com sucesso");
+      } catch (auditError) {
+        console.error("Erro ao registrar auditoria:", auditError);
+      }
 
       if (newCategory === "termica") {
         setTermicas([
@@ -275,6 +295,7 @@ const FissurePanel = () => {
       }
 
     } catch (error) {
+      console.error("❌ Erro ao atualizar categoria:", error);
       alert("Erro ao atualizar categoria. Tente novamente.");
     }
   };
