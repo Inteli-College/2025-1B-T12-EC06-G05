@@ -11,19 +11,18 @@
 | - Engenheiro de ML (1) | R$ 130/h | |
 | - UX/UI Designer (1) | R$ 90/h | |
 | - Gerente de Projeto (1) | R$ 110/h | |
-| Infraestrutura | Servidores cloud, licenças, banco de dados | 19.200 |
-| Equipamentos | Estrutura com GPU | 10.000 |
-| **Subtotal Custos Diretos** | | **248.600** |
+| Infraestrutura | Servidores cloud, licenças, banco de dados | 13.680 |
+| **Subtotal Custos Diretos** | | **243.080** |
 | **CUSTOS INDIRETOS** | | |
 | Despesas Gerais | Administrativo, deslocamentos, contingência | 74.580 |
 | Manutenção (1 ano) | Suporte técnico e atualizações | 36.000 |
 | **Subtotal Custos Indiretos** | | **110.580** |
-| **CUSTO TOTAL** | | **359.180** |
+| **CUSTO TOTAL** | | **353.660** |
 | **COMPOSIÇÃO FINAL** | | |
-| Margem de Lucro (20%) | | 71.836 |
-| Subtotal com Lucro | | 431.016 |
-| Impostos (18%) | ISS, IRPJ, CSLL, PIS/Cofins | 77.583 |
-| **PREÇO FINAL** | | **R$ 508.599** |
+| Margem de Lucro (20%) | | 70.732 |
+| Subtotal com Lucro | | 424.392 |
+| Impostos (18%) | ISS, IRPJ, CSLL, PIS/Cofins | 76.390,56 |
+| **PREÇO FINAL** | | **R$ 500.782,56** |
 
 **Estimativa de prazo de entrega:** 8 meses
 
@@ -47,7 +46,7 @@
 
 **1 Gerente de Projeto (R$ 110/h):** A média salarial para gerente de TI/projetos no Brasil varia entre R$ 13 083/mês (Glassdoor). A taxa de R$ 110/h reflete adequadamente o escopo de liderança técnica e coordenação de IA.
 
-### Infraestrutura Cloud – R$ 19.200 (8 meses)
+### Infraestrutura Cloud – R$ 13.680 (8 meses)
 
 #### Instâncias GPU AWS – R$ 1.200/mês  
 Para treinar modelos, utilizam-se instâncias GPU da AWS:  
@@ -56,9 +55,8 @@ Para treinar modelos, utilizam-se instâncias GPU da AWS:
 
 Estimando 8 h/dia de uso ativo, o custo mensal varia entre **R$ 800 e R$ 1.500**, em média **R$ 1.200/mês** .
 
-#### Licenças de Software – R$ 800/mês  
+#### Licenças de Software – R$ 110/mês  
 - **GitHub Enterprise**: US$ 21/usuário/mês (~R$ 110) 
-- **Ferramentas de CI/CD e monitoramento**: ~US$ 100/mês (~R$ 500)  
 
 Total estimado: **US$ 1.000/mês (~R$ 800/mês)**.
 
@@ -73,17 +71,20 @@ Total estimado: **US$ 1.000/mês (~R$ 800/mês)**.
 
 Considerando armazenamento com backup automático, o custo mensal estimado é de **R$ 400/mês**.
 
+### Custos Indiretos
 
-### Equipamentos – R$ 10.000
+#### Despesas Gerais – R$ 74.580 (equivalente a ~25% dos custos diretos)  
+O percentual aplicado está em conformidade com diretrizes de gestão de projetos de P&D no Brasil. Organizações como a ABDI (Agência Brasileira de Desenvolvimento Industrial) recomendam percentuais entre 25% e 35% dos custos diretos para cobrir despesas administrativas, jurídicas, deslocamentos, reuniões e contingência. Esse montante garante suporte adequado às atividades de campo e à gestão do projeto, sem comprometer o orçamento principal.
 
-- **Workstation com GPU RTX 4070+ (R$ 10.000)**: viabiliza desenvolvimento local e testes rápidos, reduzindo dependência da nuvem.
+#### Manutenção (1 ano) – R$ 36.000  
+Sistemas de IA e visão computacional exigem manutenção contínua, incluindo suporte técnico nível L2, atualizações de segurança e retraining frente ao concept drift. Dados do setor revelam que instalações industriais destinam entre 5% e 15% do orçamento anual à manutenção. Adoptando uma taxa conservadora de ~10% sobre o investimento de infraestrutura e equipamentos (R$ 100.000), chega-se a R$ 10.000/ano. Porém, em sistema crítico com SLA e retraining regular, essa estimativa sobe para R$ 36.000/ano.
+
 
 ## Conclusão
 
 A proposta de R$ 508.599 inclui todos os custos, como mão de obra, infraestrutura, equipamentos, manutenção e despesas indiretas, com prazo de entrega de 8 meses. Esse prazo é considerado adequado para um projeto de visão computacional e machine learning em larga escala. Os valores são respaldados por referências de mercado atualizadas. Estamos preparados para avançar com cronograma, definição de entregas e possíveis ajustes conforme sua necessidade.
 
 ---
-
 
 ## Referências
 
@@ -106,3 +107,5 @@ https://www.salario.com.br/profissao/gerente-de-projetos-de-tecnologia-da-inform
 https://costcalc.cloudoptimo.com/aws-pricing-calculator/ec2/g4dn.xlarge, 2025.
 
 https://supabase.com/pricing, 2025.
+
+https://blog.infraspeak.com/pt-br/manutencao-estatisticas-desafios-tendencias/, 2024
