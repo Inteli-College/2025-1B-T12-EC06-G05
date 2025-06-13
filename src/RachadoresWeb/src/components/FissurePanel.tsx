@@ -38,6 +38,48 @@ const FissurePanel = () => {
   const [activeId, setActiveId] = useState<number | null>(null);
   const [draggedFissure, setDraggedFissure] = useState<FissureWithImage | null>(null);
   const [draggedFromCategory, setDraggedFromCategory] = useState<string | null>(null);
+ 
+  const handleImageUpload = async (event) => {
+      const files = event.target.files;
+      if (!files.length) return;
+
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+
+        const formData = new FormData();
+        formData.append("image", file);
+
+        try {
+          const token = localStorage.getItem("token");
+          const uploadRes = await axios.post("http://localhost:5000/image/upload", formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`
+            },
+          });
+
+          const imageUrl = uploadRes.data.url;
+
+          
+          await axios.post("http://localhost:5000/image/add", { 
+            headrs: {"Content-Type": "multipart/form-data",
+                      Authorization: `Bearer ${token}`},
+            nome: "teste",
+            hora_coleta: "2025-04-25",
+            orientacao: "norte",
+            id_predio: 5,
+            url: imageUrl });
+
+          console.log(`Imagem ${file.name} enviada e registrada com sucesso.`);
+        } catch (err) {
+          console.error(`Erro ao enviar ${file.name}:`, err);
+        }
+      }
+    };
+
+    const triggerFileInput = () => {
+      document.getElementById("image-input").click();
+    };
 
   useEffect(() => {
     const fetchFissures = async () => {
@@ -260,9 +302,18 @@ const handleDragEnd = async (event: any) => {
             />
             
         </InnerPanel> 
-        <UploadButton>
-            <Upload src={upload} alt="Botão de upload"/>
+        <UploadButton onClick={triggerFileInput}>
+          <Upload src={upload} alt="Botão de upload" />
         </UploadButton>
+
+        <input
+          type="file"
+          id="image-input"
+          multiple
+          accept="image/*"
+          onChange={handleImageUpload}
+          style={{ display: "none" }} // escondido
+        />
 
         <DragOverlay>
           {activeId && draggedFissure ? (
