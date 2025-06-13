@@ -301,7 +301,7 @@ const Home: React.FC = () => {
   }, []);
 
   const filteredExpeditions = expeditions.filter((expedition) => {
-    onst matchesName =
+    const matchesName =
       searchTerm === "" ||
       expedition.nome?.toLowerCase().includes(searchTerm.toLowerCase());
   
