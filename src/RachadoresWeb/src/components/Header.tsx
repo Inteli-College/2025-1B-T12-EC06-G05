@@ -5,9 +5,20 @@ import styled from "styled-components";
 import { COLORS, FONTS, BREAKPOINTS } from "../constants/style";
 import logo from "../constants/assets/logo.svg";
 import home from "../constants/assets/icon_home.svg";
+import logs from "../constants/assets/logs.svg";
 import perfil from "../constants/assets/Perfil.svg";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import hoverSoundFile from '../constants/assets/sounds/galho.mp3';
+
+const HeaderContent = styled.div`
+  width: 95%;
+  max-width: 1240px;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
 
 const HeaderContainer = styled.header<{
   backgroundColor: string;
@@ -19,10 +30,11 @@ const HeaderContainer = styled.header<{
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  margin: 0 auto;
   position: absolute;
   top: ${(props) => props.top || "0"};
   left: ${(props) => props.left || "0"};
-  width: 100%;
+  width: 90%;
   box-sizing: border-box;
 `;
 
@@ -48,9 +60,24 @@ const Home = styled.img`
   }
 `;
 
+const LogsIcon = styled.img`
+  height: 30px;
+  margin-left: 80%;
+  margin-right: 16px;
+  cursor: pointer;
+
+  @media (max-width: ${BREAKPOINTS.mobile}) {
+    display: none;
+  }
+  transition: transform 0.3s ease-in-out;
+  &:hover {
+    transform: translateY(-5px);
+  }
+`;
+
 const Perfil = styled.img`
   height: 30px;
-  margin-left: 75%;
+  
   cursor: pointer;
 
   @media (max-width: ${BREAKPOINTS.mobile}) {
@@ -150,6 +177,11 @@ const Header: React.FC<{ backgroundColor?: string }> = ({
   const handlePerfilClick = () => {
     navigate("/perfil");
   };
+
+  const handleLogsClick = () => {
+  navigate("/logs");
+};
+
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -157,16 +189,20 @@ const Header: React.FC<{ backgroundColor?: string }> = ({
   };
 
   return (
-    <HeaderContainer backgroundColor={backgroundColor}>
-      <Home src={home} alt="Ícone de Casa" onClick={handleHomeClick} />
-      <Logo src={logo} alt="Logo dos Rachadores" onClick={playSound}/>
-      <Perfil src={perfil} alt="Ícone de Perfil" onClick={handlePerfilClick} />
-      <Nav></Nav>
-      <HamburgerIcon onClick={toggleMenu}>
-        {isOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
-      </HamburgerIcon>
-      <MobileMenu isOpen={isOpen}></MobileMenu>
-    </HeaderContainer>
+    
+      <HeaderContainer backgroundColor={backgroundColor}>
+        <HeaderContent>
+          <Home src={home} alt="Ícone de Casa" onClick={handleHomeClick} />
+          <Logo src={logo} alt="Logo dos Rachadores" onClick={playSound}/>
+          <LogsIcon src={logs} alt="Ícone de Logs" onClick={handleLogsClick} />
+          <Perfil src={perfil} alt="Ícone de Perfil" onClick={handlePerfilClick} />
+          <Nav></Nav>
+          <HamburgerIcon onClick={toggleMenu}>
+            {isOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
+          </HamburgerIcon>
+          <MobileMenu isOpen={isOpen}></MobileMenu>
+        </HeaderContent>
+      </HeaderContainer>
   );
 };
 
