@@ -103,8 +103,8 @@ def get_fissures_by_predio(id_predio):
 
 
         for fissure in fissures:
-            categoria = fissure.categoria
-            if fissure.categoria in resultado:
+            categoria = fissure.categoria_atual
+            if fissure.categoria_atual in resultado:
                 resultado[categoria].append(fissure.as_dict())
             else:
                 sem_class.append(fissure.as_dict())
