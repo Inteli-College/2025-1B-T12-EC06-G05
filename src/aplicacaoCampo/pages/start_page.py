@@ -91,7 +91,7 @@ def render_start_page(inspections_dir):
             with st.spinner("Subindo imagens para S3 e publicando na API..."):
                 upload_images_to_s3()
                 try:
-                    token = login_and_get_token()
+                    token = login_and_get_token(st.session_state.get("user_email"), st.session_state.get("user_senha"))
                     api = APIClient("http://127.0.0.1:5000", token)
                     result = publish_full_inspection(api)
                     if result['errors']:

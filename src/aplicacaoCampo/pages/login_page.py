@@ -4,7 +4,15 @@ def render_login():
     st.image("static/logo.png", width=200)
     st.title("Computador de Bordo para captura de fissuras")
 
-    user_id = st.text_input("Insira seu id de usuário para começar", placeholder="ID usuário")
-    if st.button("Entrar") and user_id.strip():
+    user_email = st.text_input("Email", placeholder="email")
+    user_senha = st.text_input("Senha", placeholder="senha", type="password")
+    user_id = st.text_input("ID de usuario", placeholder="id")
+
+
+    # Simples validação: checar se email foi preenchido
+    if st.button("Entrar") and user_email:
+        st.session_state.user_email = user_email
+        st.session_state.user_senha = user_senha
         st.session_state.user_id = user_id.strip()
         st.rerun()
+

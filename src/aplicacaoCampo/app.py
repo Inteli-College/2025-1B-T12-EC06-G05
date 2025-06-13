@@ -31,7 +31,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-if "user_id" not in st.session_state:
+if ("user_email" and "user_senha") not in st.session_state:
     render_login()
 else:
     params = st.query_params
