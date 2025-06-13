@@ -12,5 +12,6 @@ def render_login():
     if st.button("Entrar") and user_email:
         st.session_state.user_email = user_email
         st.session_state.user_senha = user_senha
+        st.query_params = {}
         st.rerun()
 

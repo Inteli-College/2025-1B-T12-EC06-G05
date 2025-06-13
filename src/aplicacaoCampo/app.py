@@ -35,7 +35,10 @@ if "user_email" not in st.session_state or "user_senha" not in st.session_state:
     render_login()
 else:
     params = st.query_params
-    if "inspection" not in params:
+    st.write(params)
+    if "login" in params:
+        render_login()
+    elif "inspection" not in params:
         render_start_page(INSPECTIONS_DIR)
     elif "building" not in params:
         render_inspection_page(params["inspection"], INSPECTIONS_DIR)

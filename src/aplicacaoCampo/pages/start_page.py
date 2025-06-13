@@ -88,7 +88,6 @@ def render_start_page(inspections_dir):
 
     if "inspection" not in st.query_params:
         if st.button("📤 Subir imagens"):
-            with st.spinner("Subindo imagens para S3 e publicando na API..."):
                 try:
                     token, id = login_and_get_token(st.session_state.get("user_email"), st.session_state.get("user_senha"))
                     upload_images_to_s3()
@@ -98,8 +97,12 @@ def render_start_page(inspections_dir):
                         st.error(f"Erros durante a publicação: {result['errors']}")
                 except Exception as e:
                     st.error(f"Erro durante upload ou publicação: {e}")
+                    st.query_params = {"login": "nicola"}
                     if st.button("Fazer login novamente"):
-                        st.session_state.pop("user_email")
-                        st.session_state.pop("user_senha")
-                        st.experimental_rerun()
+                        if st.session_state.get("user_email"):
+                             st.session_state.pop("user_email")
+                        if st.session_state.get("user_senha"):
+                             st.session_state.pop("user_senha")
+                        st.rerun()
+
 
