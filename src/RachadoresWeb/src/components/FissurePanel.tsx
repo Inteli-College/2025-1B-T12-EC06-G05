@@ -38,48 +38,83 @@ const FissurePanel = () => {
   const [activeId, setActiveId] = useState<number | null>(null);
   const [draggedFissure, setDraggedFissure] = useState<FissureWithImage | null>(null);
   const [draggedFromCategory, setDraggedFromCategory] = useState<string | null>(null);
+  const [showDirectionModal, setShowDirectionModal] = useState(false);
+  const [pendingFiles, setPendingFiles] = useState<FileList | null>(null);
+
+  const cardinalDirections = [
+    { value: "Norte", label: "Norte (N)", icon: "↑" },
+    { value: "Nordeste", label: "Nordeste (NE)", icon: "↗" },
+    { value: "Leste", label: "Leste (L)", icon: "→" },
+    { value: "Sudeste", label: "Sudeste (SE)", icon: "↘" },
+    { value: "Sul", label: "Sul (S)", icon: "↓" },
+    { value: "Sudoeste", label: "Sudoeste (SO)", icon: "↙" },
+    { value: "Oeste", label: "Oeste (O)", icon: "←" },
+    { value: "Noroeste", label: "Noroeste (NO)", icon: "↖" }
+  ];
  
-  const handleImageUpload = async (event) => {
-      const files = event.target.files;
-      if (!files.length) return;
+  const handleImageUpload = async (selectedDirection: string) => {
+    if (!pendingFiles) return;
 
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
+    for (let i = 0; i < pendingFiles.length; i++) {
+      const file = pendingFiles[i];
 
-        const formData = new FormData();
-        formData.append("image", file);
+      const formData = new FormData();
+      formData.append("image", file);
 
-        try {
-          const token = localStorage.getItem("token");
-          const uploadRes = await axios.post("http://localhost:5000/image/upload", formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${token}`
-            },
-          });
+      try {
+        const token = localStorage.getItem("token");
+        const uploadRes = await axios.post("http://localhost:5000/image/upload", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`
+          },
+        });
 
-          const imageUrl = uploadRes.data.url;
+        const imageUrl = uploadRes.data.url;
 
-          
-          await axios.post("http://localhost:5000/image/add", { 
-            headrs: {"Content-Type": "multipart/form-data",
-                      Authorization: `Bearer ${token}`},
-            nome: "teste",
-            hora_coleta: "2025-04-25",
-            orientacao: "norte",
-            id_predio: 5,
-            url: imageUrl });
+        
+        await axios.post("http://localhost:5000/image/add", { 
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          },
+          nome: file.name,
+          hora_coleta: new Date().toISOString(),
+          orientacao: selectedDirection,
+          id_predio: numeroPredio,
+          url: imageUrl 
+        });
 
-          console.log(`Imagem ${file.name} enviada e registrada com sucesso.`);
-        } catch (err) {
-          console.error(`Erro ao enviar ${file.name}:`, err);
-        }
+        console.log(`Imagem ${file.name} enviada e registrada com sucesso com orientação ${selectedDirection}.`);
+      } catch (err) {
+        console.error(`Erro ao enviar ${file.name}:`, err);
       }
-    };
+    }
 
-    const triggerFileInput = () => {
-      document.getElementById("image-input").click();
-    };
+    setPendingFiles(null);
+    setShowDirectionModal(false);
+  };
+
+  const handleFileSelection = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (!files || !files.length) return;
+
+    setPendingFiles(files);
+    setShowDirectionModal(true);
+  };
+
+  const triggerFileInput = () => {
+    document.getElementById("image-input")?.click();
+  };
+
+  const handleDirectionSelect = (direction: string) => {
+    handleImageUpload(direction);
+  };
+
+  const handleCloseDirectionModal = () => {
+    setShowDirectionModal(false);
+    setPendingFiles(null);
+  };
 
   useEffect(() => {
     const fetchFissures = async () => {
@@ -311,9 +346,36 @@ const handleDragEnd = async (event: any) => {
           id="image-input"
           multiple
           accept="image/*"
-          onChange={handleImageUpload}
-          style={{ display: "none" }} // escondido
+          onChange={handleFileSelection}
+          style={{ display: "none" }}
         />
+        {showDirectionModal && (
+          <ModalOverlay onClick={handleCloseDirectionModal}>
+            <DirectionModal onClick={(e) => e.stopPropagation()}>
+              <ModalHeader>
+                <ModalTitle>Selecione a direção que a foto foi tirada</ModalTitle>
+              </ModalHeader>
+              
+              <DirectionGrid>
+                {cardinalDirections.map((direction) => (
+                  <DirectionButton
+                    key={direction.value}
+                    onClick={() => handleDirectionSelect(direction.value)}
+                  >
+                    <DirectionIcon>{direction.icon}</DirectionIcon>
+                    <DirectionLabel>{direction.label}</DirectionLabel>
+                  </DirectionButton>
+                ))}
+              </DirectionGrid>
+              
+              <ModalFooter>
+                <CancelButton onClick={handleCloseDirectionModal}>
+                  Cancelar
+                </CancelButton>
+              </ModalFooter>
+            </DirectionModal>
+          </ModalOverlay>
+        )}
 
         <DragOverlay>
           {activeId && draggedFissure ? (
@@ -481,7 +543,7 @@ const DragPreview = styled.img`
 
 const Upload = styled.img`
   height: 20px;
-`
+`;
 
 const ImageContainer = styled.div`
   position: relative;
@@ -538,48 +600,108 @@ const Placeholder = styled.p`
   text-align: center;
 `;
 
-const BottomBar = styled.div`
-  background: #58453d;
-  padding: 0.5rem;
+const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+`;
+
+const DirectionModal = styled.div`
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+`;
+
+const ModalHeader = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+`;
+
+const ModalTitle = styled.h2`
+  font-family: ${FONTS.primary};
+  color: #58453d;
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 500;
+`;
+
+const DirectionGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+`;
+
+const DirectionButton = styled.button`
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  font-family: ${FONTS.primary};
+  
   &:hover {
-    background-color: rgb(60, 50, 45);
-    cursor: pointer;
+    border-color: #58453d;
+    background: #f8f6f5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(88, 69, 61, 0.2);
+  }
+  
+  &:active {
+    transform: translateY(0);
   }
 `;
 
-const UploadIcon = styled.img`
-  height: 24px;
-  width: 24px;
+const DirectionIcon = styled.div`
+  font-size: 2rem;
+  color: #58453d;
 `;
 
-const HiddenInput = styled.input`
-  display: none;
+const DirectionLabel = styled.span`
+  color: #58453d;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
 `;
 
-const Toast = styled.div`
-  position: fixed;
-  bottom: 1rem;
-  left: 1rem;
-  background: #fff;
-  color: #1d120c;
-  border-radius: 12px;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
-  padding: 1rem 1.5rem;
+const ModalFooter = styled.div`
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 1.5rem;
+`;
+
+const CancelButton = styled.button`
+  background: #f5f5f5;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 2rem;
+  cursor: pointer;
   font-family: ${FONTS.primary};
   font-size: 1rem;
-  z-index: 999;
-`;
-
-const CloseButton = styled.button`
-  background: transparent;
-  border: none;
-  color: inherit;
-  font-size: 1.25rem;
-  margin-left: auto;
-  cursor: pointer;
+  color: #666;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background: #e0e0e0;
+  }
 `;
