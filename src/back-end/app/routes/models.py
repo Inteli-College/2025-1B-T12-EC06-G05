@@ -35,7 +35,8 @@ def update():
 @jwt_required()
 def run_model_direct():
     data = request.get_json()
-    model_path = "models/modelo.pt"
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'))
+    model_path = os.path.join(base_dir, 'modelo', 'best_new.pt')
     bucket_name = "fissurai"
     return run_model_service(data, model_path, bucket_name)
 
