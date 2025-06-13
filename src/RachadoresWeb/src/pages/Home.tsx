@@ -301,11 +301,13 @@ const Home: React.FC = () => {
   }, []);
 
   const filteredExpeditions = expeditions.filter((expedition) => {
-    const matchesName = expedition.descricao
-      ?.toLowerCase()
-      .includes(searchTerm.toLowerCase());
+    onst matchesName =
+      searchTerm === "" ||
+      expedition.nome?.toLowerCase().includes(searchTerm.toLowerCase());
+  
     const matchesDate =
       searchDate === "" || expedition.data_criacao.includes(searchDate);
+  
     return matchesName && matchesDate;
   });
 

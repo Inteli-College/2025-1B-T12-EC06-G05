@@ -180,7 +180,7 @@ const FissurePanel = () => {
             .filter((f: Fissure) => f.categoria === cat)
             .map((f: Fissure) => ({
               fissure: f,
-              image: imageMap[f.id_image],
+              image: f,
             }))
             .filter((f) => f.image);
 
@@ -289,7 +289,7 @@ const FissurePanel = () => {
         </DragHandle>
 
         <StyledImage
-          src={fissure.image.url}
+          src={fissure.image.url_fissura}
           alt={fissure.image.nome}
           onClick={handleImageClick}
           isDragging={isDragging}
@@ -410,7 +410,7 @@ const FissurePanel = () => {
         <DragOverlay>
           {activeId && draggedFissure ? (
             <DragPreview
-              src={draggedFissure.image.url}
+              src={draggedFissure.image.url_fissura}
               alt={draggedFissure.image.nome}
             />
           ) : null}
@@ -420,7 +420,7 @@ const FissurePanel = () => {
           <FissureModal
             fissure={{
               id: String(modalFissure.fissure.id),
-              imageUrl: modalFissure.image.url,
+              imageUrl: modalFissure.image.url_fissura,
               building: numeroPredio ?? "",
               facade: modalFissure.image.orientacao,
               classification: modalFissure.fissure.categoria,
