@@ -51,18 +51,19 @@ const FissurePanel = () => {
     { value: "Oeste", label: "Oeste (O)", icon: "←" },
     { value: "Noroeste", label: "Noroeste (NO)", icon: "↖" }
   ];
- 
+
   const handleImageUpload = async (selectedDirection: string) => {
     if (!pendingFiles) return;
 
+    const token = localStorage.getItem("token");
+    const imagensCriadas = [];
+
     for (let i = 0; i < pendingFiles.length; i++) {
       const file = pendingFiles[i];
-
       const formData = new FormData();
       formData.append("image", file);
 
       try {
-        const token = localStorage.getItem("token");
         const uploadRes = await axios.post("http://localhost:5000/image/upload", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -72,22 +73,51 @@ const FissurePanel = () => {
 
         const imageUrl = uploadRes.data.url;
 
-        
-        await axios.post("http://localhost:5000/image/add", { 
+        const addRes = await axios.post("http://localhost:5000/image/add", {
+          nome: file.name,
+          hora_coleta: new Date().toISOString().split("T")[0],
+          orientacao: selectedDirection,
+          id_predio: numeroPredio,
+          url: imageUrl
+        }, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`
-          },
-          nome: file.name,
-          hora_coleta: new Date().toISOString(),
-          orientacao: selectedDirection,
-          id_predio: numeroPredio,
-          url: imageUrl 
+          }
         });
 
-        console.log(`Imagem ${file.name} enviada e registrada com sucesso com orientação ${selectedDirection}.`);
+        const imageId = addRes.data?.id;
+        if (!imageId) {
+          console.warn("⚠️ ID da imagem não retornado. Ignorando.");
+          continue;
+        }
+
+        imagensCriadas.push({
+          id: imageId,
+          url: imageUrl
+        });
+
+        console.log(`✅ Imagem ${file.name} enviada e registrada com sucesso.`);
+
       } catch (err) {
-        console.error(`Erro ao enviar ${file.name}:`, err);
+        console.error(`❌ Erro ao enviar ${file.name}:`, err);
+      }
+    }
+
+    if (imagensCriadas.length > 0) {
+      try {
+        const detectRes = await axios.post("http://localhost:5000/model/run", {
+          imagens: imagensCriadas
+        }, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        console.log("🤖 Modelo executado com sucesso:", detectRes.data);
+      } catch (err) {
+        console.error("❌ Erro ao rodar modelo:", err);
       }
     }
 
@@ -150,7 +180,7 @@ const FissurePanel = () => {
             .filter((f: Fissure) => f.categoria === cat)
             .map((f: Fissure) => ({
               fissure: f,
-              image: imageMap[f.id_image],
+              image: f,
             }))
             .filter((f) => f.image);
 
@@ -164,82 +194,82 @@ const FissurePanel = () => {
     fetchFissures();
   }, [numeroPredio]);
 
-const handleDragStart = (event: any) => {
-  const draggedId = Number(event.active.id);
-  setActiveId(draggedId);
-  
-  const dragged = termicas.find((f) => f.fissure.id === draggedId) || 
-                  retracoes.find((f) => f.fissure.id === draggedId);
-  
-  // Determinar de qual categoria a imagem está sendo arrastada
-  const fromCategory = termicas.find((f) => f.fissure.id === draggedId) 
-    ? "termica" 
-    : "retracao";
-  
-  setDraggedFissure(dragged || null);
-  setDraggedFromCategory(fromCategory);
-};
+  const handleDragStart = (event: any) => {
+    const draggedId = Number(event.active.id);
+    setActiveId(draggedId);
 
-const handleDragEnd = async (event: any) => {
-  const { active, over } = event;
-  setActiveId(null);
-  setDraggedFissure(null);
-  setDraggedFromCategory(null);
-  
-  if (!over || active.id === over.id) return;
+    const dragged = termicas.find((f) => f.fissure.id === draggedId) ||
+      retracoes.find((f) => f.fissure.id === draggedId);
 
-  const draggedId = Number(active.id);
+    // Determinar de qual categoria a imagem está sendo arrastada
+    const fromCategory = termicas.find((f) => f.fissure.id === draggedId)
+      ? "termica"
+      : "retracao";
 
-  const draggedFrom = termicas.find((f) => f.fissure.id === draggedId)
-    ? "termica"
-    : "retracao";
+    setDraggedFissure(dragged || null);
+    setDraggedFromCategory(fromCategory);
+  };
 
-  const draggedFiss =
-    draggedFrom === "termica"
-      ? termicas.find((f) => f.fissure.id === draggedId)
-      : retracoes.find((f) => f.fissure.id === draggedId);
+  const handleDragEnd = async (event: any) => {
+    const { active, over } = event;
+    setActiveId(null);
+    setDraggedFissure(null);
+    setDraggedFromCategory(null);
 
-  const newCategory = over.id;
+    if (!over || active.id === over.id) return;
 
-  if (!draggedFiss || draggedFiss.fissure.categoria === newCategory) return;
+    const draggedId = Number(active.id);
 
-  try {
-    const token = localStorage.getItem("token");
-    await axios.patch(
-      `http://localhost:5000/fissure/update`,
-      {
-        id: draggedFiss.fissure.id,
-        categoria: newCategory,
-      },
-      {
-        headers: { Authorization: `Bearer ${token}` },
+    const draggedFrom = termicas.find((f) => f.fissure.id === draggedId)
+      ? "termica"
+      : "retracao";
+
+    const draggedFiss =
+      draggedFrom === "termica"
+        ? termicas.find((f) => f.fissure.id === draggedId)
+        : retracoes.find((f) => f.fissure.id === draggedId);
+
+    const newCategory = over.id;
+
+    if (!draggedFiss || draggedFiss.fissure.categoria === newCategory) return;
+
+    try {
+      const token = localStorage.getItem("token");
+      await axios.patch(
+        `http://localhost:5000/fissure/update`,
+        {
+          id: draggedFiss.fissure.id,
+          categoria: newCategory,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      if (newCategory === "termica") {
+        setTermicas([
+          ...termicas,
+          {
+            ...draggedFiss,
+            fissure: { ...draggedFiss.fissure, categoria: "termica" },
+          },
+        ]);
+        setRetracoes(retracoes.filter((f) => f.fissure.id !== draggedId));
+      } else {
+        setRetracoes([
+          ...retracoes,
+          {
+            ...draggedFiss,
+            fissure: { ...draggedFiss.fissure, categoria: "retracao" },
+          },
+        ]);
+        setTermicas(termicas.filter((f) => f.fissure.id !== draggedId));
       }
-    );
 
-    if (newCategory === "termica") {
-      setTermicas([
-        ...termicas,
-        {
-          ...draggedFiss,
-          fissure: { ...draggedFiss.fissure, categoria: "termica" },
-        },
-      ]);
-      setRetracoes(retracoes.filter((f) => f.fissure.id !== draggedId));
-    } else {
-      setRetracoes([
-        ...retracoes,
-        {
-          ...draggedFiss,
-          fissure: { ...draggedFiss.fissure, categoria: "retracao" },
-        },
-      ]);
-      setTermicas(termicas.filter((f) => f.fissure.id !== draggedId));
+    } catch (error) {
+      alert("Erro ao atualizar categoria. Tente novamente.");
     }
-
-  } catch (error) {
-    alert("Erro ao atualizar categoria. Tente novamente.");
-  }
-};
+  };
 
   const DraggableImage = ({ fissure }: { fissure: FissureWithImage }) => {
     const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
@@ -257,9 +287,9 @@ const handleDragEnd = async (event: any) => {
         <DragHandle {...listeners} {...attributes}>
           ⋮⋮
         </DragHandle>
-        
+
         <StyledImage
-          src={fissure.image.url}
+          src={fissure.image.url_fissura}
           alt={fissure.image.nome}
           onClick={handleImageClick}
           isDragging={isDragging}
@@ -282,15 +312,15 @@ const handleDragEnd = async (event: any) => {
     });
 
     const isDragging = activeId !== null;
-    const canDrop = isDragging && 
+    const canDrop = isDragging &&
       (!draggedFissure || draggedFissure.fissure.categoria !== id);
 
     const shouldBlur = isDragging && draggedFromCategory === id;
 
     return (
-      <Column 
-        ref={setNodeRef} 
-        isDragging={isDragging} 
+      <Column
+        ref={setNodeRef}
+        isDragging={isDragging}
         isOver={isOver && canDrop}
         shouldBlur={shouldBlur}
       >
@@ -304,7 +334,7 @@ const handleDragEnd = async (event: any) => {
               <DropText>Solte aqui para mover para {id === 'termica' ? 'térmicas' : 'retração'}</DropText>
             </DropIndicator>
           )}
-          
+
           {fissures.length === 0 && !isDragging ? (
             <Placeholder>Nenhuma imagem</Placeholder>
           ) : (
@@ -318,7 +348,7 @@ const handleDragEnd = async (event: any) => {
   };
 
   return (
-    <DndContext 
+    <DndContext
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
@@ -334,9 +364,9 @@ const handleDragEnd = async (event: any) => {
             id="retracao"
             title="Fissuras de retração"
             fissures={retracoes}
-            />
-            
-        </InnerPanel> 
+          />
+
+        </InnerPanel>
         <UploadButton onClick={triggerFileInput}>
           <Upload src={upload} alt="Botão de upload" />
         </UploadButton>
@@ -355,7 +385,7 @@ const handleDragEnd = async (event: any) => {
               <ModalHeader>
                 <ModalTitle>Selecione a direção que a foto foi tirada</ModalTitle>
               </ModalHeader>
-              
+
               <DirectionGrid>
                 {cardinalDirections.map((direction) => (
                   <DirectionButton
@@ -367,7 +397,7 @@ const handleDragEnd = async (event: any) => {
                   </DirectionButton>
                 ))}
               </DirectionGrid>
-              
+
               <ModalFooter>
                 <CancelButton onClick={handleCloseDirectionModal}>
                   Cancelar
@@ -380,7 +410,7 @@ const handleDragEnd = async (event: any) => {
         <DragOverlay>
           {activeId && draggedFissure ? (
             <DragPreview
-              src={draggedFissure.image.url}
+              src={draggedFissure.image.url_fissura}
               alt={draggedFissure.image.nome}
             />
           ) : null}
@@ -390,7 +420,7 @@ const handleDragEnd = async (event: any) => {
           <FissureModal
             fissure={{
               id: String(modalFissure.fissure.id),
-              imageUrl: modalFissure.image.url,
+              imageUrl: modalFissure.image.url_fissura,
               building: numeroPredio ?? "",
               facade: modalFissure.image.orientacao,
               classification: modalFissure.fissure.categoria,
