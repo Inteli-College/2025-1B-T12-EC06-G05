@@ -24,6 +24,7 @@ interface ImageInfo {
 interface FissureWithImage {
   fissure: Fissure;
   image: ImageInfo;
+  url_fissura: string;
 }
 
 const FissurePanel = () => {
@@ -68,7 +69,7 @@ const FissurePanel = () => {
             .filter((f: Fissure) => f.categoria === cat)
             .map((f: Fissure) => ({
               fissure: f,
-              image: imageMap[f.id_image],
+              image: f,
             }))
             .filter((f) => f.image); // ignora se imagem não foi encontrada
 
@@ -95,7 +96,7 @@ const FissurePanel = () => {
             ) : (
               termicas.map((fiss, i) => (
                 <img
-                  src={fiss.image.img_resultado || fiss.image.url}
+                  src={fiss.image.url_fissura}
                   alt={fiss.image.nome}
                   onClick={() => setModalFissure(fiss)}
                 />
@@ -116,7 +117,7 @@ const FissurePanel = () => {
             ) : (
               retracoes.map((fiss, i) => (
                 <img
-                  src={fiss.image.img_resultado || fiss.image.url}
+                  src={fiss.image.url_fissura}
                   alt={fiss.image.nome}
                   onClick={() => setModalFissure(fiss)}
                 />
@@ -130,7 +131,7 @@ const FissurePanel = () => {
         <FissureModal
           fissure={{
             id: String(modalFissure.fissure.id),
-            imageUrl: modalFissure.image.url,
+            imageUrl: modalFissure.image.url_fissura,
             // expedition: "Desconhecida",
             building: numeroPredio ?? "",
             facade: modalFissure.image.orientacao,
