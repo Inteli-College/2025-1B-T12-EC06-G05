@@ -4,15 +4,16 @@ import styled from "styled-components";
 interface ExpeditionInfoProps {
   nome: string;
   data_criacao: string;
-  nome_responsavel: number;
+  nome_responsavel: string;
+  total_fissuras: number;
 }
 
-
 const SelectWithTitle: React.FC<ExpeditionInfoProps> = ({
-    nome = "Expedição Inteli",
-    data_criacao = "12/05/2025",
-    nome_responsavel = "Pedro Silva"
-  }) => {
+  nome = "Expedição Inteli",
+  data_criacao = "12/05/2025",
+  nome_responsavel = "Pedro Silva",
+  total_fissuras = 0,
+}) => {
   return (
     <Container>
       <LeftSide>
@@ -28,24 +29,16 @@ const SelectWithTitle: React.FC<ExpeditionInfoProps> = ({
         </Responsavel>
       </LeftSide>
 
-      <RightSide>
+      <Center>
         <Metric>
-          <BigNumber>9</BigNumber>
-          <Label>Imagens<br />Processadas</Label>
+          <BigNumber>{total_fissuras}</BigNumber>
+          <Label>
+            Total de
+            <br />
+            Fissuras
+          </Label>
         </Metric>
-        <Metric>
-          <BigNumber>0%</BigNumber>
-          <Label>Taxa de Imagens<br />com Erro</Label>
-        </Metric>
-        <Metric>
-          <BigNumber>1%</BigNumber>
-          <Label>Taxa de Revisão<br />Manual</Label>
-        </Metric>
-        <Metric>
-          <BigNumber>99%</BigNumber>
-          <Label>Taxa de Detecção<br />Automática</Label>
-        </Metric>
-      </RightSide>
+      </Center>
     </Container>
   );
 };
@@ -59,10 +52,10 @@ const Container = styled.div`
   border-radius: 2rem;
   padding: 0.75rem 1.5rem;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   font-family: sans-serif;
-  width: 100%; 
+  width: 100%;
+  position: relative;
 `;
 
 const LeftSide = styled.div`
@@ -70,6 +63,14 @@ const LeftSide = styled.div`
   align-items: center;
   gap: 1.25rem;
 `;
+
+const Center = styled.div`
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+`;
+
 
 const Select = styled.select`
   padding: 0.5rem 1rem;
@@ -81,11 +82,6 @@ const Select = styled.select`
 const Responsavel = styled.span`
   font-size: 1rem;
   color: #3f2b1d;
-`;
-
-const RightSide = styled.div`
-  display: flex;
-  gap: 2.5rem;
 `;
 
 const Metric = styled.div`

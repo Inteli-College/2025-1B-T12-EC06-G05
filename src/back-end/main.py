@@ -4,6 +4,8 @@ from flask import Flask, render_template
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_bcrypt import Bcrypt
+from datetime import timedelta
+
 
 # importa a instância do SQLAlchemy
 from .config.database import db
@@ -16,7 +18,8 @@ from .app.models.model      import Model
 from .app.models.building   import Building
 from .app.models.image      import Image
 from .app.models.fissure    import Fissure
-
+from .app.models.audit    import Audit
+from .app.models.log import Log
 
 # importa seus blueprints
 from .app.routes.users import user_bp
@@ -25,6 +28,9 @@ from .app.routes.models import model_bp
 from .app.routes.fissures import fissure_bp
 from .app.routes.images import image_bp
 from .app.routes.building import building_bp
+from .app.routes.reports import report_bp
+from .app.routes.logs import log_bp
+from .app.routes.audits import audit_bp
 
 # Load environment variables from .env
 load_dotenv()
@@ -60,6 +66,8 @@ def create_app():
 
     # Chave secreta do JWT
     app.config['JWT_SECRET_KEY'] = 'Rachadores' 
+    app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=7)
+
 
     jwt.init_app(app)
     bcrypt.init_app(app) 
@@ -78,6 +86,9 @@ def create_app():
     app.register_blueprint(fissure_bp)
     app.register_blueprint(image_bp)
     app.register_blueprint(building_bp)
+    app.register_blueprint(report_bp)
+    app.register_blueprint(log_bp)
+    app.register_blueprint(audit_bp)
 
     return app
 

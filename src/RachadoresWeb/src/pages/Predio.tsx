@@ -233,7 +233,7 @@ const Predio: React.FC = () => {
       );
 
       // Mapear os dados da API para o formato do componente
-      const expedition = response.data.exepedition;
+      const expedition = response.data.expedition;
 
       setExpedition(expedition);
     } catch (error) {
