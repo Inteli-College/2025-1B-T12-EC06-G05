@@ -30,8 +30,8 @@ const HeaderContainer = styled.header<{
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  position: absolute;
   margin: 0 auto;
+  position: absolute;
   top: ${(props) => props.top || "0"};
   left: ${(props) => props.left || "0"};
   width: 90%;
@@ -62,7 +62,7 @@ const Home = styled.img`
 
 const LogsIcon = styled.img`
   height: 30px;
-  margin-left: 75%;
+  margin-left: 80%;
   margin-right: 16px;
   cursor: pointer;
 
@@ -189,19 +189,20 @@ const Header: React.FC<{ backgroundColor?: string }> = ({
   };
 
   return (
-    <HeaderContent>
+    
       <HeaderContainer backgroundColor={backgroundColor}>
-        <Home src={home} alt="Ícone de Casa" onClick={handleHomeClick} />
-        <Logo src={logo} alt="Logo dos Rachadores" onClick={playSound}/>
-        <LogsIcon src={logs} alt="Ícone de Logs" onClick={handleLogsClick} />
-        <Perfil src={perfil} alt="Ícone de Perfil" onClick={handlePerfilClick} />
-        <Nav></Nav>
-        <HamburgerIcon onClick={toggleMenu}>
-          {isOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
-        </HamburgerIcon>
-        <MobileMenu isOpen={isOpen}></MobileMenu>
+        <HeaderContent>
+          <Home src={home} alt="Ícone de Casa" onClick={handleHomeClick} />
+          <Logo src={logo} alt="Logo dos Rachadores" onClick={playSound}/>
+          <LogsIcon src={logs} alt="Ícone de Logs" onClick={handleLogsClick} />
+          <Perfil src={perfil} alt="Ícone de Perfil" onClick={handlePerfilClick} />
+          <Nav></Nav>
+          <HamburgerIcon onClick={toggleMenu}>
+            {isOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
+          </HamburgerIcon>
+          <MobileMenu isOpen={isOpen}></MobileMenu>
+        </HeaderContent>
       </HeaderContainer>
-    </HeaderContent>
   );
 };
 
