@@ -11,6 +11,7 @@ import { DndContext, useDraggable, useDroppable, DragOverlay } from "@dnd-kit/co
 interface Fissure {
   id: number;
   categoria: string;
+  categoria_atual: string;
   confiabilidade: number;
   id_image: number;
 }
@@ -177,7 +178,7 @@ const FissurePanel = () => {
 
         const group = (cat: string) =>
           allFissures
-            .filter((f: Fissure) => f.categoria === cat)
+            .filter((f: Fissure) => f.categoria_atual === cat)
             .map((f: Fissure) => ({
               fissure: f,
               image: f,
@@ -201,7 +202,6 @@ const FissurePanel = () => {
     const dragged = termicas.find((f) => f.fissure.id === draggedId) ||
       retracoes.find((f) => f.fissure.id === draggedId);
 
-    // Determinar de qual categoria a imagem está sendo arrastada
     const fromCategory = termicas.find((f) => f.fissure.id === draggedId)
       ? "termica"
       : "retracao";
@@ -210,7 +210,7 @@ const FissurePanel = () => {
     setDraggedFromCategory(fromCategory);
   };
 
-  const handleDragEnd = async (event: any) => {
+const handleDragEnd = async (event: any) => {
     const { active, over } = event;
     setActiveId(null);
     setDraggedFissure(null);
@@ -231,27 +231,52 @@ const FissurePanel = () => {
 
     const newCategory = over.id;
 
-    if (!draggedFiss || draggedFiss.fissure.categoria === newCategory) return;
+    if (!draggedFiss || draggedFiss.fissure.categoria_atual === newCategory) return;
+
+    const categoryChanged = draggedFiss.fissure.categoria !== newCategory;
 
     try {
       const token = localStorage.getItem("token");
+
       await axios.patch(
         `http://localhost:5000/fissure/update`,
         {
           id: draggedFiss.fissure.id,
-          categoria: newCategory,
+          categoria_atual: newCategory,
         },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
 
+      try {
+        await axios.post(
+          `http://localhost:5000/audit/register`,
+          {
+            id_fissura: draggedFiss.fissure.id,
+            modified: categoryChanged ? 1 : 0
+          },
+          {
+            headers: { 
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            },
+          }
+        );
+        console.log("Auditoria registrada com sucesso");
+      } catch (auditError) {
+        console.error("Erro ao registrar auditoria:", auditError);
+      }
+
       if (newCategory === "termica") {
         setTermicas([
           ...termicas,
           {
             ...draggedFiss,
-            fissure: { ...draggedFiss.fissure, categoria: "termica" },
+            fissure: { 
+              ...draggedFiss.fissure, 
+              categoria_atual: "termica"
+            },
           },
         ]);
         setRetracoes(retracoes.filter((f) => f.fissure.id !== draggedId));
@@ -260,13 +285,17 @@ const FissurePanel = () => {
           ...retracoes,
           {
             ...draggedFiss,
-            fissure: { ...draggedFiss.fissure, categoria: "retracao" },
+            fissure: { 
+              ...draggedFiss.fissure, 
+              categoria_atual: "retracao"
+            },
           },
         ]);
         setTermicas(termicas.filter((f) => f.fissure.id !== draggedId));
       }
 
     } catch (error) {
+      console.error("❌ Erro ao atualizar categoria:", error);
       alert("Erro ao atualizar categoria. Tente novamente.");
     }
   };
@@ -313,7 +342,7 @@ const FissurePanel = () => {
 
     const isDragging = activeId !== null;
     const canDrop = isDragging &&
-      (!draggedFissure || draggedFissure.fissure.categoria !== id);
+      (!draggedFissure || draggedFissure.fissure.categoria_atual !== id);
 
     const shouldBlur = isDragging && draggedFromCategory === id;
 
@@ -423,9 +452,9 @@ const FissurePanel = () => {
               imageUrl: modalFissure.image.url_fissura,
               building: numeroPredio ?? "",
               facade: modalFissure.image.orientacao,
-              classification: modalFissure.fissure.categoria,
+              classification: modalFissure.fissure.categoria_atual,
               probableCause:
-                modalFissure.fissure.categoria === "termica"
+                modalFissure.fissure.categoria_atual === "termica"
                   ? "Variações térmicas"
                   : "Retração por secagem",
               uploadDate: new Date().toLocaleDateString("pt-BR"),
