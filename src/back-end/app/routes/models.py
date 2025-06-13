@@ -30,3 +30,20 @@ def delete(id_model):
 def update():
     data = request.get_json()
     return update_model(data)
+
+@model_bp.route('/run', methods=['POST'])
+@jwt_required()
+def run_model_direct():
+    data = request.get_json()
+    model_path = "models/modelo.pt"
+    bucket_name = "fissurai"
+    return run_model_service(data, model_path, bucket_name)
+
+
+@model_bp.route('/run/building/<int:id_predio>', methods=['POST'])
+@jwt_required()
+def run_model_from_building(id_predio):
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'))
+    model_path = os.path.join(base_dir, 'modelo', 'best_new.pt')
+    bucket_name = "fissurai"
+    return run_model_for_building(id_predio, model_path, bucket_name)
