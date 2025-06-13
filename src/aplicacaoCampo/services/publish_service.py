@@ -4,9 +4,10 @@ from datetime import datetime
 import streamlit as st
 import shutil
 
-def publish_expedition(api, path, bucket_name="fissurai"):
+def publish_expedition(api, path, id, bucket_name="fissurai"):
     with open(os.path.join(path, "expedition_info.json")) as f:
         data = json.load(f)
+        data["id_responsavel"] = id
     
     if data.get("foto_capa"):
         s3_key = os.path.join(path, data["foto_capa"]).replace(os.path.sep, "_")
@@ -112,7 +113,7 @@ def publish_fissures(api, image_id, image_name, fissures_json_path):
     return results
 
 
-def publish_full_inspection(api, inspections_dir="imagens/inspecoes"):
+def publish_full_inspection(api, id, inspections_dir="imagens/inspecoes"):
     result = {"expeditions": [], "errors": []}
 
     for exp_name in os.listdir(inspections_dir):
@@ -120,7 +121,7 @@ def publish_full_inspection(api, inspections_dir="imagens/inspecoes"):
         if not os.path.isfile(os.path.join(exp_path, "expedition_info.json")):
             continue
 
-        res = publish_expedition(api, exp_path)
+        res = publish_expedition(api, exp_path, id)
         if res is None or res.status_code != 201:
             result["errors"].append((exp_name, res.text if res else "No response"))
             continue

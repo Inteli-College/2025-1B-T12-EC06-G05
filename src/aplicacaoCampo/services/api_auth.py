@@ -18,6 +18,6 @@ def login_and_get_token(API_EMAIL, API_PASSWORD):
     )
 
     if response.status_code == 200:
-        return response.json().get("access_token")
+        return response.json().get("access_token"), response.json().get("id")
     else:
         raise Exception(f"Erro ao fazer login: {response.text}")

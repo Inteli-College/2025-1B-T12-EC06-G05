@@ -43,7 +43,7 @@ def login_user(data):
 
         access_token = create_access_token(identity=email)
 
-        return jsonify(access_token=access_token), 200
+        return jsonify(access_token=access_token, id=user.id), 200
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
