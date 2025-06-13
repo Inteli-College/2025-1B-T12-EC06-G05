@@ -77,7 +77,7 @@ Considerando armazenamento com backup automático, o custo mensal estimado é de
 O percentual aplicado está em conformidade com diretrizes de gestão de projetos de P&D no Brasil. Organizações como a ABDI (Agência Brasileira de Desenvolvimento Industrial) recomendam percentuais entre 25% e 35% dos custos diretos para cobrir despesas administrativas, jurídicas, deslocamentos, reuniões e contingência. Esse montante garante suporte adequado às atividades de campo e à gestão do projeto, sem comprometer o orçamento principal.
 
 #### Manutenção (1 ano) – R$ 36.000  
-Sistemas de IA e visão computacional exigem manutenção contínua, incluindo suporte técnico nível L2, atualizações de segurança e retraining frente ao concept drift. Dados do setor revelam que instalações industriais destinam entre 5% e 15% do orçamento anual à manutenção. Adoptando uma taxa conservadora de ~10% sobre o investimento de infraestrutura e equipamentos (R$ 100.000), chega-se a R$ 10.000/ano. Porém, em sistema crítico com SLA e retraining regular, essa estimativa sobe para R$ 36.000/ano.
+Sistemas de IA e visão computacional exigem manutenção contínua, incluindo suporte técnico, atualizações de segurança etc. Dados do setor revelam que instalações industriais destinam entre 5% e 15% do orçamento anual à manutenção. Adoptando uma taxa conservadora de ~10% sobre o investimento de infraestrutura e equipamentos (R$ 100.000), chega-se a R$ 10.000/ano. Porém, em sistema crítico com SLA e retraining regular, essa estimativa sobe para R$ 36.000/ano.
 
 
 ## Conclusão
