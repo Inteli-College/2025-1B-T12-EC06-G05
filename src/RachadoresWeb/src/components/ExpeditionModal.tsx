@@ -325,7 +325,6 @@ const ExpeditionModal: React.FC<ExpeditionModalProps> = ({
   isOpen,
   onClose,
   onSubmit,
-  responsavelId,
 }) => {
   const [formData, setFormData] = useState({
     nome: "",
@@ -406,7 +405,6 @@ const ExpeditionModal: React.FC<ExpeditionModalProps> = ({
         descricao: formData.descricao,
         data_criacao: formatDateToDDMMYYYY(formData.data_criacao),
         localizacao: formData.localizacao,
-        id_responsavel: responsavelId,
         foto_capa: imageUrl, // adiciona o link aqui!
       };
   

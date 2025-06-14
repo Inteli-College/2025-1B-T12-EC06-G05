@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import styled from "styled-components";
 import Header from "../components/Header.tsx";
 import { COLORS, FONTS, BREAKPOINTS } from "../constants/style";
@@ -16,7 +16,6 @@ const Container = styled.div`
   background-color: #fff;
   font-family: ${FONTS.primary};
 `;
-
 
 const SectionLeft = styled.section`
   flex: 1;
@@ -59,7 +58,6 @@ const GridItem = styled.div`
     border-top: none;
   }
 `;
-
 
 const Title = styled.h2`
   font-size: 1.5rem;
@@ -171,89 +169,191 @@ const ExpeditionDate = styled.p`
   margin: 0;
 `;
 
+
 const Perfil = () => {
-  const [formData, setFormData] = useState({
-    nome: "Pedro Silva",
-    email: "pedro.silva@fissurai.org",
-    senha: "********",
-    cargo: "Pesquisador sênior",
+  const [userData, setUserData] = useState({
+    nome_completo: "",
+    email: "",
+    senha_atual: "",
+    senha_nova: "",
+    cargo: "",
+    id: 0,
   });
 
   const [expedicoes, setExpedicoes] = useState([]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  const updateProfile = async () => {
+    const payload = {
+      nome_completo: userData.nome_completo,
+      email: userData.email,
+      cargo: userData.cargo,
+      id: userData.id,
+    };
+  
+    if (userData.senha_atual !== "" && userData.senha_nova !== "") {
+      payload.senha_antiga = userData.senha_atual;
+      payload.senha_nova = userData.senha_nova;
+    }
 
-  const handleSave = () => {
-    console.log("Dados salvos:", formData);
+    try {
+      const token = localStorage.getItem("token");
+      const response = await await axios.patch(
+        "http://127.0.0.1:5000/user/update",
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      
+      console.log("Usuário alterado");
+    } catch (error) {
+      console.error("Erro ao buscar expedições:", error);
+    }
   };
 
   useEffect(() => {
-  const mockExpeditions = [
-    {
-      id: 1,
-      nome: "Inteli Smart Infra",
-      data_criacao: "2024-05-18",
-      logoClass: "inteli",
-      icon: "🏙️",
-    },
-    {
-      id: 2,
-      nome: "IPT – Fissuras",
-      data_criacao: "2024-06-02",
-      logoClass: "ipt",
-      icon: "🧱",
-    },
-    {
-      id: 3,
-      nome: "Rota SP Sustentável",
-      data_criacao: "2024-04-10",
-      logoClass: "custom",
-      icon: "🌱",
-    },
-  ];
+    const mockExpeditions = [
+      {
+        id: 1,
+        nome: "Inteli Smart Infra",
+        data_criacao: "2024-05-18",
+        logoClass: "inteli",
+        icon: "🏙️",
+      },
+      {
+        id: 2,
+        nome: "IPT – Fissuras",
+        data_criacao: "2024-06-02",
+        logoClass: "ipt",
+        icon: "🧱",
+      },
+      {
+        id: 3,
+        nome: "Rota SP Sustentável",
+        data_criacao: "2024-04-10",
+        logoClass: "custom",
+        icon: "🌱",
+      },
+    ];
 
-  setExpedicoes(mockExpeditions);
-}, []);
+    setExpedicoes(mockExpeditions);
+  }, []);
+
+  const fetchProfile = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get("http://127.0.0.1:5000/user/profile", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("Info Profile:", response.data.user);
+      setUserData({
+        nome_completo: response.data.user.nome_completo || "",
+        email: response.data.user.email || "",
+        cargo: response.data.user.cargo || "",
+        senha_atual: "",
+        senha_nova: "",
+        id: response.data.user.id || 0
+      });
+    } catch (error) {
+      console.error("Erro ao buscar expedições:", error);
+    }
+  };
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  // Atualiza os campos do formulário
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   return (
     <Container>
       <Header />
       <SectionLeft>
         <Title>Informações básicas</Title>
-        {Object.entries(formData).map(([key, value]) => (
-          <FieldGroup key={key}>
-            <Label>{key.charAt(0).toUpperCase() + key.slice(1)}</Label>
-            <Input
-              type={key === "senha" ? "password" : "text"}
-              name={key}
-              value={value}
-              onChange={handleChange}
-            />
-          </FieldGroup>
-        ))}
-        <Button onClick={handleSave}>Salvar alterações</Button>
+
+        <FieldGroup>
+          <Label>Nome</Label>
+          <Input
+            type="text"
+            name="nome_completo"
+            value={userData.nome_completo}
+            onChange={handleChange}
+          />
+        </FieldGroup>
+
+        <FieldGroup>
+          <Label>Email</Label>
+          <Input
+            type="email"
+            name="email"
+            value={userData.email}
+            onChange={handleChange}
+          />
+        </FieldGroup>
+
+        <FieldGroup>
+          <Label>Cargo</Label>
+          <Input
+            type="text"
+            name="cargo"
+            value={userData.cargo}
+            onChange={handleChange}
+          />
+        </FieldGroup>
+
+        <FieldGroup>
+          <Label>Senha Atual</Label>
+          <Input
+            type="password"
+            name="senha_atual"
+            value={userData.senha_atual}
+            onChange={handleChange}
+          />
+        </FieldGroup>
+
+        <FieldGroup>
+          <Label>Nova Senha</Label>
+          <Input
+            type="password"
+            name="senha_nova"
+            value={userData.senha_nova}
+            onChange={handleChange}
+          />
+        </FieldGroup>
+
+        <Button onClick={updateProfile}>Salvar alterações</Button>
       </SectionLeft>
 
       <SectionRight>
         <GridExpedicoes>
           <GridHeader>Expedições lideradas:</GridHeader>
           {expedicoes.length > 0 ? (
-          expedicoes.map((expedicao) => (
-            <GridItem key={expedicao.id}>
-              <ExpeditionLogo className={expedicao.logoClass || "custom"}>
-                {expedicao.icon || "📍"}
-              </ExpeditionLogo>
-              <ExpeditionInfo>
-                <ExpeditionName>{expedicao.nome}</ExpeditionName>
-                <ExpeditionDate>{expedicao.data_criacao}</ExpeditionDate>
-              </ExpeditionInfo>
-            </GridItem>
+            expedicoes.map((expedicao) => (
+              <GridItem key={expedicao.id}>
+                <ExpeditionLogo className={expedicao.logoClass || "custom"}>
+                  {expedicao.icon || "📍"}
+                </ExpeditionLogo>
+                <ExpeditionInfo>
+                  <ExpeditionName>{expedicao.nome}</ExpeditionName>
+                  <ExpeditionDate>{expedicao.data_criacao}</ExpeditionDate>
+                </ExpeditionInfo>
+              </GridItem>
             ))
           ) : (
-            <p style={{ padding: "20px", color: "#888" }}>Nenhuma expedição liderada encontrada.</p>
+            <p style={{ padding: "20px", color: "#888" }}>
+              Nenhuma expedição liderada encontrada.
+            </p>
           )}
         </GridExpedicoes>
       </SectionRight>

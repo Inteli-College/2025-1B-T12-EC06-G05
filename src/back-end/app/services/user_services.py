@@ -152,3 +152,17 @@ def update_user(email_user, data):
     except Exception as e:
         db.session.rollback() 
         return jsonify({"error": str(e)}), 500
+
+def get_user_by_token(email_user):
+    try:
+        user = User.query.filter_by(email=email_user).first()
+        if not user:
+            raise Exception("Usuário não encontrado!")
+
+        return jsonify({
+            "message": "Usuário encontrado com sucesso",
+            "user": user.as_dict()
+        }), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
