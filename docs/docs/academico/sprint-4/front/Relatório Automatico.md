@@ -7,6 +7,26 @@ O relatório automático é um documento gerado pelo sistema a partir dos dados 
 - Localização geográfica (orientação da fachada)
 - Status da auditoria (se houve alteração ou não)
 
+Dentro de uma expedição cadastrada no sistema, é possível acionar o controle de geração de relatório, que organiza automaticamente os dados registrados durante a inspeção e permite a criação de um arquivo PDF detalhado. Esse relatório consolida todas as fissuras identificadas no edifício, com suas respectivas características, de forma estruturada e visualmente clara.
+
+<p style={{textAlign: 'center'}}>Figura 1 - Relatório 1</p>
+<div style={{margin: 25}}>
+    <div style={{textAlign: 'center'}}>
+        <img src={require("../../../../static/img/relatorio1.png").default} style={{width: 800}} alt="Armazenamento de Arquivos" />
+        <br />
+    </div>
+</div>
+<p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
+
+<p style={{textAlign: 'center'}}>Figura 2 - Relatório 2</p>
+<div style={{margin: 25}}>
+    <div style={{textAlign: 'center'}}>
+        <img src={require("../../../../static/img/relatorio2.png").default} style={{width: 800}} alt="Armazenamento de Arquivos" />
+        <br />
+    </div>
+</div>
+<p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
+
 ### O que o relatório faz
 
 - Consolida os resultados da análise de imagens processadas pelo algoritmo de visão computacional.
