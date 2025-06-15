@@ -172,8 +172,10 @@ const Login: React.FC<{ backgroundColor?: string }> = () => {
       });
 
       const token = response.data.access_token;
+      const cargo_user = response.data.cargo_user;
+
       localStorage.setItem("token", token);
-      console.log(token)
+      localStorage.setItem("cargo_user", cargo_user.toLowerCase())
 
       // Redireciona para a página principal
       navigate("/home"); // ajuste conforme sua rota principal
