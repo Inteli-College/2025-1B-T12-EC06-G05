@@ -8,7 +8,7 @@ import axios from "axios";
 interface Log {
   id: number;
   descricao: string;
-  responsavel: string;
+  nome_responsavel: string;
   status: string;
   data: string;
 }
@@ -94,48 +94,49 @@ const EmptyRow = styled.tr`
 `;
 
 const Logs = () => {
-  const [logs, setLogs] = useState<Log[]>([ // mockado
+  const [logs, setLogs] = useState<Log[]>([
     {
       id: 1,
       descricao: "Pedro fez login na plataforma FissurAI",
-      responsavel: "Pedro",
+      nome_responsavel: "Pedro",
       status: "Efetivado",
       data: "12/05/2025"
     },
     {
       id: 2,
       descricao: "Pedro fez login na plataforma FissurAI",
-      responsavel: "Pedro",
+      nome_responsavel: "Pedro",
       status: "Efetivado",
       data: "12/05/2025"
     },
     {
       id: 3,
       descricao: "Pedro fez login na plataforma FissurAI",
-      responsavel: "Pedro",
+      nome_responsavel: "Pedro",
       status: "Efetivado",
       data: "12/05/2025"
     }
   ]);
 
-  useEffect(() => {
-    const fetchLogs = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:5000/logs", {
+  const fetchLogs = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(
+        "http://127.0.0.1:5000/log/all",
+        {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        });
-        if (response.data.logs.length > 0) {
-          setLogs(response.data.logs);
         }
-      } catch (error) {
-        console.error("Erro ao buscar logs:", error);
-      }
-    };
-
-    // fetchLogs(); // desabilitado enquanto mock
+      );
+      console.log("Logs:", response.data.logs);
+      setLogs(response.data.logs);
+    } catch (error) {
+      console.error("Erro ao buscar os logs:", error);
+    }
+  };
+  useEffect(() => {
+    fetchLogs();
   }, []);
 
   return (
@@ -158,7 +159,7 @@ const Logs = () => {
                 logs.map((log) => (
                   <tr key={log.id}>
                     <Td>{log.descricao}</Td>
-                    <Td>{log.responsavel}</Td>
+                    <Td>{log.nome_responsavel}</Td>
                     <Td>{log.status}</Td>
                     <Td>{log.data}</Td>
                   </tr>
