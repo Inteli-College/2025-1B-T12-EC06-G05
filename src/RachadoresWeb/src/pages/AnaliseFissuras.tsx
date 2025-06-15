@@ -67,16 +67,39 @@ interface ImageInfo {
   orientacao: string;
 }
 
+interface Metricas {
+  total_fissuras: number;
+  quantidade_retracao: number;
+  quantidade_termicas: number;
+  quantidade_por_orientacao: {
+    [key: string]: {
+      retracao: number;
+      termicas: number;
+      total: number;
+    };
+  };
+}
+
+const defaultMetricas: Metricas = {
+  total_fissuras: 0,
+  quantidade_retracao: 0,
+  quantidade_termicas: 0,
+  quantidade_por_orientacao: {}
+};
+
 const VisaoGeral = () => {
   const { numeroPredio } = useParams<{ numeroPredio: string }>();
-  console.log(numeroPredio)
   const [expeditionData, setExpeditionData] = useState<ExpeditionInfoProps | null>(null);
   const [imagens, setImagens] = useState<ImageInfo[]>([]);
+  const [metricas, setMetricas] = useState<Metricas>(defaultMetricas);
+  const [id_predio, setIdPredio] = useState<number>(0)
+  const [tokenJWT, setToken] = useState<string>("")
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem("token");
+        setToken(token || "")
         const predioRes = await axios.get(`http://localhost:5000/building/${numeroPredio}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -84,6 +107,7 @@ const VisaoGeral = () => {
 
         const predio = predioRes.data.building;
         const idExpedicao = predio.id_expedicao;
+        setIdPredio(predio.id)
 
         // Busca da expedição
         const expedicaoRes = await axios.get(`http://localhost:5000/expedition/${idExpedicao}`, {
@@ -91,9 +115,9 @@ const VisaoGeral = () => {
         });
 
         setExpeditionData({
-          nome: expedicaoRes.data.exepedition.nome,
-          data_criacao: expedicaoRes.data.exepedition.data_criacao,
-          nome_responsavel: expedicaoRes.data.exepedition.nome_responsavel,
+          nome: expedicaoRes.data.expedition.nome,
+          data_criacao: expedicaoRes.data.expedition.data_criacao,
+          nome_responsavel: expedicaoRes.data.expedition.nome_responsavel,
         });
 
         // Busca das imagens por prédio
@@ -102,6 +126,13 @@ const VisaoGeral = () => {
         });
 
         setImagens(imagensRes.data.images || []);
+
+         // Busca das as métricas por prédio
+         const metricasRes = await axios.get(`http://localhost:5000/fissure/predio/${predio.id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        setMetricas(metricasRes.data.metricas || {});
       } catch (error) {
         console.error("Erro ao buscar dados da visão geral:", error);
       }
@@ -120,6 +151,7 @@ const VisaoGeral = () => {
               nome={expeditionData.nome}
               data_criacao={expeditionData.data_criacao}
               nome_responsavel={expeditionData.nome_responsavel}
+              total_fissuras = {metricas.total_fissuras}
             />
           ) : (
             <p>Carregando dados da expedição...</p>
@@ -128,7 +160,13 @@ const VisaoGeral = () => {
 
         <MainContent>
           <FissurePanel />
-          <FissureCharts />
+          <FissureCharts 
+            por_orientacao={metricas.quantidade_por_orientacao}
+            quantidade_termicas={metricas.quantidade_termicas}
+            quantidade_retracao={metricas.quantidade_retracao}
+            id_predio = {id_predio}
+            token={tokenJWT}
+          />
         </MainContent>
       </Wrapper>
     </div>

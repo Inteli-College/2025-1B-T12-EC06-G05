@@ -1,6 +1,6 @@
 from flask import request, Blueprint
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from ..services.expedition_services import register_expedition, delete_expedition, get_expedition_by_id, get_all_expeditions, search_expedition_by_nome, search_expedition_by_data_criacao, update_expedition
+from ..services.expedition_services import register_expedition, delete_expedition, get_expedition_by_id, get_all_expeditions, search_expedition_by_nome, search_expedition_by_data_criacao, update_expedition, get_expedition_by_responsible
 
 # Instancia o blueprint
 expedition_bp = Blueprint('expedition', __name__, url_prefix='/expedition')
@@ -45,3 +45,8 @@ def get_by_data_criacao():
 def update():
     data = request.get_json()
     return update_expedition(data)
+
+@expedition_bp.route('/user/<id_user>', methods=['GET'])
+@jwt_required()
+def by_user(id_user):
+    return get_expedition_by_responsible(id_user)
