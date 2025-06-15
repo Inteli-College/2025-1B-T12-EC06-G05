@@ -27,7 +27,7 @@ custom_edit_url: null
 
 &emsp;Algumas funcionalidades da aplicação demandam bibliotecas específicas, que apresentaremos detalhadamente conforme aparecem nas diferentes telas. O React facilita essa integração, tornando o processo intuitivo e eficiente.
 
-&emsp;Para garantir que todas as dependências estejam disponíveis durante a execução, execute `npm i` na pasta [src](../../../../../src/RachadoresWeb/src/) dentro de [RachadoresWeb](../../../../../src/RachadoresWeb/).
+&emsp;Para garantir que todas as dependências estejam disponíveis durante a execução, execute `npm i` na pasta src dentro de RachadoresWeb.
 
 ## Padronização Visual
 

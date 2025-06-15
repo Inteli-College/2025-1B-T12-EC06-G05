@@ -76,8 +76,8 @@ def download_relatorio(id_predio):
                 "email": expedition["email_responsavel"]
             },
             "total_fissuras": total_fissures,
-            "fissuras_termicas": len(fissuras_retracao),
-            "fissuras_retracao": len(fissuras_termicas),
+            "fissuras_termicas": resFissures.get_json()["metricas"]["quantidade_termicas"],
+            "fissuras_retracao": resFissures.get_json()["metricas"]["quantidade_retracao"],
             "distribuicao_orientacao": distribuicao_orientacao_completa,
             "fissuras": fissuras_agrupadas
         }
@@ -203,10 +203,10 @@ def generate_report(dados_json):
 
             pdf.set_font("Arial", size=11)
             descricao = (f"Descrição fissura {fissura.get('id', '')}:\n"
-                        f"- Tipo de fissura: {fissura.get('categoria', 'Arrumar isso')}\n"
+                        f"- Tipo de fissura: {fissura.get('categoria_atual', 'Arrumar isso')}\n"
                         f"- Descrição da fissura: {fissura.get('descricao', '')}\n"
-                        f"- Confiabilidade: {fissura.get('confiabilidade', '')}%\n"
-                        f"- Na auditoria houve alteração: {'sim' if fissura.get('alteracao_auditoria', False) else 'não'}")
+                        f"- Confiabilidade: {fissura.get('confiabilidade', '')}%\n")
+                        # f"- Na auditoria houve alteração: {'sim' if fissura.get('alteracao_auditoria', False) else 'não'}")
             
             pdf.multi_cell(0, 10, txt=descricao)
             pdf.ln(10)  

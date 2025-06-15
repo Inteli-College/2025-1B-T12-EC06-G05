@@ -43,7 +43,7 @@ def login_user(data):
 
         access_token = create_access_token(identity=email)
 
-        return jsonify(access_token=access_token, id=user.id), 200
+        return jsonify(access_token=access_token, cargo_user=user.cargo,  id=user.id), 200
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -151,4 +151,18 @@ def update_user(email_user, data):
 
     except Exception as e:
         db.session.rollback() 
+        return jsonify({"error": str(e)}), 500
+
+def get_user_by_token(email_user):
+    try:
+        user = User.query.filter_by(email=email_user).first()
+        if not user:
+            raise Exception("Usuário não encontrado!")
+
+        return jsonify({
+            "message": "Usuário encontrado com sucesso",
+            "user": user.as_dict()
+        }), 200
+
+    except Exception as e:
         return jsonify({"error": str(e)}), 500

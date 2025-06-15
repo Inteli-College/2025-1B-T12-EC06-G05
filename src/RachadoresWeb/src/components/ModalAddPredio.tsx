@@ -105,12 +105,12 @@ const ModalAddPredio: React.FC<ModalAddPredioProps> = ({
     }, {} as Record<string, File[]>),
   });
 
-    const [showSuccessModal, setShowSuccessModal] = useState(false);
-  
-    const handleOkClick = () => {
-      setShowSuccessModal(false);
-       window.location.reload();
-    };
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+  const handleOkClick = () => {
+    setShowSuccessModal(false);
+    window.location.reload();
+  };
 
   const uploadImage = async (file: File): Promise<string | null> => {
     try {
@@ -206,11 +206,6 @@ const ModalAddPredio: React.FC<ModalAddPredioProps> = ({
         }
       );
 
-        if (response.status === 201) {
-        setShowSuccessModal(true); 
-        return;
-      }
-
       const idPredio = response.data?.predioInformation?.id;
       if (!idPredio) throw new Error("ID do prédio não retornado.");
       console.log("🆔 Novo prédio criado com ID:", idPredio);
@@ -242,18 +237,16 @@ const ModalAddPredio: React.FC<ModalAddPredioProps> = ({
           const imgUrl = await uploadImage(file);
           if (!imgUrl) continue;
 
+          const dataFormatada = new Date(formData.dataColeta).toISOString().split("T")[0];
+
           await axios.post(
             "http://localhost:5000/image/add",
             {
               url: imgUrl,
               nome: file.name,
-              hora_coleta: new Date(
-                `${formData.dataColeta}T${formData.horaInicio}`
-              ),
+              hora_coleta: dataFormatada,
               orientacao: zona,
               id_predio: idPredio,
-              img_resultado: "",
-              anotacao: "",
               id_modelo: null,
             },
             {
@@ -264,6 +257,23 @@ const ModalAddPredio: React.FC<ModalAddPredioProps> = ({
             }
           );
         }
+      }
+
+
+      const res = await axios.post(
+        `http://localhost:5000/model/run/building/${idPredio}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (res.status === 201) {
+        setShowSuccessModal(true);
+        return;
       }
 
       // 4. Finaliza
@@ -366,333 +376,333 @@ const ModalAddPredio: React.FC<ModalAddPredioProps> = ({
 
   return (
     <>
-          {showSuccessModal && (
-            <ModalOverlayM>
-              <ModalContentM>
-                <Lottie
-                  animationData={certo}
-                  style={{ width: 150, height: 150 }}
-                />
-                <h3>Cadastro realizado com sucesso!</h3>
-                <p>Você já pode fazer login com seu email e senha.</p>
-                <button onClick={handleOkClick}>Ok!</button>
-              </ModalContentM>
-            </ModalOverlayM>
-          )}
-    <div
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: "rgba(0,0,0,0.5)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        zIndex: 1000,
-      }}
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
-    >
+      {showSuccessModal && (
+        <ModalOverlayM>
+          <ModalContentM>
+            <Lottie
+              animationData={certo}
+              style={{ width: 150, height: 150 }}
+            />
+            <h3>Cadastro realizado com sucesso!</h3>
+            <p>Você já pode fazer login com seu email e senha.</p>
+            <button onClick={handleOkClick}>Ok!</button>
+          </ModalContentM>
+        </ModalOverlayM>
+      )}
       <div
         style={{
-          backgroundColor: COLORS.white,
-          borderRadius: "32px",
-          padding: "2rem",
-          width: "90%",
-          maxWidth: "800px",
-          maxHeight: "90vh",
-          overflowY: "auto",
-          position: "relative",
-          boxShadow: "0 10px 30px rgba(0, 0, 0, 0.3)",
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: "rgba(0,0,0,0.5)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          zIndex: 1000,
+        }}
+        onClick={(e) => {
+          if (e.target === e.currentTarget) onClose();
         }}
       >
         <div
           style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: "2rem",
-          }}
-        >
-          <h2
-            style={{
-              fontSize: "1.5rem",
-              fontWeight: 600,
-              color: COLORS.black,
-              margin: 0,
-            }}
-          >
-            Cadastrar um prédio
-          </h2>
-          <button
-            style={{
-              background: "none",
-              border: "none",
-              fontSize: "1.5rem",
-              cursor: "pointer",
-              color: COLORS.black,
-              padding: "0.5rem",
-            }}
-            onClick={onClose}
-          >
-            ✕
-          </button>
-        </div>
-
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "2rem",
+            backgroundColor: COLORS.white,
+            borderRadius: "32px",
+            padding: "2rem",
+            width: "90%",
+            maxWidth: "800px",
+            maxHeight: "90vh",
+            overflowY: "auto",
+            position: "relative",
+            boxShadow: "0 10px 30px rgba(0, 0, 0, 0.3)",
           }}
         >
           <div
-            style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: "2rem",
+            }}
           >
-            {["nome", "complemento"].map((field) => (
-              <div
-                key={field}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "0.5rem",
-                }}
-              >
-                <label
-                  style={{
-                    fontSize: "1rem",
-                    fontWeight: 500,
-                    color: COLORS.black,
-                  }}
-                >
-                  {field === "nome" ? "Nome" : "Complemento"}
-                </label>
-                <input
-                  type="text"
-                  value={formData[field] as string}
-                  onChange={(e) =>
-                    handleInputChange(field as keyof PredioData, e.target.value)
-                  }
-                  placeholder={
-                    field === "nome"
-                      ? "Insira o nome do prédio aqui"
-                      : "Ex: bloco A"
-                  }
-                  style={{
-                    padding: "0.75rem",
-                    border: "1px solid #D1D5DB",
-                    borderRadius: "20px",
-                    fontSize: "1rem",
-                    backgroundColor: COLORS.inputBg,
-                  }}
-                />
-              </div>
-            ))}
-
-            <div
+            <h2
               style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "0.5rem",
+                fontSize: "1.5rem",
+                fontWeight: 600,
+                color: COLORS.black,
+                margin: 0,
               }}
             >
-              <label
-                style={{
-                  fontSize: "1rem",
-                  fontWeight: 500,
-                  color: COLORS.black,
-                }}
-              >
-                Descrição
-              </label>
-              <textarea
-                value={formData.descricao}
-                onChange={(e) => handleInputChange("descricao", e.target.value)}
-                placeholder="Ex: Prédio antigo, necessita de inspeção completa"
-                style={{
-                  padding: "0.75rem",
-                  border: "1px solid #D1D5DB",
-                  borderRadius: "20px",
-                  fontSize: "1rem",
-                  backgroundColor: COLORS.inputBg,
-                  minHeight: "80px",
-                  resize: "vertical",
-                }}
-              />
-            </div>
-
-            {["dataColeta", "horaInicio", "horaFim"].map((field) => (
-              <div
-                key={field}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "0.5rem",
-                }}
-              >
-                <label
-                  style={{
-                    fontSize: "1rem",
-                    fontWeight: 500,
-                    color: COLORS.black,
-                  }}
-                >
-                  {field === "dataColeta"
-                    ? "Data da coleta"
-                    : field === "horaInicio"
-                    ? "Hora de início"
-                    : "Hora de fim"}
-                </label>
-                <input
-                  type={field === "dataColeta" ? "date" : "time"}
-                  value={formData[field] as string}
-                  onChange={(e) =>
-                    handleInputChange(field as keyof PredioData, e.target.value)
-                  }
-                  style={{
-                    padding: "0.75rem",
-                    border: "1px solid #D1D5DB",
-                    borderRadius: "20px",
-                    fontSize: "1rem",
-                    backgroundColor: COLORS.inputBg,
-                  }}
-                />
-              </div>
-            ))}
-
-            <div
+              Cadastrar um prédio
+            </h2>
+            <button
               style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "0.5rem",
+                background: "none",
+                border: "none",
+                fontSize: "1.5rem",
+                cursor: "pointer",
+                color: COLORS.black,
+                padding: "0.5rem",
               }}
+              onClick={onClose}
             >
-              <label
-                style={{
-                  fontSize: "1rem",
-                  fontWeight: 500,
-                  color: COLORS.black,
-                }}
-              >
-                Foto do prédio
-              </label>
-              <input
-                type="file"
-                id="main-photo-upload"
-                accept="image/*"
-                style={{ display: "none" }}
-                onChange={(e) =>
-                  e.target.files?.[0] &&
-                  handleMainPhotoUpload(e.target.files[0])
-                }
-              />
-              <label
-                htmlFor="main-photo-upload"
-                style={{
-                  borderRadius: "16px",
-                  backgroundColor: formData.fotoPrincipal
-                    ? "#FEF3E2"
-                    : "#D9D9D9",
-                  border: formData.fotoPrincipal
-                    ? `2px solid ${COLORS.primary}`
-                    : "2px solid #D9D9D9",
-                  padding: "0",
-                  textAlign: "center",
-                  color: "#6B7280",
-                  cursor: "pointer",
-                  height: "35px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                {formData.fotoPrincipal ? (
-                  <div
-                    style={{
-                      fontSize: "1.5rem",
-                      color: COLORS.primary,
-                      fontWeight: "bold",
-                    }}
-                  >
-                    ✓
-                  </div>
-                ) : (
-                  <img
-                    src={uploadIcon}
-                    alt="Upload"
-                    style={{ width: "1.3rem", height: "1.3rem", opacity: 0.6 }}
-                  />
-                )}
-              </label>
-            </div>
+              ✕
+            </button>
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "2rem",
+            }}
+          >
             <div
-              style={{
-                border: "2px solid #E5E7EB",
-                borderRadius: "20px",
-                padding: "1.5rem",
-              }}
+              style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}
             >
-              <h3
-                style={{
-                  fontSize: "1.1rem",
-                  fontWeight: 600,
-                  color: COLORS.black,
-                  marginBottom: "0.5rem",
-                }}
-              >
-                Upload de imagens
-              </h3>
-              <p
-                style={{
-                  fontSize: "0.875rem",
-                  color: "#6B7280",
-                  marginBottom: "1.5rem",
-                }}
-              >
-                Selecione a direção da fachada em que quer fazer o upload da
-                foto ou imagens
-              </p>
+              {["nome", "complemento"].map((field) => (
+                <div
+                  key={field}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.5rem",
+                  }}
+                >
+                  <label
+                    style={{
+                      fontSize: "1rem",
+                      fontWeight: 500,
+                      color: COLORS.black,
+                    }}
+                  >
+                    {field === "nome" ? "Nome" : "Complemento"}
+                  </label>
+                  <input
+                    type="text"
+                    value={formData[field] as string}
+                    onChange={(e) =>
+                      handleInputChange(field as keyof PredioData, e.target.value)
+                    }
+                    placeholder={
+                      field === "nome"
+                        ? "Insira o nome do prédio aqui"
+                        : "Ex: bloco A"
+                    }
+                    style={{
+                      padding: "0.75rem",
+                      border: "1px solid #D1D5DB",
+                      borderRadius: "20px",
+                      fontSize: "1rem",
+                      backgroundColor: COLORS.inputBg,
+                    }}
+                  />
+                </div>
+              ))}
+
               <div
                 style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(4, 1fr)",
-                  gap: "1rem",
-                  marginBottom: "1.5rem",
-                }}
-              >
-                {zonas.map(renderZoneUpload)}
-              </div>
-              <button
-                style={{
-                  backgroundColor: COLORS.tablePredioTop,
-                  color: COLORS.white,
-                  border: "none",
-                  borderRadius: "8px",
-                  padding: "0.75rem 2rem",
-                  fontSize: "1rem",
-                  fontWeight: 600,
-                  cursor: "pointer",
                   display: "flex",
-                  alignItems: "center",
+                  flexDirection: "column",
                   gap: "0.5rem",
-                  alignSelf: "flex-end",
-                  marginTop: "1rem",
                 }}
-                onClick={handleSave}
               >
-                🏢 Criar prédio
-              </button>
+                <label
+                  style={{
+                    fontSize: "1rem",
+                    fontWeight: 500,
+                    color: COLORS.black,
+                  }}
+                >
+                  Descrição
+                </label>
+                <textarea
+                  value={formData.descricao}
+                  onChange={(e) => handleInputChange("descricao", e.target.value)}
+                  placeholder="Ex: Prédio antigo, necessita de inspeção completa"
+                  style={{
+                    padding: "0.75rem",
+                    border: "1px solid #D1D5DB",
+                    borderRadius: "20px",
+                    fontSize: "1rem",
+                    backgroundColor: COLORS.inputBg,
+                    minHeight: "80px",
+                    resize: "vertical",
+                  }}
+                />
+              </div>
+
+              {["dataColeta", "horaInicio", "horaFim"].map((field) => (
+                <div
+                  key={field}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.5rem",
+                  }}
+                >
+                  <label
+                    style={{
+                      fontSize: "1rem",
+                      fontWeight: 500,
+                      color: COLORS.black,
+                    }}
+                  >
+                    {field === "dataColeta"
+                      ? "Data da coleta"
+                      : field === "horaInicio"
+                        ? "Hora de início"
+                        : "Hora de fim"}
+                  </label>
+                  <input
+                    type={field === "dataColeta" ? "date" : "time"}
+                    value={formData[field] as string}
+                    onChange={(e) =>
+                      handleInputChange(field as keyof PredioData, e.target.value)
+                    }
+                    style={{
+                      padding: "0.75rem",
+                      border: "1px solid #D1D5DB",
+                      borderRadius: "20px",
+                      fontSize: "1rem",
+                      backgroundColor: COLORS.inputBg,
+                    }}
+                  />
+                </div>
+              ))}
+
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0.5rem",
+                }}
+              >
+                <label
+                  style={{
+                    fontSize: "1rem",
+                    fontWeight: 500,
+                    color: COLORS.black,
+                  }}
+                >
+                  Foto do prédio
+                </label>
+                <input
+                  type="file"
+                  id="main-photo-upload"
+                  accept="image/*"
+                  style={{ display: "none" }}
+                  onChange={(e) =>
+                    e.target.files?.[0] &&
+                    handleMainPhotoUpload(e.target.files[0])
+                  }
+                />
+                <label
+                  htmlFor="main-photo-upload"
+                  style={{
+                    borderRadius: "16px",
+                    backgroundColor: formData.fotoPrincipal
+                      ? "#FEF3E2"
+                      : "#D9D9D9",
+                    border: formData.fotoPrincipal
+                      ? `2px solid ${COLORS.primary}`
+                      : "2px solid #D9D9D9",
+                    padding: "0",
+                    textAlign: "center",
+                    color: "#6B7280",
+                    cursor: "pointer",
+                    height: "35px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  {formData.fotoPrincipal ? (
+                    <div
+                      style={{
+                        fontSize: "1.5rem",
+                        color: COLORS.primary,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      ✓
+                    </div>
+                  ) : (
+                    <img
+                      src={uploadIcon}
+                      alt="Upload"
+                      style={{ width: "1.3rem", height: "1.3rem", opacity: 0.6 }}
+                    />
+                  )}
+                </label>
+              </div>
+            </div>
+
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <div
+                style={{
+                  border: "2px solid #E5E7EB",
+                  borderRadius: "20px",
+                  padding: "1.5rem",
+                }}
+              >
+                <h3
+                  style={{
+                    fontSize: "1.1rem",
+                    fontWeight: 600,
+                    color: COLORS.black,
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  Upload de imagens
+                </h3>
+                <p
+                  style={{
+                    fontSize: "0.875rem",
+                    color: "#6B7280",
+                    marginBottom: "1.5rem",
+                  }}
+                >
+                  Selecione a direção da fachada em que quer fazer o upload da
+                  foto ou imagens
+                </p>
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(4, 1fr)",
+                    gap: "1rem",
+                    marginBottom: "1.5rem",
+                  }}
+                >
+                  {zonas.map(renderZoneUpload)}
+                </div>
+                <button
+                  style={{
+                    backgroundColor: COLORS.tablePredioTop,
+                    color: COLORS.white,
+                    border: "none",
+                    borderRadius: "8px",
+                    padding: "0.75rem 2rem",
+                    fontSize: "1rem",
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                    alignSelf: "flex-end",
+                    marginTop: "1rem",
+                  }}
+                  onClick={handleSave}
+                >
+                  🏢 Criar prédio
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     </>
   );
 };
