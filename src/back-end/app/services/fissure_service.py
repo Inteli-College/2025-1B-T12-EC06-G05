@@ -3,13 +3,16 @@ from ..models.building import Building
 from ..models.image import Image
 from ...config.database import db
 from flask import jsonify
+from collections import defaultdict
 
 def create_fissure(data):
     try:
         newFissure = Fissure(
             confiabilidade = data['confiabilidade'],
             categoria = data['categoria'].lower(),
-            id_image = data['id_image']
+            id_image = data['id_image'],
+            url_fissura = data['url_fissura'],
+            categoria_atual = data['categoria'].lower()
         )
 
         db.session.add(newFissure)
@@ -71,6 +74,8 @@ def update_fissure(data):
         fissure.confiabilidade = data.get('confiabilidade', fissure.confiabilidade)
         fissure.categoria = data.get('categoria', fissure.categoria)
         fissure.id_image = data.get('id_image', fissure.id_image)
+        fissure.url_fissura= data.get('url_fissura', fissure.url_fissura)
+        fissure.categoria_atual = data.get('categoria_atual', fissure.categoria_atual)
         
         db.session.commit()
 
@@ -98,16 +103,44 @@ def get_fissures_by_predio(id_predio):
 
 
         for fissure in fissures:
-            categoria = fissure.categoria
-            if fissure.categoria in resultado:
+            categoria = fissure.categoria_atual
+            if fissure.categoria_atual in resultado:
                 resultado[categoria].append(fissure.as_dict())
             else:
                 sem_class.append(fissure.as_dict())
 
+        total_fissuras = len(resultado["termica"]) + len(resultado["retracao"])
+
+        distribuicao_completa = defaultdict(lambda: {"termicas": 0, "retracao": 0, "total": 0})
+
+        for fissura in resultado["termica"]:
+            ori = fissura.get("orientacao")
+            if ori:
+                distribuicao_completa[ori.lower()]["termicas"] += 1
+
+        for fissura in resultado["retracao"]:
+            ori = fissura.get("orientacao")
+            if ori:
+                distribuicao_completa[ori.lower()]["retracao"] += 1
+
+
+        for ori, valores in distribuicao_completa.items():
+            valores["total"] = valores["termicas"] + valores["retracao"]
+
+        distribuicao_orientacao_completa = dict(distribuicao_completa)
+
+        metricas = {
+            "total_fissuras": total_fissuras,
+            "quantidade_termicas": len(resultado["termica"]),
+            "quantidade_retracao": len(resultado["retracao"]),
+            "quantidade_por_orientacao": distribuicao_orientacao_completa
+        }        
+
         return jsonify({
             "message": "Fissuras encontradas com sucesso",
             "fissures": resultado,
-            "sem-classificacao": sem_class
+            "sem-classificacao": sem_class,
+            "metricas": metricas
         }), 200
 
     except Exception as e:

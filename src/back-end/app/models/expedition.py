@@ -29,6 +29,7 @@ class Expedition(db.Model):
             'ultima_att': self.ultima_att,
             'id_responsavel': self.id_responsavel,
             'nome_responsavel': self.responsavel.nome_completo,
+            'email_responsavel': self.responsavel.email,
             'descricao': self.descricao,
             'foto_capa': self.foto_capa
         }
