@@ -1,5 +1,5 @@
 from flask import request, Blueprint
-from ..services.user_services import register_user, login_user, delete_user, get_user_by_id, get_users_by_cargo, get_all_users, update_user
+from ..services.user_services import *
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from ..models.user import User
 
@@ -45,3 +45,9 @@ def update():
     data = request.get_json()
     email_user = get_jwt_identity()
     return update_user(email_user, data)
+
+@user_bp.route('/profile', methods=['GET'])
+@jwt_required()
+def get_my_profile():
+    email_user = get_jwt_identity()
+    return get_user_by_token(email_user)

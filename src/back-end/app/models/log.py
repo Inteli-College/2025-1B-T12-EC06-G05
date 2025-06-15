@@ -17,6 +17,7 @@ class Log(db.Model):
         return {
             'id': self.id,
             'id_responsavel': self.id_responsavel,
+            'nome_responsavel': self.responsavel.nome_completo,
             'data': self.data,
             'status': self.status,
             'descricao': self.descricao,
