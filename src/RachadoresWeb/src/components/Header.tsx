@@ -10,7 +10,7 @@ import perfil from "../constants/assets/Perfil.svg";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import hoverSoundFile from '../constants/assets/sounds/galho.mp3';
 
-const HeaderContent = styled.div`
+const HeaderContentAdmin = styled.div`
   width: 95%;
   max-width: 1240px;
   margin: 0 auto;
@@ -20,7 +20,7 @@ const HeaderContent = styled.div`
   justify-content: space-between;
 `;
 
-const HeaderContainer = styled.header<{
+const HeaderContainerAdmin = styled.header<{
   backgroundColor: string;
   top?: string;
   left?: string;
@@ -76,7 +76,7 @@ const LogsIcon = styled.img`
   }
 `;
 
-const Perfil = styled.img`
+const PerfilAdmin = styled.img`
   height: 30px;
   
   cursor: pointer;
@@ -156,6 +156,47 @@ const HamburgerIcon = styled.div`
   }
 `;
 
+const HeaderContent = styled.div`
+  width: 90%;
+  max-width: 1240px;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const HeaderContainer = styled.header<{
+  backgroundColor: string;
+  top?: string;
+  left?: string;
+}>`
+  background-color: ${COLORS.white};
+  padding: 30px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: absolute;
+  top: ${(props) => props.top || "0"};
+  left: ${(props) => props.left || "0"};
+  width: 100%;
+  box-sizing: border-box;
+`;
+
+const Perfil = styled.img`
+  height: 30px;
+  margin-left: 75%;
+  cursor: pointer;
+
+  @media (max-width: ${BREAKPOINTS.mobile}) {
+    display: none;
+  }
+  transition: transform 0.3s ease-in-out;
+  &:hover {
+    transform: translateY(-5px);
+  }
+`;
+
 const Header: React.FC<{ backgroundColor?: string }> = ({
   backgroundColor = COLORS.header,
 }) => {
@@ -188,21 +229,41 @@ const Header: React.FC<{ backgroundColor?: string }> = ({
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+  const cargo_user = localStorage.getItem("cargo_user");
 
-  return (
-      <HeaderContainer backgroundColor={backgroundColor}>
-        <HeaderContent>
+
+  if(cargo_user == "admin"){
+    return (
+    
+      <HeaderContainerAdmin backgroundColor={backgroundColor}>
+        <HeaderContentAdmin>
           <Home src={home} alt="Ícone de Casa" onClick={handleHomeClick} />
           <Logo src={logo} alt="Logo dos Rachadores" onClick={playSound}/>
           <LogsIcon src={logs} alt="Ícone de Logs" onClick={handleLogsClick} />
-          <Perfil src={perfil} alt="Ícone de Perfil" onClick={handlePerfilClick} />
+          <PerfilAdmin src={perfil} alt="Ícone de Perfil" onClick={handlePerfilClick} />
           <Nav></Nav>
           <HamburgerIcon onClick={toggleMenu}>
             {isOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
           </HamburgerIcon>
           <MobileMenu isOpen={isOpen}></MobileMenu>
-        </HeaderContent>
-      </HeaderContainer>
+        </HeaderContentAdmin>
+      </HeaderContainerAdmin>
+  );
+  }
+  
+  return (
+    <HeaderContainer backgroundColor={backgroundColor}>
+    <HeaderContent>
+      <Home src={home} alt="Ícone de Casa" onClick={handleHomeClick} />
+      <Logo src={logo} alt="Logo dos Rachadores" onClick={playSound}/>
+      <Perfil src={perfil} alt="Ícone de Perfil" onClick={handlePerfilClick} />
+      <Nav></Nav>
+      <HamburgerIcon onClick={toggleMenu}>
+        {isOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
+      </HamburgerIcon>
+      <MobileMenu isOpen={isOpen}></MobileMenu>
+    </HeaderContent>
+  </HeaderContainer>
   );
 };
 
