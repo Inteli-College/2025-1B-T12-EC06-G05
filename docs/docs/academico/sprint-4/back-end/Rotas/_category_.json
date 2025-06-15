@@ -3,6 +3,5 @@
     "position": 2,
     "link": {
       "type": "generated-index",
-      "description": "Uma rota de uma API é um caminho específico dentro de um servidor que responde a requisições HTTP. Ela define como as solicitações dos clientes (como um site ou um app) serão processadas e quais respostas serão enviadas. A organização e padronização dessas rotas asseguram o funcionamento sincronizado e eficiente do sistema, desse modo, vamos analisar as rotas atuais do nosso projeto."
-    }
+    "description": "Nesta sprint refatoramos e criamos novas rotas no backend para melhorar a comunicação com o frontend. Também otimizamos algumas consultas ao banco de dados, reduzindo a sobrecarga de requisições na API. Por fim, adicionamos novas funcionalidades à aplicação web e implementamos as rotas correspondentes."    }
   }
