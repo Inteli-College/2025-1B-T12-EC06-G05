@@ -180,6 +180,7 @@ const ExpeditionDate = styled.p`
 const Perfil = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [expedicoes, setExpedicoes] = useState([]);
 
   const [userData, setUserData] = useState({
     nome_completo: "",
@@ -190,7 +191,41 @@ const Perfil = () => {
     id: 0,
   });
 
-  const [expedicoes, setExpedicoes] = useState([]);
+  const fetchProfile = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get("http://127.0.0.1:5000/user/profile", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("Info Profile:", response.data.user);
+      setUserData({
+        nome_completo: response.data.user.nome_completo || "",
+        email: response.data.user.email || "",
+        cargo: response.data.user.cargo || "",
+        senha_atual: "",
+        senha_nova: "",
+        id: response.data.user.id || 0,
+      });
+
+      fetchExpeditions(response.data.user.id);
+    } catch (error) {
+      console.error("Erro ao buscar expedições:", error);
+    }
+  };
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  // Atualiza os campos do formulário
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   const updateProfile = async () => {
     setIsLoading(true);
@@ -230,66 +265,21 @@ const Perfil = () => {
     }
   };
 
-  useEffect(() => {
-    const mockExpeditions = [
-      {
-        id: 1,
-        nome: "Inteli Smart Infra",
-        data_criacao: "2024-05-18",
-        logoClass: "inteli",
-        icon: "🏙️",
-      },
-      {
-        id: 2,
-        nome: "IPT – Fissuras",
-        data_criacao: "2024-06-02",
-        logoClass: "ipt",
-        icon: "🧱",
-      },
-      {
-        id: 3,
-        nome: "Rota SP Sustentável",
-        data_criacao: "2024-04-10",
-        logoClass: "custom",
-        icon: "🌱",
-      },
-    ];
-
-    setExpedicoes(mockExpeditions);
-  }, []);
-
-  const fetchProfile = async () => {
+  const fetchExpeditions = async (id_user: number) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://127.0.0.1:5000/user/profile", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log("Info Profile:", response.data.user);
-      setUserData({
-        nome_completo: response.data.user.nome_completo || "",
-        email: response.data.user.email || "",
-        cargo: response.data.user.cargo || "",
-        senha_atual: "",
-        senha_nova: "",
-        id: response.data.user.id || 0,
-      });
+      const response = await axios.get(
+        `http://localhost:5000/expedition/user/${id_user}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setExpedicoes(response.data.expeditions);
     } catch (error) {
       console.error("Erro ao buscar expedições:", error);
     }
-  };
-  useEffect(() => {
-    fetchProfile();
-  }, []);
-
-  // Atualiza os campos do formulário
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUserData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
   };
 
   return (
@@ -354,9 +344,23 @@ const Perfil = () => {
             {expedicoes.length > 0 ? (
               expedicoes.map((expedicao) => (
                 <GridItem key={expedicao.id}>
-                  <ExpeditionLogo className={expedicao.logoClass || "custom"}>
-                    {expedicao.icon || "📍"}
+                  <ExpeditionLogo>
+                    {expedicao.foto_capa ? (
+                      <img
+                        src={expedicao.foto_capa}
+                        alt="Foto da expedição"
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          borderRadius: "12px",
+                          objectFit: "cover",
+                        }}
+                      />
+                    ) : (
+                      "📍"
+                    )}
                   </ExpeditionLogo>
+
                   <ExpeditionInfo>
                     <ExpeditionName>{expedicao.nome}</ExpeditionName>
                     <ExpeditionDate>{expedicao.data_criacao}</ExpeditionDate>
