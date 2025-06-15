@@ -441,7 +441,6 @@ const Home: React.FC = () => {
           fetchExpeditions();
         }}
         onSubmit={handleAddExpedition}
-        responsavelId={"123456"} // Tem que mudar isso aqui! Tô mokando por enquanto
       />
     </Container>
   );

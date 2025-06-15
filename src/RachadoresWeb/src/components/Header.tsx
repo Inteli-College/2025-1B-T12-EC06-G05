@@ -27,6 +27,7 @@ const HeaderContainerAdmin = styled.header<{
 }>`
   background-color: ${COLORS.white};
   padding: 30px;
+  margin-bottom: 100px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -229,6 +230,7 @@ const Header: React.FC<{ backgroundColor?: string }> = ({
     setIsOpen(!isOpen);
   };
   const cargo_user = localStorage.getItem("cargo_user");
+
 
   if(cargo_user == "admin"){
     return (
