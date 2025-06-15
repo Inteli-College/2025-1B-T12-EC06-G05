@@ -4,6 +4,13 @@ import Header from "../components/Header.tsx";
 import { COLORS, FONTS, BREAKPOINTS } from "../constants/style";
 import axios from "axios";
 
+const MainContent = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 4rem;
+`;
+
 const Container = styled.div`
   display: flex;
   flex-direction: row;
@@ -19,6 +26,7 @@ const Container = styled.div`
 
 const SectionLeft = styled.section`
   flex: 1;
+  padding-y: 2rem;
   padding-right: 2rem;
   border-right: 2px solid #ccc;
 `;
@@ -169,8 +177,10 @@ const ExpeditionDate = styled.p`
   margin: 0;
 `;
 
-
 const Perfil = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
   const [userData, setUserData] = useState({
     nome_completo: "",
     email: "",
@@ -183,13 +193,15 @@ const Perfil = () => {
   const [expedicoes, setExpedicoes] = useState([]);
 
   const updateProfile = async () => {
+    setIsLoading(true);
+    setIsSuccess(false);
     const payload = {
       nome_completo: userData.nome_completo,
       email: userData.email,
       cargo: userData.cargo,
       id: userData.id,
     };
-  
+
     if (userData.senha_atual !== "" && userData.senha_nova !== "") {
       payload.senha_antiga = userData.senha_atual;
       payload.senha_nova = userData.senha_nova;
@@ -207,10 +219,14 @@ const Perfil = () => {
           },
         }
       );
-      
+
       console.log("Usuário alterado");
+      setIsSuccess(true);
+      window.location.reload(); // recarrega a página
     } catch (error) {
-      console.error("Erro ao buscar expedições:", error);
+      console.error("Erro ao atualizar o usuário:", error);
+    } finally {
+      setIsLoading(false); // finaliza o loading
     }
   };
 
@@ -257,7 +273,7 @@ const Perfil = () => {
         cargo: response.data.user.cargo || "",
         senha_atual: "",
         senha_nova: "",
-        id: response.data.user.id || 0
+        id: response.data.user.id || 0,
       });
     } catch (error) {
       console.error("Erro ao buscar expedições:", error);
@@ -279,84 +295,82 @@ const Perfil = () => {
   return (
     <Container>
       <Header />
-      <SectionLeft>
-        <Title>Informações básicas</Title>
+      <MainContent>
+        <SectionLeft>
+          <Title>Informações básicas</Title>
+          <FieldGroup>
+            <Label>Nome</Label>
+            <Input
+              type="text"
+              name="nome_completo"
+              value={userData.nome_completo}
+              onChange={handleChange}
+            />
+          </FieldGroup>
+          <FieldGroup>
+            <Label>Email</Label>
+            <Input
+              type="email"
+              name="email"
+              value={userData.email}
+              onChange={handleChange}
+            />
+          </FieldGroup>
+          <FieldGroup>
+            <Label>Cargo</Label>
+            <Input
+              type="text"
+              name="cargo"
+              value={userData.cargo}
+              onChange={handleChange}
+            />
+          </FieldGroup>
+          <FieldGroup>
+            <Label>Senha Atual</Label>
+            <Input
+              type="password"
+              name="senha_atual"
+              value={userData.senha_atual}
+              onChange={handleChange}
+            />
+          </FieldGroup>
+          <FieldGroup>
+            <Label>Nova Senha</Label>
+            <Input
+              type="password"
+              name="senha_nova"
+              value={userData.senha_nova}
+              onChange={handleChange}
+            />
+          </FieldGroup>
+          <Button onClick={updateProfile} disabled={isLoading}>
+            {isLoading ? "⏳ Salvando..." : "Salvar alterações"}
+          </Button>{" "}
+        </SectionLeft>
 
-        <FieldGroup>
-          <Label>Nome</Label>
-          <Input
-            type="text"
-            name="nome_completo"
-            value={userData.nome_completo}
-            onChange={handleChange}
-          />
-        </FieldGroup>
-
-        <FieldGroup>
-          <Label>Email</Label>
-          <Input
-            type="email"
-            name="email"
-            value={userData.email}
-            onChange={handleChange}
-          />
-        </FieldGroup>
-
-        <FieldGroup>
-          <Label>Cargo</Label>
-          <Input
-            type="text"
-            name="cargo"
-            value={userData.cargo}
-            onChange={handleChange}
-          />
-        </FieldGroup>
-
-        <FieldGroup>
-          <Label>Senha Atual</Label>
-          <Input
-            type="password"
-            name="senha_atual"
-            value={userData.senha_atual}
-            onChange={handleChange}
-          />
-        </FieldGroup>
-
-        <FieldGroup>
-          <Label>Nova Senha</Label>
-          <Input
-            type="password"
-            name="senha_nova"
-            value={userData.senha_nova}
-            onChange={handleChange}
-          />
-        </FieldGroup>
-
-        <Button onClick={updateProfile}>Salvar alterações</Button>
-      </SectionLeft>
-
-      <SectionRight>
-        <GridExpedicoes>
-          <GridHeader>Expedições lideradas:</GridHeader>
-          {expedicoes.length > 0 ? (
-            expedicoes.map((expedicao) => (
-              <GridItem key={expedicao.id}>
-                <ExpeditionLogo className={expedicao.logoClass || "custom"}>
-                  {expedicao.icon || "📍"}
-                </ExpeditionLogo>
-                <ExpeditionInfo>
-                  <ExpeditionName>{expedicao.nome}</ExpeditionName>
-                  <ExpeditionDate>{expedicao.data_criacao}</ExpeditionDate>
-                </ExpeditionInfo>
-              </GridItem>
-            ))
-          ) : (
-            <p style={{ padding: "20px", color: "#888" }}>
-              Nenhuma expedição liderada encontrada.
-            </p>
-          )}
-        </GridExpedicoes>
-      </SectionRight>
+        <SectionRight>
+          <GridExpedicoes>
+            <GridHeader>Expedições lideradas:</GridHeader>
+            {expedicoes.length > 0 ? (
+              expedicoes.map((expedicao) => (
+                <GridItem key={expedicao.id}>
+                  <ExpeditionLogo className={expedicao.logoClass || "custom"}>
+                    {expedicao.icon || "📍"}
+                  </ExpeditionLogo>
+                  <ExpeditionInfo>
+                    <ExpeditionName>{expedicao.nome}</ExpeditionName>
+                    <ExpeditionDate>{expedicao.data_criacao}</ExpeditionDate>
+                  </ExpeditionInfo>
+                </GridItem>
+              ))
+            ) : (
+              <p style={{ padding: "20px", color: "#888" }}>
+                Nenhuma expedição liderada encontrada.
+              </p>
+            )}
+          </GridExpedicoes>
+        </SectionRight>
+      </MainContent>
     </Container>
   );
 };
