@@ -11,7 +11,8 @@ def create_fissure(data):
             confiabilidade = data['confiabilidade'],
             categoria = data['categoria'].lower(),
             id_image = data['id_image'],
-            url_fissura = data['url_fissura']
+            url_fissura = data['url_fissura'],
+            categoria_atual = data['categoria'].lower()
         )
 
         db.session.add(newFissure)
@@ -74,6 +75,7 @@ def update_fissure(data):
         fissure.categoria = data.get('categoria', fissure.categoria)
         fissure.id_image = data.get('id_image', fissure.id_image)
         fissure.url_fissura= data.get('url_fissura', fissure.url_fissura)
+        fissure.categoria_atual = data.get('categoria_atual', fissure.categoria_atual)
         
         db.session.commit()
 
@@ -101,8 +103,8 @@ def get_fissures_by_predio(id_predio):
 
 
         for fissure in fissures:
-            categoria = fissure.categoria
-            if fissure.categoria in resultado:
+            categoria = fissure.categoria_atual
+            if fissure.categoria_atual in resultado:
                 resultado[categoria].append(fissure.as_dict())
             else:
                 sem_class.append(fissure.as_dict())
