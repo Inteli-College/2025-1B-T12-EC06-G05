@@ -1,8 +1,3 @@
----
-sidebar_position: 5
-custom_edit_url: null
----
-
 # Rotas de Modelo
 
 ## Executar detecção direta
