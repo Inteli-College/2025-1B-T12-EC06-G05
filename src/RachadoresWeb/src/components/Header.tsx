@@ -27,6 +27,7 @@ const HeaderContainer = styled.header<{
 }>`
   background-color: ${COLORS.white};
   padding: 30px;
+  margin-bottom: 100px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -189,7 +190,6 @@ const Header: React.FC<{ backgroundColor?: string }> = ({
   };
 
   return (
-    
       <HeaderContainer backgroundColor={backgroundColor}>
         <HeaderContent>
           <Home src={home} alt="Ícone de Casa" onClick={handleHomeClick} />
