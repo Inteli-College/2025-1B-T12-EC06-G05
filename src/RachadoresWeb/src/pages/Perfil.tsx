@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Header from "../components/Header.tsx";
 import { COLORS, FONTS, BREAKPOINTS } from "../constants/style";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const MainContent = styled.div`
   display: flex;
@@ -61,6 +62,12 @@ const GridItem = styled.div`
   align-items: center;
   padding: 16px 20px;
   border-top: 1px solid #e5e7eb;
+  transition: background-color 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f9f9f9;
+  }
 
   &:first-of-type {
     border-top: none;
@@ -282,6 +289,13 @@ const Perfil = () => {
     }
   };
 
+  const navigate = useNavigate();
+
+  const handleExpeditionClick = (id_expedicao: number) => {
+    console.log("Expedição clicada:", id_expedicao);
+    navigate(`/predio/${id_expedicao}`);
+  };
+
   return (
     <Container>
       <Header />
@@ -343,7 +357,11 @@ const Perfil = () => {
             <GridHeader>Expedições lideradas:</GridHeader>
             {expedicoes.length > 0 ? (
               expedicoes.map((expedicao) => (
-                <GridItem key={expedicao.id}>
+                <GridItem
+                  key={expedicao.id}
+                  onClick={() => handleExpeditionClick(expedicao.id)}
+                  style={{ cursor: "pointer" }} // adiciona cursor de clique
+                >
                   <ExpeditionLogo>
                     {expedicao.foto_capa ? (
                       <img
