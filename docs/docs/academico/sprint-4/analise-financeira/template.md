@@ -1,5 +1,9 @@
 # Viabilidade do Projeto
 
+&emsp; A viabilidade técnico-econômica do projeto foi estruturada com base na complexidade da solução, nas exigências tecnológicas do sistema e nas boas práticas de desenvolvimento em projetos de inteligência artificial e visão computacional. A seguir, são apresentados os custos diretos e indiretos estimados, o prazo necessário para desenvolvimento completo da solução, e uma justificativa detalhada para cada item orçamentário.
+
+&emsp; Este levantamento financeiro considera a composição de uma equipe técnica altamente especializada, infraestrutura robusta baseada em serviços em nuvem e manutenção contínua do sistema após sua implantação. A proposta visa garantir a entrega de uma solução escalável, confiável e alinhada com os objetivos estratégicos do IPT e dos parceiros envolvidos.
+
 ## Composição do Preço
 
 | Item | Descrição | Valor (R$) |
@@ -84,24 +88,24 @@ Considerando armazenamento com backup automático, o custo mensal estimado é de
 
 ## Referências
 
-https://www.datasciencecentral.com/seven-rules-for-delivering-machine-learning-projects-on-time, 2021.
+DATASCIENCECENTRAL. Seven Rules for Delivering Machine Learning Projects on Time. 2021. Disponível em: https://www.datasciencecentral.com/seven-rules-for-delivering-machine-learning-projects-on-time. Acesso em: 11 jun. 2025.
 
-https://www.labellerr.com/blog/end-to-end-ml-pipeline, 2024.
+LABELLERR. End-to-End ML Pipeline. 2024. Disponível em: https://www.labellerr.com/blog/end-to-end-ml-pipeline. Acesso em: 11 jun. 2025.
 
-https://www.techradar.com/pro/breaking-silos-unifying-devops-and-mlops-into-a-unified-software-supply-chain, 2025.
+TECHRADAR. Breaking silos: unifying DevOps and MLOps into a unified software supply chain. 2025. Disponível em: https://www.techradar.com/pro/breaking-silos-unifying-devops-and-mlops-into-a-unified-software-supply-chain. Acesso em: 11 jun. 2025.
 
-https://www.glassdoor.com.br/Sal%C3%A1rios/engenheiro-de-software-senior-sal%C3%A1rio-SRCH_KO0%2C29.htm, 2025.
+GLASSDOOR. Salário: Engenheiro de Software Sênior. 2025. Disponível em: https://www.glassdoor.com.br/Sal%C3%A1rios/engenheiro-de-software-senior-sal%C3%A1rio-SRCH_KO0%2C29.htm. Acesso em: 11 jun. 2025.
 
-https://www.salario.com.br/profissao/engenheiro-de-software-computacional-basico-cbo-212215/sao-paulo-sp/, 2025.
+SALARIO.COM.BR. Engenheiro de Software Computacional Básico - CBO 212215 em São Paulo - SP. 2025. Disponível em: https://www.salario.com.br/profissao/engenheiro-de-software-computacional-basico-cbo-212215/sao-paulo-sp/. Acesso em: 11 jun. 2025.
 
-https://www.glassdoor.com.br/Salaries/sao-paulo-brazil-ui-ux-designer-salary-SRCH_IL.0%2C16_IM1009_KO17%2C31.htm, 2025.
+GLASSDOOR. Salário: UI/UX Designer em São Paulo - SP. 2025. Disponível em: https://www.glassdoor.com.br/Salaries/sao-paulo-brazil-ui-ux-designer-salary-SRCH_IL.0%2C16_IM1009_KO17%2C31.htm. Acesso em: 12 jun. 2025.
 
-https://www.glassdoor.com.br/Sal%C3%A1rios/data-scientist-sal%C3%A1rio-SRCH_KO0%2C14.htm, 2025.
+GLASSDOOR. Salário: Cientista de Dados. 2025. Disponível em: https://www.glassdoor.com.br/Sal%C3%A1rios/data-scientist-sal%C3%A1rio-SRCH_KO0%2C14.htm. Acesso em: 11 jun. 2025.
 
-https://www.salario.com.br/profissao/gerente-de-projetos-de-tecnologia-da-informacao-cbo-142520/sao-paulo-sp/, 2025.
+SALARIO.COM.BR. Gerente de Projetos de Tecnologia da Informação - CBO 142520 em São Paulo - SP. 2025. Disponível em: https://www.salario.com.br/profissao/gerente-de-projetos-de-tecnologia-da-informacao-cbo-142520/sao-paulo-sp/. Acesso em: 12 jun. 2025.
 
-https://costcalc.cloudoptimo.com/aws-pricing-calculator/ec2/g4dn.xlarge, 2025.
+CLOUDOPTIMO. AWS Pricing Calculator – EC2 G4dn.xlarge. 2025. Disponível em: https://costcalc.cloudoptimo.com/aws-pricing-calculator/ec2/g4dn.xlarge. Acesso em: 11 jun. 2025.
 
-https://supabase.com/pricing, 2025.
+SUPABASE. Pricing Plans. 2025. Disponível em: https://supabase.com/pricing. Acesso em: 12 jun. 2025.
 
-https://blog.infraspeak.com/pt-br/manutencao-estatisticas-desafios-tendencias/, 2024
+INFRASPEAK. Manutenção: estatísticas, desafios e tendências. 2024. Disponível em: https://blog.infraspeak.com/pt-br/manutencao-estatisticas-desafios-tendencias/. Acesso em: 12 jun. 2025.
