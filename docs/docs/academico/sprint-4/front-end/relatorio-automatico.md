@@ -1,3 +1,9 @@
+---
+title: "Relatório Automático"
+sidebar_label: "Relatório Automático"
+sidebar_position: 2
+---
+
 ## Relatório Automático de Expedição Predial
 
 O relatório automático é um documento gerado pelo sistema a partir dos dados coletados em uma expedição predial. Ele apresenta informações organizadas sobre as fissuras detectadas em um edifício, incluindo:
