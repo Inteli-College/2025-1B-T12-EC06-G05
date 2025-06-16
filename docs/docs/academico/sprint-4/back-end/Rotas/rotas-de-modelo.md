@@ -17,7 +17,7 @@ A rota POST `/model/run` exige autenticação e recebe no corpo JSON um array im
 Qualquer exceção inesperada gera 500 com o detalhe do erro.
 
 ## Executar detecção por prédio
-A rota POST `/model/run/building/int:id_predio` exige autenticação e recebe o id_predio na URL. O serviço consulta todas as imagens associadas ao prédio, converte-as em {id, url} e delega ao fluxo de detecção direta descrito acima.
+A rota POST `/model/run/building/:id_predio` exige autenticação e recebe o id_predio na URL. O serviço consulta todas as imagens associadas ao prédio, converte-as em {id, url} e delega ao fluxo de detecção direta descrito acima.
 
 - Se não houver imagens cadastradas para o prédio, retorna 404 com `{"error": "Nenhuma imagem encontrada para este prédio."}`.
 
