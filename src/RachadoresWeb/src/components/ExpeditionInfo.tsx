@@ -27,7 +27,7 @@ const expeditionDetailStyle = {
 interface ExpeditionInfoProps {
   nome: string;
   data_criacao: string;
-  nome_responsavel: number;
+  nome_responsavel: string;
 }
 const ExpeditionInfo: React.FC<ExpeditionInfoProps> = ({
   nome = "Expedição Inteli",

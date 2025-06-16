@@ -43,7 +43,7 @@ def login_user(data):
 
         access_token = create_access_token(identity=email)
 
-        return jsonify(access_token=access_token), 200
+        return jsonify(access_token=access_token, cargo_user=user.cargo,  id=user.id), 200
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -65,11 +65,17 @@ def delete_user(id_user, email_admin):
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-def get_user_by_id(id_user):
+def get_user_by_id(id_user, email_user):
     try:
+        u = User.query.filter_by(email=email_user).first()
         user = db.session.get(User, id_user)
         if not user:
             raise Exception("Usuário não encontrado!")
+        
+        if u.id != id_user:
+            if u.cargo.lower() != "admin":
+                raise Exception(f"Você não possui permissão para acessar outros usuários")
+        
 
         return jsonify({
             "message": "Usuário encontrado com sucesso",
@@ -109,25 +115,54 @@ def get_all_users():
         return jsonify({"error": str(e)}), 500
 
 def update_user(email_user, data):
+    from ...main import bcrypt  # Importa o bcrypt do main
     try:
-        user = User.query.filter_by(email=email_user).first()
-        if (user.cargo.lower() != "admin") and data['id'] != user.id:
-            raise Exception("Você não possui permissão para atualizar outros usuários")
-
+        u = User.query.filter_by(email=email_user).first()
         user_update = db.session.get(User, data["id"])
-        if not user:
+        if not user_update:
             raise Exception("Usuário não encontrado!")
         
+        if u.id != data['id']:
+            if u.cargo.lower() != "admin":
+                raise Exception("Você não possui permissão para alterar outros usuários")
+
         user_update.email = data.get('email', user_update.email)
         user_update.nome_completo = data.get('nome_completo', user_update.nome_completo)
         user_update.cargo = data.get('cargo', user_update.cargo)
 
+        senha_nova = data.get('senha_nova')
+        senha_antiga = data.get('senha_antiga')
+
+        if senha_nova:
+            if not senha_antiga:
+                raise Exception("Senha antiga é obrigatória para alterar a senha.")
+
+            if bcrypt.check_password_hash(user_update.senha, senha_antiga):
+                nova_senha = bcrypt.generate_password_hash(senha_nova).decode('utf-8')
+                user_update.senha = nova_senha
+            else:
+                raise Exception("Senha anterior incorreta.")
+
         db.session.commit()
         return jsonify({
             "message": "Usuário atualizado com sucesso!",
-            "model": user_update.as_dict()
-            }), 200
+            "user": user_update.as_dict()
+        }), 200
 
     except Exception as e:
         db.session.rollback() 
+        return jsonify({"error": str(e)}), 500
+
+def get_user_by_token(email_user):
+    try:
+        user = User.query.filter_by(email=email_user).first()
+        if not user:
+            raise Exception("Usuário não encontrado!")
+
+        return jsonify({
+            "message": "Usuário encontrado com sucesso",
+            "user": user.as_dict()
+        }), 200
+
+    except Exception as e:
         return jsonify({"error": str(e)}), 500

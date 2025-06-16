@@ -301,11 +301,13 @@ const Home: React.FC = () => {
   }, []);
 
   const filteredExpeditions = expeditions.filter((expedition) => {
-    const matchesName = expedition.descricao
-      ?.toLowerCase()
-      .includes(searchTerm.toLowerCase());
+    const matchesName =
+      searchTerm === "" ||
+      expedition.nome?.toLowerCase().includes(searchTerm.toLowerCase());
+  
     const matchesDate =
       searchDate === "" || expedition.data_criacao.includes(searchDate);
+  
     return matchesName && matchesDate;
   });
 
@@ -439,7 +441,6 @@ const Home: React.FC = () => {
           fetchExpeditions();
         }}
         onSubmit={handleAddExpedition}
-        responsavelId={"123456"} // Tem que mudar isso aqui! Tô mokando por enquanto
       />
     </Container>
   );

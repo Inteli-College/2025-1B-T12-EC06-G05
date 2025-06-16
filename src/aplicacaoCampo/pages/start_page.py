@@ -3,6 +3,7 @@ import time
 import json
 from datetime import datetime
 import streamlit as st
+from pages.login_page import render_login
 from services.s3_uploader import upload_images_to_s3
 from services.api_auth import login_and_get_token
 from services.api_client import APIClient
@@ -19,8 +20,7 @@ def render_start_page(inspections_dir):
         foto_capa = st.file_uploader("Foto de Capa (opcional)", type=["png", "jpg", "jpeg"])
 
         if st.button("Iniciar"):
-            user_id = st.session_state.get("user_id")
-            if all([new_name.strip(), localizacao.strip(), user_id]):
+            if all([new_name.strip(), localizacao.strip()]):
                 inspection_path = os.path.join(inspections_dir, new_name.strip())
                 predios_path = os.path.join(inspection_path, "predios")
 
@@ -44,7 +44,7 @@ def render_start_page(inspections_dir):
                         'localizacao': localizacao.strip(),
                         'data_criacao': data_formatada,
                         'ultima_att': data_formatada,
-                        'id_responsavel': user_id,
+                        'id_responsavel': 0,
                         'descricao': descricao.strip() if descricao else "",
                         'foto_capa': foto_capa_path
                     }
@@ -88,13 +88,21 @@ def render_start_page(inspections_dir):
 
     if "inspection" not in st.query_params:
         if st.button("📤 Subir imagens"):
-            with st.spinner("Subindo imagens para S3 e publicando na API..."):
-                upload_images_to_s3()
                 try:
-                    token = login_and_get_token()
+                    token, id = login_and_get_token(st.session_state.get("user_email"), st.session_state.get("user_senha"))
+                    upload_images_to_s3()
                     api = APIClient("http://127.0.0.1:5000", token)
-                    result = publish_full_inspection(api)
+                    result = publish_full_inspection(api, id)
                     if result['errors']:
                         st.error(f"Erros durante a publicação: {result['errors']}")
                 except Exception as e:
                     st.error(f"Erro durante upload ou publicação: {e}")
+                    st.query_params = {"login": "nicola"}
+                    if st.button("Fazer login novamente"):
+                        if st.session_state.get("user_email"):
+                             st.session_state.pop("user_email")
+                        if st.session_state.get("user_senha"):
+                             st.session_state.pop("user_senha")
+                        st.rerun()
+
+

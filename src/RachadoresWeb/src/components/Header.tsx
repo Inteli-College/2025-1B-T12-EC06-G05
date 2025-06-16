@@ -5,24 +5,37 @@ import styled from "styled-components";
 import { COLORS, FONTS, BREAKPOINTS } from "../constants/style";
 import logo from "../constants/assets/logo.svg";
 import home from "../constants/assets/icon_home.svg";
+import logs from "../constants/assets/logs.svg";
 import perfil from "../constants/assets/Perfil.svg";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import hoverSoundFile from '../constants/assets/sounds/galho.mp3';
 
-const HeaderContainer = styled.header<{
+const HeaderContentAdmin = styled.div`
+  width: 95%;
+  max-width: 1240px;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const HeaderContainerAdmin = styled.header<{
   backgroundColor: string;
   top?: string;
   left?: string;
 }>`
   background-color: ${COLORS.white};
   padding: 30px;
+  margin-bottom: 100px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  margin: 0 auto;
   position: absolute;
   top: ${(props) => props.top || "0"};
   left: ${(props) => props.left || "0"};
-  width: 100%;
+  width: 90%;
   box-sizing: border-box;
 `;
 
@@ -48,9 +61,24 @@ const Home = styled.img`
   }
 `;
 
-const Perfil = styled.img`
+const LogsIcon = styled.img`
   height: 30px;
-  margin-left: 75%;
+  margin-left: 80%;
+  margin-right: 16px;
+  cursor: pointer;
+
+  @media (max-width: ${BREAKPOINTS.mobile}) {
+    display: none;
+  }
+  transition: transform 0.3s ease-in-out;
+  &:hover {
+    transform: translateY(-5px);
+  }
+`;
+
+const PerfilAdmin = styled.img`
+  height: 30px;
+  
   cursor: pointer;
 
   @media (max-width: ${BREAKPOINTS.mobile}) {
@@ -128,6 +156,47 @@ const HamburgerIcon = styled.div`
   }
 `;
 
+const HeaderContent = styled.div`
+  width: 90%;
+  max-width: 1240px;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const HeaderContainer = styled.header<{
+  backgroundColor: string;
+  top?: string;
+  left?: string;
+}>`
+  background-color: ${COLORS.white};
+  padding: 30px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: absolute;
+  top: ${(props) => props.top || "0"};
+  left: ${(props) => props.left || "0"};
+  width: 100%;
+  box-sizing: border-box;
+`;
+
+const Perfil = styled.img`
+  height: 30px;
+  margin-left: 75%;
+  cursor: pointer;
+
+  @media (max-width: ${BREAKPOINTS.mobile}) {
+    display: none;
+  }
+  transition: transform 0.3s ease-in-out;
+  &:hover {
+    transform: translateY(-5px);
+  }
+`;
+
 const Header: React.FC<{ backgroundColor?: string }> = ({
   backgroundColor = COLORS.header,
 }) => {
@@ -150,14 +219,41 @@ const Header: React.FC<{ backgroundColor?: string }> = ({
   const handlePerfilClick = () => {
     navigate("/perfil");
   };
+
+  const handleLogsClick = () => {
+  navigate("/logs");
+};
+
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+  const cargo_user = localStorage.getItem("cargo_user");
 
+
+  if(cargo_user == "admin"){
+    return (
+    
+      <HeaderContainerAdmin backgroundColor={backgroundColor}>
+        <HeaderContentAdmin>
+          <Home src={home} alt="Ícone de Casa" onClick={handleHomeClick} />
+          <Logo src={logo} alt="Logo dos Rachadores" onClick={playSound}/>
+          <LogsIcon src={logs} alt="Ícone de Logs" onClick={handleLogsClick} />
+          <PerfilAdmin src={perfil} alt="Ícone de Perfil" onClick={handlePerfilClick} />
+          <Nav></Nav>
+          <HamburgerIcon onClick={toggleMenu}>
+            {isOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
+          </HamburgerIcon>
+          <MobileMenu isOpen={isOpen}></MobileMenu>
+        </HeaderContentAdmin>
+      </HeaderContainerAdmin>
+  );
+  }
+  
   return (
     <HeaderContainer backgroundColor={backgroundColor}>
+    <HeaderContent>
       <Home src={home} alt="Ícone de Casa" onClick={handleHomeClick} />
       <Logo src={logo} alt="Logo dos Rachadores" onClick={playSound}/>
       <Perfil src={perfil} alt="Ícone de Perfil" onClick={handlePerfilClick} />
@@ -166,7 +262,8 @@ const Header: React.FC<{ backgroundColor?: string }> = ({
         {isOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
       </HamburgerIcon>
       <MobileMenu isOpen={isOpen}></MobileMenu>
-    </HeaderContainer>
+    </HeaderContent>
+  </HeaderContainer>
   );
 };
 
