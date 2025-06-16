@@ -1,0 +1,5 @@
+train: data_seg/images/train
+val: data_seg/images/val
+
+nc: 1
+names: ['fissura']
