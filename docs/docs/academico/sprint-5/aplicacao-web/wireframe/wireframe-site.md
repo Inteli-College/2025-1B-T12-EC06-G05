@@ -9,7 +9,7 @@ custom_edit_url: null
 
 &emsp;Segundo o conceito já apresentado sobre os *wireframes*, a ferramenta desenvolvida para apresentação do sistema geral mostra como funciona a interface usada para analisar e organizar as expedições. 
 
-&emsp;Diferente do sistema de bordo, que é feito para uso em campo, o sistema geral foca na visualização de dados, como imagens, relatórios e estatísticas, e também é possível fazer *upload* de imagens de fissuras capturas por outros mecanismos além dos drones, permitindo, assim, uma gestão completa e centralizada das operações. Esse wireframe foi desenvolvido pensando no fluxo da [persona pesquisador](../personas/persona-pesquisador.md).
+&emsp;Diferente do sistema de bordo, que é feito para uso em campo, o sistema geral foca na visualização de dados, como imagens, relatórios e estatísticas, e também é possível fazer *upload* de imagens de fissuras capturas por outros mecanismos além dos drones, permitindo, assim, uma gestão completa e centralizada das operações. Esse wireframe foi desenvolvido pensando no fluxo da [persona pesquisador](../../entendimento-usuario/persona-pesquisador.md).
 
 ## User Flow Geral
 

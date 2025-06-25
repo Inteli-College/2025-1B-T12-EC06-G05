@@ -8,7 +8,7 @@ custom_edit_url: null
 ## Principais conceitos
 &emsp;Um *wireframe* é um diagrama visual que representa a estrutura de uma página *web* ou de uma tela de aplicativo. Ele é um esboço, um protótipo de baixa fidelidade, que demonstra como os elementos se relacionam entre si e como são estruturados. 
 
-&emsp;O *wireframe* do sistema de campo mostra a estrutura visual da interface usada em computadores de bordo pelo [piloto de drone](../personas/persona-piloto.md). Diferente do sistema geral, o sistema de campo prioriza a operação prática em ambientes dinâmicos. O foco desse *wireframe* está na simplicidade, acesso rápido às funções essenciais, interação com poucos toques e integração com o drone para captura de imagens.
+&emsp;O *wireframe* do sistema de campo mostra a estrutura visual da interface usada em computadores de bordo pelo [piloto de drone](../../entendimento-usuario/persona-piloto.md). Diferente do sistema geral, o sistema de campo prioriza a operação prática em ambientes dinâmicos. O foco desse *wireframe* está na simplicidade, acesso rápido às funções essenciais, interação com poucos toques e integração com o drone para captura de imagens.
 
 
 ## *User Flow* Geral

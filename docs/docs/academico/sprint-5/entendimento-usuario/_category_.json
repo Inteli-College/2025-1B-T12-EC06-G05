@@ -1,8 +1,8 @@
 {
-  "label": "Entendimento do Usuário",
-  "position": 2,
-  "link": {
-    "type": "generated-index",
-    "description": "Documentação sobre o Entendimento do Usuário"
+    "label": "Entendimento do Usuário",
+    "position": 1,
+    "link": {
+      "type": "generated-index",
+      "description": "Documentação sobre o entendimento do usuário da solução."
+    }
   }
-}

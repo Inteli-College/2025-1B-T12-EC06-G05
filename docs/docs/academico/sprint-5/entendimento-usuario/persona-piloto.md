@@ -13,7 +13,7 @@ sidebar_position: 1
 <p style={{textAlign: 'center'}}>Figura 1 - Persona Airton Campos</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
-        <img src={require("../../../../../static/img/persona-airton.png").default} style={{width: 800}} alt="Persona Airton" />
+        <img src={require("../../../../static/img/persona-airton.png").default} style={{width: 800}} alt="Persona Airton" />
         <br/>
     </div>
 </div>

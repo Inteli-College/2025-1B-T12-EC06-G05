@@ -28,7 +28,7 @@ custom_edit_url: null
 ## *User flow* visual com Protótipo de Alta Fidelidade
 &emsp;Representação visual do caminho percorrido pelo usuário, no sistema, para o cumprimento de cada uma das *User Stories* desenvolvidas, utilizando telas de alta fidelidade do protótipo. Para acessar, novamente as informações relacionadas às personas é só clicar nos títulos correspondentes.
 
-### [*User flow* - Persona Alberto Guimarães (Pesquisador)](../personas/persona-pesquisador.md)
+### [*User flow* - Persona Alberto Guimarães (Pesquisador)](../../entendimento-usuario/persona-pesquisador.md)
 
 #### *User flow* 01
 **US01:** "Eu, como pesquisador, gostaria de fazer login no sistema de forma segura, para acessar minhas análises e informações confidenciais."
@@ -101,7 +101,7 @@ custom_edit_url: null
 <p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
 
 
-### [*User flow* - Persona Airton Campos (Piloto)](../personas/persona-piloto.md)
+### [*User flow* - Persona Airton Campos (Piloto)](../../entendimento-usuario/persona-piloto.md)
 
 #### *User flow* 01
 **US01:** "Eu, como piloto de drone, gostaria de visualizar as imagens capturadas em tempo real através da plataforma, para garantir que estou registrando a área correta com a qualidade necessária."

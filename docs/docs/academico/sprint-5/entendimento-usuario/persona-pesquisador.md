@@ -13,7 +13,7 @@ sidebar_position: 1
 <p style={{textAlign: 'center'}}>Figura 1 - Persona Alberto Guimarães</p>
 <div style={{margin: 25}}>
     <div style={{textAlign: 'center'}}>
-        <img src={require("../../../../../static/img/persona-alberto.png").default} style={{width: 800}} alt="Persona Alberto" />
+        <img src={require("../../../../static/img/persona-alberto.png").default} style={{width: 800}} alt="Persona Alberto" />
         <br/>
     </div>
 </div>
