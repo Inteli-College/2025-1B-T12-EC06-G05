@@ -1,6 +1,6 @@
 ---
 title: "Viabilidade do Projeto"
-sidebar_label: "Viabilidade"
+sidebar_label: "Viabilidade do Projeto"
 sidebar_position: 2
 ---
 
