@@ -17,9 +17,6 @@ Contém a lógica central da aplicação, organizada nos seguintes submódulos:
 ### `config/`
 Contém configurações da aplicação, como variáveis de ambiente, conexão com banco de dados e parâmetros globais.
 
-### `data/`
-Armazena dados estáticos, arquivos de entrada/saída ou datasets utilizados pela aplicação.
-
 ### `modelo/`
 Módulo que pode conter implementações específicas do projeto, como algoritmos, regras de negócio ou modelos analíticos.
 
