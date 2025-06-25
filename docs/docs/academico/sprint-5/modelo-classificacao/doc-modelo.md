@@ -1,15 +1,14 @@
+---
 sidebar_position: 1  
 custom_edit_url: null  
 ---
 
-# Documentação Final do Projeto  
-## Classificação de Fissuras com Visão Computacional
+# Classificação de Fissuras com Visão Computacional
 
 ### Objetivo Geral
 
 &emsp;O objetivo deste projeto foi desenvolver uma solução baseada em visão computacional para identificar, localizar e classificar fissuras em fachadas. O foco foi construir um sistema modular e escalável, com possibilidade de integração a drones para inspeções automatizadas em edificações. Durante o desenvolvimento, percorremos etapas de pesquisa, testes e implementação, buscando um modelo funcional e adequado às necessidades do setor da construção civil.
 
----
 
 ### Estratégia Técnica
 
@@ -26,7 +25,6 @@ custom_edit_url: null
 3. **Classificação das Fissuras** – *YOLOv8m-cls*  
    Classificação das fissuras detectadas nos tipos: **retratação** e **térmica**.
 
----
 
 ### Desenvolvimento e Aprendizados
 
@@ -42,14 +40,12 @@ custom_edit_url: null
 
 &emsp;A etapa final apresentou métricas estáveis de acurácia. O modelo feito foi capaz de distinguir os dois tipos de fissuras definidos no escopo do projeto, e a divisão do pipeline em tarefas específicas contribuiu para distribuir a complexidade entre modelos distintos.
 
----
 
 ### Processos de Otimização
 
 &emsp;Nosso grupo utilizou o **Grid Search** como técnica para ajuste de hiperparâmetros em cada etapa, esse processo permitiu testar combinações e selecionar aquelas com melhor desempenho nos conjuntos de validação.  Alḿ disso, a documentação da Ultralytics foi utilizada como referência para aprofundar o uso da arquitetura YOLOv8.
 
----
 
 ### Considerações Finais
 
-&emsp;O projeto evidenciou a viabilidade de uma abordagem modular para o diagnóstico automatizado de fissuras em fachadas. Apesar de limitações como a perda de dados anotados e a ausência de imagens realistas, foi possível construir uma pipeline funcional, com desempenho consistente e possibilidade de aprimoramento. A aplicação está preparada para futuras integrações com drones e interfaces web, ampliando sua utilidade em aplicações reais. Além dos aspectos técnicos, o projeto contribuiu para o desenvolvimento de habilidades em engenharia de dados, adaptação de modelos pré-treinados e organização de fluxos em visão computacional, esses aprendizados com os resultados obtidos oferecem uma base sólida para evoluções futuras na automação de inspeções prediais.
+&emsp;O projeto evidenciou a viabilidade de uma abordagem modular para o diagnóstico automatizado de fissuras em fachadas. Apesar de limitações como a perda de dados anotados e a ausência de imagens realistas, foi possível construir uma pipeline funcional, com desempenho consistente e possibilidade de aprimoramento. O modelo está preparado para futuras integrações com drones e interfaces web.
