@@ -8,9 +8,9 @@ title: "AWS"
 
 ## 1. Criando um bucket no Amazon S3
 
-Para que a aplicação possa armazenar imagens e resultados processados, é necessário criar um bucket no Amazon S3.
+&emsp;Para que a aplicação possa armazenar imagens e resultados processados, é necessário criar um bucket no Amazon S3.
 
-Assista ao vídeo abaixo para entender como criar o bucket:
+&emsp;Assista ao vídeo abaixo para entender como criar o bucket:
 
 <div style={{margin: 25, textAlign: 'center'}}>
     <iframe width="900" height="506" src="https://www.youtube.com/embed/qaXN2T_CqbE" 
@@ -18,13 +18,13 @@ Assista ao vídeo abaixo para entender como criar o bucket:
         allowfullscreen></iframe>
 </div>
 
-Após criar o bucket, anote o nome utilizado. Ele será necessário para configurar os arquivos da aplicação.
+&emsp;Após criar o bucket, anote o nome utilizado. Ele será necessário para configurar os arquivos da aplicação.
 
 ## 2. Configurando as credenciais da AWS
 
-Para que a aplicação possa enviar arquivos para o S3, é preciso configurar as credenciais da AWS em seu ambiente local.
+&emsp;Para que a aplicação possa enviar arquivos para o S3, é preciso configurar as credenciais da AWS em seu ambiente local.
 
-Veja o vídeo abaixo para aprender como configurar:
+&emsp;Veja o vídeo abaixo para aprender como configurar:
 
 <div style={{margin: 25, textAlign: 'center'}}>
     <iframe width="900" height="506" src="https://www.youtube.com/embed/qxRCKc4YFOo" 
@@ -32,38 +32,38 @@ Veja o vídeo abaixo para aprender como configurar:
         allowfullscreen></iframe>
 </div>
 
-Essas credenciais são armazenadas no arquivo:
+&emsp;Essas credenciais são armazenadas no arquivo:
 
 - Linux/macOS: `~/.aws/credentials`
 - Windows: `C:\Users\SEU_USUARIO\.aws\credentials`
 
 ## 3. Atualizando o nome do bucket na aplicação
 
-Por padrão, os arquivos `s3_uploader.py` e `publish_service.py` usam o nome `fissurai` como bucket. Se você escolheu outro nome, é necessário atualizá-lo nestes arquivos:
+&emsp;Por padrão, os arquivos `s3_uploader.py` e `publish_service.py` usam o nome `fissurai` como bucket. Se você escolheu outro nome, é necessário atualizá-lo nestes arquivos:
 
 - `src/aplicacaoCampo/services/s3_uploader.py`
 - `src/aplicacaoCampo/services/publish_service.py`
 
-Procure por:
+&emsp;Procure por:
 
 ```python
 bucket = 'fissurai'
 ```
 
-E substitua pelo nome do seu bucket:
+&emsp;E substitua pelo nome do seu bucket:
 
 ```python
 bucket = 'nome-do-seu-bucket'
 ```
 
-Salve as alterações e sua aplicação estará pronta para usar o S3 corretamente.
+&emsp;Salve as alterações e sua aplicação estará pronta para usar o S3 corretamente.
 
 
 ## 4. Política Pública do Bucket S3
 
-Para que as imagens e arquivos armazenados no bucket do S3 possam ser acessados publicamente (por exemplo, visualizados pela aplicação web), é necessário adicionar uma política pública ao bucket.
+&emsp;Para que as imagens e arquivos armazenados no bucket do S3 possam ser acessados publicamente (por exemplo, visualizados pela aplicação web), é necessário adicionar uma política pública ao bucket.
 
-Utilize a seguinte política:
+&emsp;Utilize a seguinte política:
 
 ```json
 {
@@ -82,19 +82,19 @@ Utilize a seguinte política:
 
 > Substitua `"fissurai"` pelo nome real do seu bucket, se for diferente.
 
-Essa política permite que qualquer pessoa (via navegador ou aplicação) consiga acessar os arquivos armazenados no bucket, desde que possua o link direto.
+&emsp;Essa política permite que qualquer pessoa (via navegador ou aplicação) consiga acessar os arquivos armazenados no bucket, desde que possua o link direto.
 
 ### Configurações adicionais no S3
 
-Para que essa política funcione, é necessário desabilitar as seguintes opções no painel de permissões do bucket:
+&emsp;Para que essa política funcione, é necessário desabilitar as seguintes opções no painel de permissões do bucket:
 
 - Block public access to buckets and objects granted through new access control lists (ACLs)
 - Block public access to buckets and objects granted through any access control lists (ACLs)
 - Block public access to buckets and objects granted through new public bucket or access point policies
 - Block public and cross-account access to buckets and objects through any public bucket or access point policies
 
-Essas opções devem estar **desativadas** para permitir o acesso público.
+&emsp;Essas opções devem estar **desativadas** para permitir o acesso público.
 
 ### Observação
 
-Permitir acesso público significa que qualquer pessoa com o link poderá visualizar os arquivos. Garanta que isso esteja de acordo com os requisitos de segurança do seu projeto.
+&emsp;Permitir acesso público significa que qualquer pessoa com o link poderá visualizar os arquivos. Garanta que isso esteja de acordo com os requisitos de segurança do seu projeto.

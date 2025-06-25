@@ -16,7 +16,7 @@ git clone https://github.com/Inteli-College/2025-1B-T12-EC06-G05
 
 #### Após clonar é possível ver que os arquivos do repositório agora estão na sua pasta atual!
 
-Agora que temos os arquivos necessários para iniciar vamos entrar nesta pasta e iniciar nossa venv.
+&emsp;Agora que temos os arquivos necessários para iniciar vamos entrar nesta pasta e iniciar nossa venv.
 
 ```bash
 cd 2025-1A-T12-EC05-G03/src/aplicacaoCampo
@@ -39,11 +39,11 @@ pip install -r "requirements.txt"
 streamlit run app.py
 ```
 
-E pronto, agora temos o front da aplicação de campo rodando corretamente, como estamos rodando tudo localmente, vamos iniciar o back-end local:
+&emsp;E pronto, agora temos o front da aplicação de campo rodando corretamente, como estamos rodando tudo localmente, vamos iniciar o back-end local:
 
 ### Agora inicializar o back-end
 
-Vamos abrir outro terminal, entrar na pasta do back-end e iniciar outra venv e ativá-la:
+&emsp;Vamos abrir outro terminal, entrar na pasta do back-end e iniciar outra venv e ativá-la:
 
 ``` bash
 cd 2025-1A-T12-EC05-G03/src/back-end
