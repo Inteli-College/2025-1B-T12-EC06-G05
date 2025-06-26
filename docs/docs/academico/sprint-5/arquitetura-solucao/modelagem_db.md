@@ -10,6 +10,16 @@ title: "Modelagem do Banco de Dados"
 
 &emsp; A modelagem de dados do projeto foi concebida para organizar de forma estruturada as informações obtidas nas expedições e gerar suporte robusto ao processo de classificação de fissuras por modelos de visão computacional. A arquitetura segue o modelo relacional, garantindo integridade referencial por meio de chaves primárias e estrangeiras e permitindo escalabilidade e clareza nos relacionamentos entre os elementos principais do sistema.
 
+## Diagrama da Modelagem
+
+<p style={{textAlign: 'center'}}>Figura 1 - Diagrama da Modelagem do Banco de Dados</p>
+<div style={{margin: 25}}>
+    <div style={{textAlign: 'center'}}>
+        <img src={require("@site/static/img/modelagem_banco.png").default} style={{width: 800}} alt="Modelagem do Banco de Dados" />
+        <br />
+    </div>
+</div>
+<p style={{textAlign: 'center'}}>Fonte: Os autores (2025)</p>
 
 ## Tabelas
 
