@@ -8,7 +8,7 @@
 # FissurAI - Detecção e Análise Inteligente de Fissuras Estruturais
 <br>
 
-## 🎥 [Acesse o vídeo do nosso projeto aqui!](#)
+## 🎥 [Acesse o vídeo do nosso projeto aqui!](https://www.youtube.com/watch?v=mrOvFBTb6Io)
 
 ## 👨‍🎓 Integrantes: 
 
