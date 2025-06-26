@@ -8,7 +8,7 @@
 # FissurAI - Detecção e Análise Inteligente de Fissuras Estruturais
 <br>
 
-
+## 🎥 [Acesse o vídeo do nosso projeto aqui!](#)
 
 ## 👨‍🎓 Integrantes: 
 
@@ -104,7 +104,9 @@
 
 ### **📄 Documentação**
 
-&emsp;Para acessar a documentação do Fissurai, siga o passo-a-passo abaixo:
+Você pode acessar o nosso repositório via web por [aqui](https://inteli-college.github.io/2025-1B-T12-EC06-G05/)
+
+&emsp;Para acessar a documentação do Fissurai localmente, siga o passo-a-passo abaixo:
 
 #### 1.1 Acesse a pasta `docs`
 ```bash

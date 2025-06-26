@@ -6,6 +6,18 @@ slug: /
 
 # Overview do Projeto
 
+## O Projeto
+<div style={{ display: "flex", justifyContent: "center", marginTop: "2rem", marginBottom: "2rem" }}>
+    <iframe width="700" height="340" 
+     src="https://www.youtube.com/embed/KFQ0rPQaIlQ?si=qiAs0BVIIVkSq1x0" title="YouTube video player" frameborder="0" 
+     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+     referrerpolicy="strict-origin-when-cross-origin" allowfullscreen 
+    ></iframe>
+
+</div>
+
+Vídeo de apresentação do projeto FissurAI. 
+
 ## Empresa parceira  
 Laboratório de Materiais para Produtos de Construção (LMPC) do IPT
 
