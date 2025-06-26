@@ -1,0 +1,8 @@
+{
+    "label": "Back End da Solução",
+    "position": 5,
+    "link": {
+      "type": "generated-index",
+      "description": "Backend é a parte de um sistema ou aplicativo que funciona nos bastidores, responsável por processar dados, regras de negócio, integrações com bancos de dados e servidores. É ele que garante que tudo funcione corretamente quando o usuário interage com a interface (frontend). Em resumo, o backend lida com a lógica, segurança e armazenamento das informações."
+    }
+  }
